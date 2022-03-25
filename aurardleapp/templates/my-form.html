@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AutoComplete</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
+
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="topnav">
+        <a href="#STATS" class="navlinks">STATS</a>
+        <a href="#HOW TO PLAY" class="navlinks">HOW TO PLAY</a>
+      </div>
+
+
+      <form action = "/setcookie" method = "POST">
+        <p><h3>Enter userID</h3></p>
+        <p><input type = 'text' name = 'nm'/></p>
+        <p><input type = 'submit' value = 'Login'/></p>
+     </form>
+
+    <div class = "textbox">
+        <h1 class="title">Aurardle</h1>
+        <h2 class="title">Northeastern Player Guessing Game</h2>
+
+
+        <form method="POST">
+            <input type="text" id="tags" name="text">
+
+            <script>
+                $( function() {
+                  var availableTags = [
+                      {% for playername in playernames %}
+                          "{{playername}}",
+                      {% endfor %}
+                  ];
+                  $( "#tags" ).autocomplete({
+                    source: availableTags
+                  });
+                } );
+                </script>
+            <input type="submit">
+        </form>
+
+
+        <table>
+            <tr>
+              <th>Name</th>
+              <th>Height</th>
+              <th>Sport</th>
+              <th>Position</th>
+              <th>Year</th>
+              <th>Number</th>
+            </tr>
+            <tr>
+              <td bgcolor={{namecolor1}}>{{name1}}</td>
+              <td bgcolor={{heightcolor1}}>{{height1}}</td>
+              <td bgcolor={{sportcolor1}}>{{sport1}}</td>
+              <td bgcolor={{positioncolor1}}>{{position1}}</td>
+              <td bgcolor={{yearcolor1}}>{{year1}}</td>
+              <td bgcolor={{numbercolor1}}>{{number1}}</td>
+            </tr>
+            <tr>
+                <td bgcolor={{namecolor2}}>{{name2}}</td>
+                <td bgcolor={{heightcolor2}}>{{height2}}</td>
+                <td bgcolor={{sportcolor2}}>{{sport2}}</td>
+                <td bgcolor={{positioncolor2}}>{{position2}}</td>
+                <td bgcolor={{yearcolor2}}>{{year2}}</td>
+                <td bgcolor={{numbercolor2}}>{{number2}}</td>
+            </tr>
+            <tr>
+                <td bgcolor={{namecolor3}}>{{name3}}</td>
+                <td bgcolor={{heightcolor3}}>{{height3}}</td>
+                <td bgcolor={{sportcolor3}}>{{sport3}}</td>
+                <td bgcolor={{positioncolor3}}>{{position3}}</td>
+                <td bgcolor={{yearcolor3}}>{{year3}}</td>
+                <td bgcolor={{numbercolor3}}>{{number3}}</td>
+            </tr>
+            <tr>
+                <td bgcolor={{namecolor4}}>{{name4}}</td>
+                <td bgcolor={{heightcolor4}}>{{height4}}</td>
+                <td bgcolor={{sportcolor4}}>{{sport4}}</td>
+                <td bgcolor={{positioncolor4}}>{{position4}}</td>
+                <td bgcolor={{yearcolor4}}>{{year4}}</td>
+                <td bgcolor={{numbercolor4}}>{{number4}}</td>
+            </tr>
+            <tr>
+                <td bgcolor={{namecolor5}}>{{name5}}</td>
+                <td bgcolor={{heightcolor5}}>{{height5}}</td>
+                <td bgcolor={{sportcolor5}}>{{sport5}}</td>
+                <td bgcolor={{positioncolor5}}>{{position5}}</td>
+                <td bgcolor={{yearcolor5}}>{{year5}}</td>
+                <td bgcolor={{numbercolor5}}>{{number5}}</td>
+            </tr>
+          </table>
+    </div>
+
+    <footer>
+        <p>Game By: <a href="http://www.twitter.com/justindiament">Justin Diament</a><t</p>
+        <p>Special Thanks: WRBB Sports</p>>
+      </footer>
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+</body>
