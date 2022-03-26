@@ -72,6 +72,22 @@ input[type="text"] {
   font-weight: 700;
 }
 
+.bottomnav {
+  background-color: #D41B2C;
+  text-align: center !important;
+  line-height: 60px;
+  height: 60px;
+  vertical-align: middle;
+  overflow: hidden;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
 /* Style the links inside the navigation bar */
 .topnav a {
   color: #f2f2f2;
@@ -79,6 +95,38 @@ input[type="text"] {
   padding: 20px 70px;
   text-decoration: none;
   font-size: 18px;
+}
+
+/* Style the links inside the navigation bar */
+.navlinks {
+  background-color: #D41B2C;
+  text-align: center !important;
+  line-height: 60px;
+  height: 60px;
+  vertical-align: middle;
+  overflow: hidden;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white; 
+  width: 15%;
+}
+
+#popupbox {
+  display: none;
+}
+
+#popupboxabout {
+  display: none;
+}
+
+#popupboxstats {
+  display: none;
 }
 
 /* Change the color of links on hover */
@@ -186,9 +234,9 @@ body {background-color: #f4f2ec};
 .btn-close{
   color: #fff;
   text-align: center;
-  font-size: 30px;
-  margin-bottom: 15px;
+  font-size: 25px;
 }
+
 .pop label {
 display: inline-block;
 cursor: pointer;
@@ -232,4 +280,66 @@ color: paleturquoise;
 }
 .pop input:checked + .modal label:hover {
   background: #D41B2C;
+}
+
+#textbox {display:flex; flex-flow:row wrap;}
+
+.alignleft {
+width:33.33333%;
+text-align:left;
+font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+font-weight: 400;
+font-size: 20px;
+color: white;
+}
+
+.alignright {
+width:33.33333%;
+text-align:right;
+font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+font-size: 30px;
+font-weight: 400;
+}
+
+.aligncenter {
+  background-color: #D41B2C;
+  text-align: center !important;
+  line-height: 60px;
+  height: 60px;
+  vertical-align: middle;
+  overflow: hidden;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white; 
+  width: 33.33333%;
+}
+
+/* unvisited link */
+a:link {
+  color: white;
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+/* selected link */
+a:active {
+  color: white;
+  text-decoration: none;
 }

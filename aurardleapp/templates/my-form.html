@@ -13,9 +13,32 @@
 </head>
 <body>
     <div class="topnav">
-        <a href="#STATS" class="navlinks">STATS</a>
-        <a href="#HOW TO PLAY" class="navlinks">HOW TO PLAY</a>
+        <button class="navlinks" onclick="document.getElementById('popupboxstats').click()">STATS</button>
+        <button class="navlinks" onclick="document.getElementById('popupbox').click()">HOW TO PLAY</button>
       </div>
+
+      <div class="pop">
+        <p><center><label for="3" class="open" id = "popupbox">HOW TO PLAY</label></center></p>
+        <input type="checkbox" id="3" />
+        <div class="modal">
+          <div class="modal__inner">
+              <p>Place here your popup nope .</p>
+            <label class="btn-close" for="3">&#215;</label>
+          </div>
+        </div>
+        </div>
+
+        <div class="pop">
+            <p><center><label for="5" class="open" id = "popupboxstats">HOW TO PLAY</label></center></p>
+            <input type="checkbox" id="5" />
+            <div class="modal">
+              <div class="modal__inner">
+                  <p>Place here your popup yayayaya .</p>
+                <label class="btn-close" for="5">&#215;</label>
+              </div>
+            </div>
+            </div>
+      
 
 
       <form action = "/setcookie" method = "POST">
@@ -118,22 +141,30 @@ input.addEventListener("keyup", function(event) {
             </tr>
           </table>
     </div>
+    
+    <div class="bottomnav">
+        <div id="textbox">
+            <p class="alignleft">&nbsp;&nbsp;&nbsp;Inspirations:  
+                <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a>,  <a href="https://wardle.app/">WARdle</a>, 
+                and <a href="https://poeltl.dunk.town/">Poetl</a></p>
+            <button class="aligncenter" onclick="document.getElementById('popupboxabout').click()">ABOUT</button>
+            <div class="alignright">
+                <a href="https://twitter.com/justindiament">@justindiament&nbsp;&nbsp;&nbsp;</a>
+                <a href="https://twitter.com/justindiament">@justindiament&nbsp;&nbsp;&nbsp;</a>
 
-    <div class="pop">
-        <p><center><label for="3" class="open">Open Poup!</label> to open the pure CSS popup window.</center></p>
-        <input type="checkbox" id="3" />
+            </div>
+            </div>
+      </div>
+
+      <div class="pop">
+        <p><center><label for="4" class="open" id = "popupboxabout">HOW TO PLAY</label></center></p>
+        <input type="checkbox" id="4" />
         <div class="modal">
           <div class="modal__inner">
-              <p>Place here your popup content.</p>
-            <label class="btn-close" for="3">&#215;</label>
+              <p>Place here your asdasdasdas content.</p>
+            <label class="btn-close" for="4">&#215;</label>
           </div>
         </div>
-    </div>
-    
-    <footer>
-        <p>Game By: <a href="http://www.twitter.com/justindiament">Justin Diament</a><t</p>
-        <p>Special Thanks: WRBB Sports</p>>
-      </footer>
    
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">    
 </body>
