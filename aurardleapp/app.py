@@ -22,6 +22,24 @@ globalnumbercolors = ["ffffff", "ffffff", "ffffff", "ffffff", "ffffff", "ffffff"
 global globalguesses 
 globalguesses = 0
 
+global guesstext
+guesstext = "Guess 1 of 5"
+
+global row1
+row1 = "rowvisible"
+
+global row2
+row2 = "rowinvisible"
+
+global row3
+row3 = "rowinvisible"
+
+global row4
+row4 = "rowinvisible"
+
+global row5
+row5 = "rowinvisible"
+
 class player:
     def __init__(self, name, height, sport, position, year, number):
         self.name = name
@@ -208,7 +226,15 @@ def home():
                     numbercolor4 = globalnumbercolors[4],  
                     numbercolor5 = globalnumbercolors[5],
                     
-                    playernames=playernamessuggest)
+                    playernames=playernamessuggest, 
+                    guessblankofblank=guesstext,
+                    
+                    row1=row1,
+                    row2=row2,
+                    row3=row3,
+                    row4=row4,
+                    row5=row5
+                    )
     
     if request.method == "POST":
 
@@ -320,7 +346,15 @@ def home():
             numbercolor4 = globalnumbercolors[4],  
             numbercolor5 = globalnumbercolors[5],
             
-            playernames=playernamessuggest)
+            playernames=playernamessuggest,
+            guessblankofblank=guesstext,
+            
+            row1=row1,
+            row2=row2,
+            row3=row3,
+            row4=row4,
+            row5=row5
+            )
 
 
 @app.route('/setcookie', methods = ['POST', 'GET'])
