@@ -1,173 +1,552 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{
+      url_for('static',filename='styles/mainpage.css') }}">
+
     <title>AutoComplete</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
     </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
     </script>
+    <link
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+      rel="stylesheet" type="text/css" />
 
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
-        rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <div class="topnav">
-        <button class="navlinks" onclick="document.getElementById('popupboxstats').click()">STATS</button>
-        <button class="navlinks" onclick="document.getElementById('popupbox').click()">HOW TO PLAY</button>
-      </div>
+  </head>
+  <body>
 
-      <div class="pop">
-        <p><center><label for="3" class="open" id = "popupbox">HOW TO PLAY</label></center></p>
-        <input type="checkbox" id="3" />
-        <div class="modal">
-          <div class="modal__inner">
-              <p>Place here your popup nope .</p>
-            <label class="btn-close" for="3">&#215;</label>
+    <script type="text/javascript">
+
+  const winner = "{{ won }}";
+  const loser = "{{lost}}";
+window.onload = function() {
+
+  // var x = document.getElementById("rowinvisible");
+    //   x.style.display = "none";
+
+  if (winner=="winner"){
+  document.getElementById('winnerbox').click();
+  gameover();
+  }
+
+  if (loser=="loser"){
+  document.getElementById('loserbox').click();
+  gameover();
+  }
+}
+
+ </script>
+    <div class="pop">
+      <p><center><label for="7" class="open" id="winnerbox">HOW TO PLAY</label></center></p>
+      <input type="checkbox" id="7" />
+      <div class="modal">
+        <div class="modal__inner2">
+          <div class="guessthenuplayer">Good Job! You gussed the Northeastern
+            player!</div>
+          <br><br>
+          <div class="popup" onclick="minipop()">
+            <button class="sharebutton" id="sharebutton">Share</button>
+            <span class="popuptext" id="minipop">Text Copied To Clipboard</span>
           </div>
+          <label class="btn-close" for="7">&#215;</label>
         </div>
+      </div>
+    </div>
+
+
+    <div class="pop">
+      <p><center><label for="10" class="open" id="loserbox">HOW TO PLAY</label></center></p>
+      <input type="checkbox" id="10" />
+      <div class="modal">
+        <div class="modal__inner2">
+          <div class="guessthenuplayer">Sorry, the correct answer was
+            {{correctplayer}}.</div>
+          <br><br>
+          <div class="popup" onclick="minipop2()">
+            <button class="sharebutton" id="sharebutton2">Share</button>
+            <span class="popuptext" id="minipop2">Text Copied To Clipboard</span>
+          </div>
+          <label class="btn-close" for="10">&#215;</label>
         </div>
+      </div>
+    </div>
 
-        <div class="pop">
-            <p><center><label for="5" class="open" id = "popupboxstats">HOW TO PLAY</label></center></p>
-            <input type="checkbox" id="5" />
-            <div class="modal">
-              <div class="modal__inner">
-                  <p>Place here your popup yayayaya .</p>
-                <label class="btn-close" for="5">&#215;</label>
-              </div>
-            </div>
-            </div>
+    <div class="sharehelp">
+
+      <script>
+    // When the user clicks on <div>, open the popup
+    function minipop() {
+      var popup = document.getElementById("minipop");
+      popup.classList.toggle("show");
+    }
+    </script>
+      <p id="copy-text">{{shareboard1}}<br>
+        {{shareboard2}}<br>
+        {{shareboard3}}<br>
+        {{shareboard4}}<br>
+        {{shareboard5}}<br>
+      </p>
+      <script>
+    document.getElementById('sharebutton').onclick=function() {
+      navigator.clipboard.writeText(document.getElementById('copy-text').innerText)
+      .then(function(){
+          console.log('text copied')
+      })
+    }
+  </script>
+    </div>
+
+    <div class="sharehelp">
+      <script>
+  // When the user clicks on <div>, open the popup
+  function minipop2() {
+    var popup = document.getElementById("minipop2");
+    popup.classList.toggle("show");
+  }
+  </script>
+      <p id="copy-text">{{shareboard1}}<br>
+        {{shareboard2}}<br>
+        {{shareboard3}}<br>
+        {{shareboard4}}<br>
+        {{shareboard5}}<br>
+      </p>
+      <script>
+  document.getElementById('sharebutton2').onclick=function() {
+    navigator.clipboard.writeText(document.getElementById('copy-text').innerText)
+    .then(function(){
+        console.log('text copied')
+    })
+  }
+</script>
+    </div>
+
+  </div>
+
+  <div class="flex-wrapper">
+
+    <div class="topnav">
+
+      <button class="navlinks"
+        onclick="document.getElementById('popupboxstats').click()">STATS</button>
+      <button class="navlinks"
+        onclick="document.getElementById('popupbox').click()">HOW TO PLAY</button>
+    </div>
+
+    <div class="pop">
+      <p><center><label for="3" class="open" id="popupbox">HOW TO PLAY</label></center></p>
+      <input type="checkbox" id="3" />
+      <div class="modal">
+        <div class="modal__inner">
+          <div class="guessthenuplayer">Guess the mystery player!</div> <br>
+          <div class="howtoplay">
+            <ul>
+              <li class="howtoplay">You get 5 guesses.</li>
+              <li>Sports currently included are men's and women's basketball,
+                hockey, and baseball.</li>
+              <li><span style="background-color: #0f9f6e">Green</span> in any
+                column indicates a match!</li>
+              <li><span style="background-color: #faca17">Yellow</span> in the
+                height column indicates a guess within 2 inches of the mystery
+                player.</li>
+              <li><span style="background-color: #faca17">Yellow</span> in the
+                sport column indicates correct sport, wrong gender.</li>
+              <li><span style="background-color: #faca17">Yellow</span> in the
+                position column indicates the guessed baseball hitter's position
+                is incorrect, or the guessed pitcher's handedness is incorrect.</li>
+              <li><span style="background-color: #faca17">Yellow</span> in the
+                number column indicates a guess within 2 of the mystery player.</li>
+              <li>Players and their colligate year is taken from the 2021-22
+                seasons.</li>
+              <li>Grad students are categorized as seniors. Redshirted years do
+                not count (for instance, redshirt juniors are counted as
+                juniors).</li>
+              <li>Basketball positions include Forward and Guard</li>
+              <li>Hockey positions include Wing, Center, Defense, and Goaltender</li>
+              <li>Baseball positions include Catcher, INF, OF, UTL, LHP, and
+                RHP.</li>
+              <li>A new mystery player daily at midnight ET!</li>
+            </ul>
+          </div>
+
+          <label class="btn-close" for="3">&#215;</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="pop">
+      <p><center><label for="5" class="open" id="popupboxstats">HOW TO PLAY</label></center></p>
+      <input type="checkbox" id="5" />
+      <div class="modal">
+        <div class="modal__inner">
+          <p>Place here your popup yayayaya .</p>
+          <label class="btn-close" for="5">&#215;</label>
+        </div>
+      </div>
+    </div>
 
 
 
-      <form action = "/setcookie" method = "POST">
-        <p><h3>Enter userID</h3></p>
-        <p><input type = 'text' name = 'nm'/></p>
-        <p><input type = 'submit' value = 'Login'/></p>
-     </form>
 
-    <div class = "textbox">
-        <h1 class="title">Aurardle</h1>
-        <h2 class="subhead">Northeastern Player Guessing Game</h2>
+
+    <form action="/setcookie" method="POST" class="testingcookies">
+      <p><h3>Enter userID</h3></p>
+      <p><input type= 'text' name= 'nm'/></p>
+      <p><input type= 'submit' value= 'Login'/></p>
+    </form>
+
+    <div class="textbox">
+      <h1 class="title">Aurardle</h1>
+      <h2 class="subhead">Northeastern Player Guessing Game</h2>
     </div>
 
     <div class="enterdiv">
-        <form method="POST">
-            <input type="text" id="tags" name="text" class="enterplayer" placeholder="{{guessblankofblank}}"">
-            <input type="submit" id="sub" class="invissubmit">
+      <div id="enterdivsmall">
+        <form method="GET">
+          <input type="text" id="tags" name="text" class="enterplayer"
+            placeholder="{{guessblankofblank}}">
+          <input type="submit" id="sub" class="invissubmit">
 
 
-            <script>
+          <script>
+              function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
 
 
-                var availableTags = ["Tyson Walker"]
+
+                var availableTags = [
+                "Jahmyl Telfort",
+                "Jason Strong",
+                "Vito Cubrilo",
+                "Glen McClintock",
+                "Tyreek Scott-Grayson",
+                "Alex Nwagha",
+                "Nikola Djogo",
+                "Coleman Stucke",
+                "Quirin Emanga",
+                "Joe Pridgen",
+                "Shaquille Walters",
+                "Connor Braun",
+                "Chris Doherty",
+                "To Randriasalama",
+
+                "Kendall Currence",
+                "Izzy Larson",
+                "Donna Ntambue",
+                "Century McCartney",
+                "Camille Clement",
+                "Katie May",
+                "Amryah Sapenter",
+                "Anna Boruta",
+                "Leyla Ozturk",
+                "Maddie Vizza",
+                "Gemima Motema",
+                "Asha Parker",
+                "Claudia Soriano",
+                "Sammie Martin",
+                "Emily Calabrese",
+
+                "Alexa Matses",
+                "Lauren Macinnis",
+                "Gillian Foote",
+                "Molly Griffin",
+                "Miceala Sindoris",
+                "Katy Knoll",
+                "Brooke Tucker",
+                "Andrea Renner",
+                "Emma Jurusik",
+                "Brooke Hobson",
+                "Alina Mueller",
+                "Chloe Aurard",
+                "Katie Cipra",
+                "Mia Brown",
+                "Lily Yovetich",
+                "Maddie Mills",
+                "Abbey Marohn",
+                "Maureen Murphy",
+                "Skylar Fontaine",
+                "Kate Holmes",
+                "Peyton Cullaton",
+                "Megan Carter",
+                "Taylor Guarino",
+                "Aerin Frankel",
+                "Paige Taborski",
+                "Gwyneth Philips",
+                "Tessa Ward",
+                "Tory Mariano",
+                "Skylar Irving",
+                "Peyton Anderson",
+
+                "Devon Levi",
+                "Jordan Harris",
+                "Jayden Struble",
+                "Jeremie Bucheler",
+                "Matt Choupani",
+                "Chase Mcinnis",
+                "Michael Outzen",
+                "Julian Kislin",
+                "Jakov Novak",
+                "Gunnarwolfe Fontaine",
+                "Tommy Miller",
+                "Ryan St. Louis",
+                "Ty Jackson",
+                "Dylan Jackson",
+                "Sam Colangelo",
+                "Marco Bozzo",
+                "Tyler Spott",
+                "Riley Hughes",
+                "Alex Mella",
+                "Matt Demelis",
+                "Cam Gaudette",
+                "Steven Agriogianis",
+                "Aidan McDonough",
+                "James Davenport",
+                "Jack Hughes",
+                "Justin Hryckowian",
+                "TJ Semptimphelter",
+                "Evan Fear",
+
+                "Danny Crossen",
+                "Hayden Smith",
+                "Max Viera",
+                "Dennis Colleran",
+                "Jeff Costello",
+                "Cam Schlittler",
+                "Kyle Hoog",
+                "Mike Sirota",
+                "Owen Langan",
+                "Corey Diloreto",
+                "Eric Yost",
+                "Sebastian Keane",
+                "Thomas Balboni",
+                "Matt Downing",
+                "Mark Darakjy",
+                "Brett Dunham",
+                "JP Olson",
+                "Luke Beckstein",
+                "Jordy Allard",
+                "Justin Bosland",
+                "Spenser Smith",
+                "Ed Jarvis",
+                "Buddy Mrowka",
+                "Michael Gemma",
+                "James Quinlivan",
+                "Teddy Beaudet",
+                "Luke Masiuk",
+                "Jack Beauchesne",
+                "Nick Davis",
+                "Jake Gigliotti",
+                "Sean Quinlivan",
+                "Ryan Cervone",
+                "Jack Thorbahn",
+                "Will Jones",
+                "Wyatt Scotti",
+                "Matt Devlin",
+                "Luke Bottger",
+                "Gregory Bozzo",
+
+                "Tyson Walker"];
+                shuffle(availableTags);
+
 
                   $( "#tags" ).autocomplete({
     source: availableTags,
     select: function (event, ui) {
         $(this).val(ui.item.value);
-        document.getElementById("sub").click();
+        document.getElementById("getridofrowsometimes").classList.add('revealrow');
+        document.getElementById("getridofrowsometimes").classList.remove('getridofrow');
+       // document.getElementById("sub").click();
+
+       $.getJSON('https://aurardle.pythonanywhere.com/your/webservice',
+    function(data) {
+        alert(data);
+    })
+
+
+if (!localStorage.getItem("firstplayer"))
+  {
+    localStorage.setItem("firstplayer", "Tyson Walker");
+      document.getElementById("nameone").innerHTML = localStorage.getItem("firstplayer");
+  }
+
+
     }
 });
                 </script>
         </form>
+      </div>
 
-        <script>
-        // Get the input field
-var input = document.getElementById("text");
-
-// Execute a function when the user releases a key on the keyboard
-input.addEventListener("keyup", function(event) {
-  // Number 13 is the "Enter" key on the keyboard
-  if (event.keyCode === 13) {
-    // Cancel the default action, if needed
-    event.preventDefault();
-    // Trigger the button element with a click
-    document.getElementById("submit").click();
-  }
-});
-</script>
-
-
-        <table>
-            <tr class="tabletop">
-              <th>Name</th>
-              <th>Height</th>
-              <th>Sport</th>
-              <th>Position</th>
-              <th>Year</th>
-              <th>Number</th>
-            </tr>
-            <tr class={{row1}}>
-              <td bgcolor={{namecolor1}}>{{name1}}</td>
-              <td bgcolor={{heightcolor1}}>{{height1}}</td>
-              <td bgcolor={{sportcolor1}}>{{sport1}}</td>
-              <td bgcolor={{positioncolor1}}>{{position1}}</td>
-              <td bgcolor={{yearcolor1}}>{{year1}}</td>
-              <td bgcolor={{numbercolor1}}>{{number1}}</td>
-            </tr>
-            <tr class={{row2}}>
-                <td bgcolor={{namecolor2}}>{{name2}}</td>
-                <td bgcolor={{heightcolor2}}>{{height2}}</td>
-                <td bgcolor={{sportcolor2}}>{{sport2}}</td>
-                <td bgcolor={{positioncolor2}}>{{position2}}</td>
-                <td bgcolor={{yearcolor2}}>{{year2}}</td>
-                <td bgcolor={{numbercolor2}}>{{number2}}</td>
-            </tr>
-            <tr class={{row3}}>
-                <td bgcolor={{namecolor3}}>{{name3}}</td>
-                <td bgcolor={{heightcolor3}}>{{height3}}</td>
-                <td bgcolor={{sportcolor3}}>{{sport3}}</td>
-                <td bgcolor={{positioncolor3}}>{{position3}}</td>
-                <td bgcolor={{yearcolor3}}>{{year3}}</td>
-                <td bgcolor={{numbercolor3}}>{{number3}}</td>
-            </tr>
-            <tr class={{row4}}>
-                <td bgcolor={{namecolor4}}>{{name4}}</td>
-                <td bgcolor={{heightcolor4}}>{{height4}}</td>
-                <td bgcolor={{sportcolor4}}>{{sport4}}</td>
-                <td bgcolor={{positioncolor4}}>{{position4}}</td>
-                <td bgcolor={{yearcolor4}}>{{year4}}</td>
-                <td bgcolor={{numbercolor4}}>{{number4}}</td>
-            </tr>
-            <tr class={{row5}}>
-                <td bgcolor={{namecolor5}}>{{name5}}</td>
-                <td bgcolor={{heightcolor5}}>{{height5}}</td>
-                <td bgcolor={{sportcolor5}}>{{sport5}}</td>
-                <td bgcolor={{positioncolor5}}>{{position5}}</td>
-                <td bgcolor={{yearcolor5}}>{{year5}}</td>
-                <td bgcolor={{numbercolor5}}>{{number5}}</td>
-            </tr>
-          </table>
+      <table>
+        <tr class="tabletop">
+          <th class="namecol">Name</th>
+          <th>Sport</th>
+          <th>Position</th>
+          <th>Year</th>
+          <th>Height</th>
+          <th>Number</th>
+        </tr>
+        <tr id="getridofrowsometimes" class="getridofrow">
+          <td class="namecol" bgcolor={{namecolor1}} id="nameone">{{name1}}</td>
+          <td bgcolor={{sportcolor1}}>{{sport1}}</td>
+          <td bgcolor={{positioncolor1}}>{{position1}}</td>
+          <td bgcolor={{yearcolor1}}>{{year1}}</td>
+          <td bgcolor={{heightcolor1}}>{{height1}}</td>
+          <td bgcolor={{numbercolor1}}>{{number1}}</td>
+        </tr>
+        <tr class={{row2}}>
+          <td class="namecol" bgcolor={{namecolor2}}>{{name2}}</td>
+          <td bgcolor={{sportcolor2}}>{{sport2}}</td>
+          <td bgcolor={{positioncolor2}}>{{position2}}</td>
+          <td bgcolor={{yearcolor2}}>{{year2}}</td>
+          <td bgcolor={{heightcolor2}}>{{height2}}</td>
+          <td bgcolor={{numbercolor2}}>{{number2}}</td>
+        </tr>
+        <tr class={{row3}}>
+          <td class="namecol" bgcolor={{namecolor3}}>{{name3}}</td>
+          <td bgcolor={{sportcolor3}}>{{sport3}}</td>
+          <td bgcolor={{positioncolor3}}>{{position3}}</td>
+          <td bgcolor={{yearcolor3}}>{{year3}}</td>
+          <td bgcolor={{heightcolor3}}>{{height3}}</td>
+          <td bgcolor={{numbercolor3}}>{{number3}}</td>
+        </tr>
+        <tr class={{row4}}>
+          <td class="namecol" bgcolor={{namecolor4}}>{{name4}}</td>
+          <td bgcolor={{sportcolor4}}>{{sport4}}</td>
+          <td bgcolor={{positioncolor4}}>{{position4}}</td>
+          <td bgcolor={{yearcolor4}}>{{year4}}</td>
+          <td bgcolor={{heightcolor4}}>{{height4}}</td>
+          <td bgcolor={{numbercolor4}}>{{number4}}</td>
+        </tr>
+        <tr class={{row5}}>
+          <td class="namecol" bgcolor={{namecolor5}}>{{name5}}</td>
+          <td bgcolor={{sportcolor5}}>{{sport5}}</td>
+          <td bgcolor={{positioncolor5}}>{{position5}}</td>
+          <td bgcolor={{yearcolor5}}>{{year5}}</td>
+          <td bgcolor={{heightcolor5}}>{{height5}}</td>
+          <td bgcolor={{numbercolor5}}>{{number5}}</td>
+        </tr>
+      </table>
     </div>
 
     <div class="bottomnav">
-        <div id="textbox">
-            <p class="alignleft">&nbsp;&nbsp;&nbsp;Inspirations:
-                <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a>,  <a href="https://wardle.app/">WARdle</a>,
-                and <a href="https://poeltl.dunk.town/">Poetl</a></p>
-            <button class="aligncenter" onclick="document.getElementById('popupboxabout').click()">ABOUT</button>
-            <div class="alignright">
-                <a href="https://twitter.com/justindiament">@justindiament&nbsp;&nbsp;&nbsp;</a>
-                <a href="https://twitter.com/justindiament">@justindiament&nbsp;&nbsp;&nbsp;</a>
-
-            </div>
-            </div>
+      <div id="textbox">
+        <p class="alignleft">&nbsp;&nbsp;&nbsp;Inspirations:
+          <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a>,
+          <a href="https://wardle.app/">WARdle</a>,
+          and <a href="https://poeltl.dunk.town/">Poetl</a></p>
+        <button class="aligncenter"
+          onclick="document.getElementById('popupboxabout').click()">ABOUT</button>
+        <div class="alignright">
+          <a href="https://twitter.com/justindiament">@justindiament&nbsp;&nbsp;&nbsp;</a>
+          <br>
+          <a href="https://twitter.com/NURabbitHole">@NURabbitHole&nbsp;&nbsp;&nbsp;</a>
+        </div>
       </div>
+    </div>
 
-      <div class="pop">
-        <p><center><label for="4" class="open" id = "popupboxabout">HOW TO PLAY</label></center></p>
-        <input type="checkbox" id="4" />
-        <div class="modal">
-          <div class="modal__inner">
-              <p>Place here your asdasdasdas content.</p>
-            <label class="btn-close" for="4">&#215;</label>
+    <div class="pop">
+      <p><center><label for="4" class="open" id="popupboxabout">HOW TO PLAY</label></center></p>
+      <input type="checkbox" id="4" />
+      <div class="modal">
+        <div class="modal__inner">
+          <div class="aboutheaders">About</div>
+          <div class="howtoplay">
+            Aurardle is a Northeastern Huskies athlete guessing game in the vein
+            of the origin Wordle. Each day, a new mystery player is chosen at
+            random. Your job is to
+            guess the player in 5 attempts or less, with the assistance of hints
+            each time you make a guess. <br>
+            <br>
+            Check the stats page to see how well you've done or share the
+            results image with your friends and compete for better scores!
+            <br>
+            <br>
+
+            <div class="aboutheaders">Enjoying Aurardle?</div>
+            Enjoying Aurardle? Even better, are you a Husky athlete enjoying
+            Aurardle?
+            I'd love to hear from you! Comments and suggestions are also
+            welcome! Tweet or DM me <a href="https://twitter.com/justindiament"
+              class="aboutlinks">@justindiament</a> on Twitter, or email me at
+            <a href="mailto:aurardlegame@gmail.com" class="aboutlinks">aurardlegame@gmail.com</a>
+            <br>
+            <br>
+            Want more fun Northeastern sports content? Check out the <a
+              href="https://twitter.com/NURabbitHole" class="aboutlinks">Northeastern
+              Sports Rabbit Hole</a> on Twitter, where I post daily Northeastern
+            Sports fun facts, memorabilia, and archived media!
+            <br><br>
+            Looking for Northeastern sports news and live converage? Don't miss
+            Your Home for Huskies Sports: <a
+              href="https://twitter.com/WRBBSports" class="aboutlinks">WRBB
+              Sports</a>!
+            Follow us on Twitter for radio broadcast information and written
+            coverage.
+            <br><br>
+            <div class="aboutheaders">Credits</div>
+            Aurardle was created by Northeastern CCIS student and Huskies
+            basketball radio broadcaster <a
+              href="https://twitter.com/justindiament" class="aboutlinks">Justin
+              Diament</a>.<br>
+            <br>
+            Thank you to <a href="https://twitter.com/daisysroberts"
+              class="aboutlinks">Daisy Roberts</a> for the idea to create a
+            Northeastern sports Wordle game.<br>
+            <br>
+            Aurardle is inspired by the original Wordle, but also the many other
+            sports-themed Wordle clones out there, such as <a
+              href="https://wardle.app" class="aboutlinks">WARdle</a> for MLB,
+            <a href="https://poeltl.dunk.town" class="aboutlinks">Poeltl</a> for
+            the NBA, and <a href="https://www.weddlegame.com/"
+              class="aboutlinks">Weddle</a> for the NFL.
+            <label id="closepop" class="btn-close" for="4">&#215;</label>
           </div>
         </div>
 
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
-    <link type="text/css" href="http://yourwebsite.com/css/ui-lightness/jquery-ui-1.8.custom.css" rel="stylesheet" />
+      </div>
 
-</body>
+      <script>
+ function keyPress (e) {
+    if(e.key === "Escape") {
+      document.getElementById("closepop").click();
+    }
+}
 
+</script>
+
+      <script>
+  function gameover() {
+    var x = document.getElementById("enterdivsmall");
+    const gameisover = "{{gameover}}"
+    if (gameisover == "true") {
+      x.style.display = "none";
+    }
+  }
+
+      const pageAccessedByReload = (
+    (window.performance.navigation && window.performance.navigation.type === 1) ||
+      window.performance
+        .getEntriesByType('navigation')
+        .map((nav) => nav.type)
+        .includes('reload')
+  );
+
+      gameover();
+    </script>
+    </body>
