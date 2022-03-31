@@ -1,103 +1,190 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">    
+  <head>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="{{
+      url_for('static',filename='styles/mainpage.css') }}">
 
     <title>AutoComplete</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
-    </script>  
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
-    </script>  
-    
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
-        rel="stylesheet" type="text/css" />  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
+    <link
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+      rel="stylesheet" type="text/css" />
+      <meta charset="UTF-8">
 
-</head>
-<body>
- 
-  <script type="text/javascript">
+  </head>
+  <body>
+
+    <script type="text/javascript">
 
   const winner = "{{ won }}";
   const loser = "{{lost}}";
 window.onload = function() {
+  localStorage.setItem("wonthegame", "false")
+  localStorage.setItem("lostthegame", "false")
 
-  if (winner=="winner"){
-  document.getElementById('winnerbox').click();
-  gameover();
+  if(!localStorage.getItem("winspersist")) {
+    localStorage.setItem("winspersist", "0")
   }
 
-  if (loser=="loser"){
-  document.getElementById('loserbox').click();
-  gameover();
+  if(!localStorage.getItem("winpercentpersist")) {
+    localStorage.setItem("winpercentpersist", "0")
   }
+
+  if(!localStorage.getItem("streakpersist")) {
+    localStorage.setItem("streakpersist", "0")
+  }
+
+  if(!localStorage.getItem("maxstreakpersist")) {
+    localStorage.setItem("maxstreakpersist", "0")
+  }
+
+  if(!localStorage.getItem("lossespersist")) {
+    localStorage.setItem("lossespersist", "0")
+  }
+
+  document.getElementById("wins").innerHTML = localStorage.getItem("winspersist");
+  document.getElementById("winpercent").innerHTML = localStorage.getItem("winpercentpersist");
+  document.getElementById("streak").innerHTML = localStorage.getItem("streakpersist");
+  document.getElementById("maxstreak").innerHTML = localStorage.getItem("maxstreakpersist");
+
+
+
+  // var x = document.getElementById("rowinvisible");
+    //   x.style.display = "none";
+
+  // if (winner=="winner"){
+  // document.getElementById('winnerbox').click();
+  // gameover();
+  // }
+
+  // if (loser=="loser"){
+  // document.getElementById('loserbox').click();
+  // gameover();
+  //}
+
 }
 
  </script>
 
 
 <div class="pop">
-  <p><center><label for="7" class="open" id = "winnerbox">HOW TO PLAY</label></center></p>
-  <input type="checkbox" id="7" />
+  <p><center><label for="5" class="open" id="popupboxstats">HOW TO PLAY</label></center></p>
+  <input type="checkbox" id="5" />
   <div class="modal">
-    <div class="modal__inner2">
-        <div class="guessthenuplayer">Good Job! You gussed the Northeastern player!</div>
-        <br><br>
-        <div class="popup" onclick="minipop()">
-          <button class="sharebutton" id="sharebutton">Share</button>
-          <span class="popuptext" id="minipop">Text Copied To Clipboard</span>
-        </div>
-      <label  class="btn-close" for="7">&#215;</label>
+    <div class="modal__inner">
+      <div class="statsheaders">Statistics</div>
+      <div class="fontforstatstable">
+      <table>
+        <tr>
+          <th>Wins</th>
+          <th>Win %</th>
+          <th class="wider">Current Streak</th>
+          <th>Max Streak</th>
+          
+        </tr>
+        <tr>
+          <th id="wins"></th>
+          <th id="winpercent"></th>
+          <th class="wider"  id="streak"></th>
+          <th id="maxstreak"></th>
+          
+        </tr>
+      </table>
     </div>
-  </div>
-  </div>
+      <br> <br>
+      <div class="statsmysteryplayer">Mystery player changes at midnight ET</div>
+      <div class="centerme"> <br>
+      <div class="popup" onclick="minipop3()">
+        <button class="sharebutton" id="sharebutton3">Share</button>
+        <span class="popuptext" id="minipop3">Text Copied To Clipboard</span>
+      </div></div>
+      <label class="btn-close" for="5">&#215;</label>
+    </div>
+  </div> 
+</div>
+
+<script>
+  // When the user clicks on <div>, open the popup
+  function minipop3() {
+    if (localStorage.getItem("wonthegame")==="winner" || localStorage.getItem("lostthegame")==="loser") {
+    var popup = document.getElementById("minipop3");
+    popup.classList.toggle("show");
+    }
+  }
+  </script>
+   <script>
+    document.getElementById('sharebutton3').onclick=function() {
+      navigator.clipboard.writeText(document.getElementById('copy-text-better').innerText)
+      .then(function(){
+          console.log('text copied')
+      })
+    }
+    </script>
 
 
-  <div class="pop">
-    <p><center><label for="10" class="open" id = "loserbox">HOW TO PLAY</label></center></p>
-    <input type="checkbox" id="10" />
-    <div class="modal">
-      <div class="modal__inner2">
-          <div class="guessthenuplayer">Sorry, the correct answer was {{correctplayer}}.</div>
+
+
+    <div class="pop">
+      <p><center><label for="7" class="open" id="winnerbox">HOW TO PLAY</label></center></p>
+      <input type="checkbox" id="7" />
+      <div class="modal">
+        <div class="modal__inner2">
+          <div class="guessthenuplayer">Good Job! You gussed the Northeastern
+            player!</div>
+          <br><br>
+          <div class="popup" onclick="minipop()">
+            <button class="sharebutton" id="sharebutton">Share</button>
+            <span class="popuptext" id="minipop">Text Copied To Clipboard</span>
+          </div>
+          <label class="btn-close" for="7">&#215;</label>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="pop">
+      <p><center><label for="10" class="open" id="loserbox">HOW TO PLAY</label></center></p>
+      <input type="checkbox" id="10" />
+      <div class="modal">
+        <div class="modal__inner2">
+          <div class="guessthenuplayer"> <p id="losertext">Sorry, the correct answer was Maddie Mills.</p></div>
           <br><br>
           <div class="popup" onclick="minipop2()">
             <button class="sharebutton" id="sharebutton2">Share</button>
             <span class="popuptext" id="minipop2">Text Copied To Clipboard</span>
           </div>
-        <label  class="btn-close" for="10">&#215;</label>
+          <label class="btn-close" for="10">&#215;</label>
+        </div>
       </div>
     </div>
-    </div>
 
-<div class="sharehelp">
-  
-  <script>
+    <div class="sharehelp">
+
+      <script>
     // When the user clicks on <div>, open the popup
     function minipop() {
       var popup = document.getElementById("minipop");
       popup.classList.toggle("show");
     }
     </script>
-
-
-  <p id="copy-text">{{shareboard1}}<br>
-{{shareboard2}}<br>
-{{shareboard3}}<br>
-{{shareboard4}}<br>
-{{shareboard5}}<br>
-  </p>
-  <script>
+      <p id="copy-text-better"></p>
+      <p id="copy-text">Aurardle #1 - /5</p>
+      <script>
     document.getElementById('sharebutton').onclick=function() {
-      navigator.clipboard.writeText(document.getElementById('copy-text').innerText)
+      navigator.clipboard.writeText(document.getElementById('copy-text-better').innerText)
       .then(function(){
           console.log('text copied')
       })
-    } 
+    }
   </script>
 
-</div>
 
-<div class="sharehelp">
 <script>
   // When the user clicks on <div>, open the popup
   function minipop2() {
@@ -105,97 +192,94 @@ window.onload = function() {
     popup.classList.toggle("show");
   }
   </script>
-
-
-<p id="copy-text">{{shareboard1}}<br>
-{{shareboard2}}<br>
-{{shareboard3}}<br>
-{{shareboard4}}<br>
-{{shareboard5}}<br>
-</p>
-<script>
+    <p id="copy-text-better"></p>
+    <p id="copy-text">Aurardle #1 - /5</p>
+    <script>
   document.getElementById('sharebutton2').onclick=function() {
-    navigator.clipboard.writeText(document.getElementById('copy-text').innerText)
+    navigator.clipboard.writeText(document.getElementById('copy-text-better').innerText)
     .then(function(){
         console.log('text copied')
     })
-  } 
+  }
 </script>
-</div>
 
-</div>
 
-    <div class="flex-wrapper">
+
+    </div>
+
+
+
+  </div>
+
+  <div class="flex-wrapper">
 
     <div class="topnav">
 
-        <button class="navlinks" onclick="document.getElementById('popupboxstats').click()">STATS</button>
-        <button class="navlinks" onclick="document.getElementById('popupbox').click()">HOW TO PLAY</button>
-      </div>
+      <button class="navlinks"
+        onclick="document.getElementById('popupboxstats').click()">STATS</button>
+      <button class="navlinks"
+        onclick="document.getElementById('popupbox').click()">HOW TO PLAY</button>
+    </div>
 
-      <div class="pop">
-        <p><center><label for="3" class="open" id = "popupbox">HOW TO PLAY</label></center></p>
-        <input type="checkbox" id="3" />
-        <div class="modal">
-          <div class="modal__inner">
-            <div class="guessthenuplayer">Guess the mystery player!</div> <br>
-            <div class="howtoplay">
+    <div class="pop">
+      <p><center><label for="3" class="open" id="popupbox">HOW TO PLAY</label></center></p>
+      <input type="checkbox" id="3" />
+      <div class="modal">
+        <div class="modal__inner">
+          <div class="guessthenuplayer">Guess the mystery player!</div> <br>
+          <div class="howtoplay">
             <ul>
               <li class="howtoplay">You get 5 guesses.</li>
-              <li>Sports currently included are men's and women's basketball, hockey, and baseball.</li>
-              <li><span style="background-color: #0f9f6e">Green</span> in any column indicates a match!</li>
-              <li><span style="background-color: #faca17">Yellow</span> in the height column indicates a guess within 2 inches of the mystery player.</li>
-              <li><span style="background-color: #faca17">Yellow</span> in the sport column indicates correct sport, wrong gender.</li>
-              <li><span style="background-color: #faca17">Yellow</span> in the position column indicates the guessed baseball hitter's position is incorrect, or the guessed pitcher's handedness is incorrect.</li>
-              <li><span style="background-color: #faca17">Yellow</span> in the number column indicates a guess within 2 of the mystery player.</li>
-              <li>Players and their colligate year is taken from the 2021-22 seasons.</li>
-              <li>Grad students are categorized as seniors. Redshirted years do not count (for instance, redshirt juniors are counted as juniors).</li>
+              <li>Sports currently included are men's and women's basketball,
+                hockey, and baseball.</li>
+              <li><span style="background-color: #0f9f6e">Green</span> in any
+                column indicates a match!</li>
+              <li><span style="background-color: #faca17">Yellow</span> in the
+                sport column indicates correct sport, wrong gender.</li>
+              <li><span style="background-color: #faca17">Yellow</span> in the
+                position column indicates the guessed baseball hitter's position
+                is incorrect, or the guessed pitcher's handedness is incorrect.</li>
+                <li><span style="background-color: #faca17">Yellow</span> in the
+                  height column indicates a guess within 2 inches of the mystery
+                  player.</li>
+              <li><span style="background-color: #faca17">Yellow</span> in the
+                number column indicates a guess within 2 of the mystery player.</li>
+              <li>Players and their colligate year are taken from the 2021-22
+                seasons.</li>
+              <li>Graduate students are categorized as seniors. Redshirted years do
+                not count (for instance, redshirt juniors are counted as
+                juniors).</li>
               <li>Basketball positions include Forward and Guard</li>
               <li>Hockey positions include Wing, Center, Defense, and Goaltender</li>
-              <li>Baseball positions include Catcher, INF, OF, UTL, LHP, and RHP.</li>
+              <li>Baseball positions include Catcher, INF, OF, UTL, LHP, and
+                RHP.</li>
               <li>A new mystery player daily at midnight ET!</li>
             </ul>
           </div>
 
-            <label class="btn-close" for="3">&#215;</label>
-          </div>
+          <label class="btn-close" for="3">&#215;</label>
         </div>
-        </div>
-
-        <div class="pop">
-            <p><center><label for="5" class="open" id = "popupboxstats">HOW TO PLAY</label></center></p>
-            <input type="checkbox" id="5" />
-            <div class="modal">
-              <div class="modal__inner">
-                  <p>Place here your popup yayayaya .</p>
-                <label  class="btn-close" for="5">&#215;</label>
-              </div>
-            </div>
-            </div>
-
-          
-      
+      </div>
+    </div>
+    
 
 
-      <form action = "/setcookie" method = "POST" class="testingcookies">
-        <p><h3>Enter userID</h3></p>
-        <p><input type = 'text' name = 'nm'/></p>
-        <p><input type = 'submit' value = 'Login'/></p>
-     </form>
 
-    <div class = "textbox">
-        <h1 class="title">Aurardle</h1>
-        <h2 class="subhead">Northeastern Player Guessing Game</h2>
+    <div class="textbox">
+      <h1 class="title">Aurardle</h1>
+      <h2 class="subhead">Northeastern Player Guessing Game</h2>
     </div>
 
     <div class="enterdiv">
       <div id="enterdivsmall">
-        <form method="POST">
-            <input type="text" id="tags" name="text" class="enterplayer" placeholder="{{guessblankofblank}}">
-            <input type="submit" id="sub" class="invissubmit">
+        <form method="GET" id="submitaplayer">
+          <input type="text" id="tags" name="text" class="enterplayer"
+            placeholder="{{guessblankofblank}}">
+          <input type="submit" id="sub" class="invissubmit">
+          </form>
 
-    
-            <script>
+
+          <script>
               function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
 
@@ -215,7 +299,7 @@ window.onload = function() {
 }
 
 
-                
+
                 var availableTags = [
                 "Jahmyl Telfort",
                 "Jason Strong",
@@ -227,104 +311,104 @@ window.onload = function() {
                 "Coleman Stucke",
                 "Quirin Emanga",
                 "Joe Pridgen",
-                "Shaquille Walters", 
-                "Connor Braun", 
+                "Shaquille Walters",
+                "Connor Braun",
                 "Chris Doherty",
                 "To Randriasalama",
 
                 "Kendall Currence",
                 "Izzy Larson",
-                "Donna Ntambue", 
+                "Donna Ntambue",
                 "Century McCartney",
-                "Camille Clement", 
+                "Camille Clement",
                 "Katie May",
                 "Amryah Sapenter",
-                "Anna Boruta", 
+                "Anna Boruta",
                 "Leyla Ozturk",
-                "Maddie Vizza", 
-                "Gemima Motema", 
-                "Asha Parker", 
+                "Maddie Vizza",
+                "Gemima Motema",
+                "Asha Parker",
                 "Claudia Soriano",
-                "Sammie Martin", 
-                "Emily Calabrese", 
+                "Sammie Martin",
+                "Emily Calabrese",
 
-                "Alexa Matses", 
-                "Lauren Macinnis", 
+                "Alexa Matses",
+                "Lauren Macinnis",
                 "Gillian Foote",
-                "Molly Griffin", 
-                "Miceala Sindoris", 
-                "Katy Knoll", 
-                "Brooke Tucker", 
-                "Andrea Renner", 
+                "Molly Griffin",
+                "Miceala Sindoris",
+                "Katy Knoll",
+                "Brooke Tucker",
+                "Andrea Renner",
                 "Emma Jurusik",
-                "Brooke Hobson", 
-                "Alina Mueller", 
-                "Chloe Aurard", 
-                "Katie Cipra", 
-                "Mia Brown", 
-                "Lily Yovetich", 
-                "Maddie Mills", 
+                "Brooke Hobson",
+                "Alina Mueller",
+                "Chloe Aurard",
+                "Katie Cipra",
+                "Mia Brown",
+                "Lily Yovetich",
+                "Maddie Mills",
                 "Abbey Marohn",
-                "Maureen Murphy", 
-                "Skylar Fontaine", 
-                "Kate Holmes", 
-                "Peyton Cullaton", 
-                "Megan Carter", 
+                "Maureen Murphy",
+                "Skylar Fontaine",
+                "Kate Holmes",
+                "Peyton Cullaton",
+                "Megan Carter",
                 "Taylor Guarino",
-                "Aerin Frankel", 
+                "Aerin Frankel",
                 "Paige Taborski",
                 "Gwyneth Philips",
-                "Tessa Ward", 
-                "Tory Mariano", 
-                "Skylar Irving", 
+                "Tessa Ward",
+                "Tory Mariano",
+                "Skylar Irving",
                 "Peyton Anderson",
 
-                "Devon Levi", 
+                "Devon Levi",
                 "Jordan Harris",
-                "Jayden Struble", 
+                "Jayden Struble",
                 "Jeremie Bucheler",
-                "Matt Choupani", 
+                "Matt Choupani",
                 "Chase Mcinnis",
-                "Michael Outzen", 
+                "Michael Outzen",
                 "Julian Kislin",
                 "Jakov Novak",
-                "Gunnarwolfe Fontaine", 
-                "Tommy Miller", 
-                "Ryan St. Louis", 
-                "Ty Jackson", 
-                "Dylan Jackson", 
-                "Sam Colangelo", 
-                "Marco Bozzo", 
-                "Tyler Spott", 
+                "Gunnarwolfe Fontaine",
+                "Tommy Miller",
+                "Ryan St. Louis",
+                "Ty Jackson",
+                "Dylan Jackson",
+                "Sam Colangelo",
+                "Marco Bozzo",
+                "Tyler Spott",
                 "Riley Hughes",
-                "Alex Mella", 
-                "Matt Demelis", 
-                "Cam Gaudette", 
-                "Steven Agriogianis", 
-                "Aidan McDonough", 
-                "James Davenport", 
+                "Alex Mella",
+                "Matt Demelis",
+                "Cam Gaudette",
+                "Steven Agriogianis",
+                "Aidan McDonough",
+                "James Davenport",
                 "Jack Hughes",
-                "Justin Hryckowian", 
-                "TJ Semptimphelter", 
-                "Evan Fear", 
+                "Justin Hryckowian",
+                "TJ Semptimphelter",
+                "Evan Fear",
 
-                "Danny Crossen", 
+                "Danny Crossen",
                 "Hayden Smith",
-                "Max Viera", 
-                "Dennis Colleran", 
-                "Jeff Costello", 
+                "Max Viera",
+                "Dennis Colleran",
+                "Jeff Costello",
                 "Cam Schlittler",
                 "Kyle Hoog",
                 "Mike Sirota",
-                "Owen Langan", 
-                "Corey Diloreto", 
-                "Eric Yost", 
-                "Sebastian Keane", 
+                "Owen Langan",
+                "Corey Diloreto",
+                "Eric Yost",
+                "Sebastian Keane",
                 "Thomas Balboni",
-                "Matt Downing", 
-                "Mark Darakjy", 
-                "Brett Dunham", 
-                "JP Olson", 
+                "Matt Downing",
+                "Mark Darakjy",
+                "Brett Dunham",
+                "JP Olson",
                 "Luke Beckstein",
                 "Jordy Allard",
                 "Justin Bosland",
@@ -334,136 +418,2226 @@ window.onload = function() {
                 "Michael Gemma",
                 "James Quinlivan",
                 "Teddy Beaudet",
-                "Luke Masiuk", 
+                "Luke Masiuk",
                 "Jack Beauchesne",
-                "Nick Davis", 
-                "Jake Gigliotti", 
-                "Sean Quinlivan", 
-                "Ryan Cervone", 
-                "Jack Thorbahn", 
-                "Will Jones", 
+                "Nick Davis",
+                "Jake Gigliotti",
+                "Sean Quinlivan",
+                "Ryan Cervone",
+                "Jack Thorbahn",
+                "Will Jones",
                 "Wyatt Scotti",
-                "Matt Devlin", 
-                "Luke Bottger", 
-                "Gregory Bozzo", 
+                "Matt Devlin",
+                "Luke Bottger",
+                "Gregory Bozzo",
 
                 "Tyson Walker"];
                 shuffle(availableTags);
 
-                
+
                   $( "#tags" ).autocomplete({
     source: availableTags,
     select: function (event, ui) {
         $(this).val(ui.item.value);
-        document.getElementById("sub").click();
+        localStorage.setItem("guesscount", "0")
+        document.getElementById("getridofrowsometimes").classList.add('revealrow');
+        document.getElementById("getridofrowsometimes").classList.remove('getridofrow');
+        document.getElementById("enterdivsmall2").classList.remove('getridofrow');
+       // document.getElementById("sub").click();
+       var urlheight = 'http://127.0.0.1:4999/determine/height?playertyped='
+       var urlsport = 'http://127.0.0.1:4999/determine/sport?playertyped='
+       var urlposition = 'http://127.0.0.1:4999/determine/position?playertyped='
+       var urlyear = 'http://127.0.0.1:4999/determine/year?playertyped='
+       var urlnumber = 'http://127.0.0.1:4999/determine/number?playertyped='
+       var urlcheckwinner = 'http://127.0.0.1:4999/check/winner?playertyped='
+
+       var checkheight = 'http://127.0.0.1:4999/check/height?playertyped='
+       var checksport = 'http://127.0.0.1:4999/check/sport?playertyped='
+       var checkposition = 'http://127.0.0.1:4999/check/position?playertyped='
+       var checkyear = 'http://127.0.0.1:4999/check/year?playertyped='
+       var checknumber = 'http://127.0.0.1:4999/check/number?playertyped='
+
+
+
+       var playertyped = document.getElementById("tags").value;
+       var urlheightfull = urlheight + playertyped
+       var urlsportfull = urlsport + playertyped
+       var urlpositionfull = urlposition + playertyped
+       var urlyearfull = urlyear + playertyped
+       var urlnumberfull = urlnumber + playertyped
+       var checkwinnerfull = urlcheckwinner + playertyped
+
+       var checkheightfull = checkheight + playertyped
+       var checksportfull = checksport + playertyped
+       var checkpositionfull = checkposition + playertyped
+       var checkyearfull = checkyear + playertyped
+       var checknumberfull = checknumber + playertyped
+
+       localStorage.setItem("firstplayername", playertyped);
+       document.getElementById("nameone").innerHTML = localStorage.getItem("firstplayername");
+
+       playertyped = ''
+          document.getElementById("getridofrowsometimes").classList.add('revealrow');
+          document.getElementById("getridofrowsometimes").classList.remove('getridofrow');
+
+          localStorage.setItem("1nametosport", "stop")
+          localStorage.setItem("1sporttoposition", "stop")
+          localStorage.setItem("1positiontoyear", "stop")
+          localStorage.setItem("1yeartoheight", "stop")
+          localStorage.setItem("1heighttonumber", "stop")
+
+
+
+  $.getJSON(checkwinnerfull,
+
+function(data) {
+  localStorage.setItem("wonthegame", data.result);
+  var shareboard = document.getElementById("copy-text")
+    if(localStorage.getItem("wonthegame")==="winner") {
+      document.getElementById("nameone").classList.add('greensquare');
+      document.getElementById('winnerbox').click();
+      localStorage.setItem("namecolor", "green");
+      shareboard.textContent += "\n🟩";
     }
+    else {
+      shareboard.textContent += "\n⬜";
+    }
+    localStorage.setItem("1nametosport", "go")
+})
+
+       $.getJSON(urlsportfull,
+    function(data) {
+        localStorage.setItem("firstplayersport", data.result);
+        document.getElementById("sportone").innerHTML = data.result;
+
+    }
+    )
+
+    $.getJSON(checksportfull,
+    function(data) {
+      // while(localStorage.getItem("1nametosport")!="go") {
+      //    //bah
+      // }
+
+
+        localStorage.setItem("firstsportcheck", data.result);
+        var shareboard = document.getElementById("copy-text")
+        if (localStorage.getItem("firstsportcheck")==="true") {
+          document.getElementById('sportone').classList.add("greensquare");
+          shareboard.textContent += "🟩";
+        }
+        else if (localStorage.getItem("firstsportcheck")==="middle") {
+          document.getElementById('sportone').classList.add("yellowsquare");
+          shareboard.textContent += "🟨";
+        }
+        else {
+          document.getElementById('sportone').classList.add("greysquare");
+          shareboard.textContent += "⬜";
+        }
+        localStorage.setItem("1sporttoposition", "go")
+
+    }
+    )
+
+    $.getJSON(urlpositionfull,
+    function(data) {
+        localStorage.setItem("firstplayerposition", data.result);
+        document.getElementById("positionone").innerHTML = data.result;
+    }
+    )
+
+    $.getJSON(checkpositionfull,
+    function(data) {
+      // while(localStorage.getItem("1sporttoposition")!="go") {
+      //    //bah
+      // }
+        localStorage.setItem("firstpositioncheck", data.result);
+        var shareboard = document.getElementById("copy-text")
+
+        if (localStorage.getItem("firstpositioncheck")==="true") {
+          document.getElementById('positionone').classList.add("greensquare");
+          shareboard.textContent += "🟩";
+        }
+        else if (localStorage.getItem("firstpositioncheck")==="middle") {
+          document.getElementById('positionone').classList.add("yellowsquare");
+          shareboard.textContent += "🟨";
+        }
+        else {
+          document.getElementById('positionone').classList.add("greysquare");
+          shareboard.textContent += "⬜";
+        }
+        localStorage.setItem("1positiontoyear", "go")
+
+    }
+    )
+
+    $.getJSON(urlyearfull,
+    function(data) {
+        localStorage.setItem("firstplayeryear", data.result);
+        document.getElementById("yearone").innerHTML = data.result;
+    }
+    )
+
+    $.getJSON(checkyearfull,
+    function(data) {
+      // while(localStorage.getItem("1positiontoyear")!="go") {
+      //    //bah
+      // }
+      var shareboard = document.getElementById("copy-text")
+
+        localStorage.setItem("firstyearcheck", data.result);
+        if (localStorage.getItem("firstyearcheck")==="true") {
+          document.getElementById('yearone').classList.add("greensquare");
+          shareboard.textContent += "🟩";
+        }
+        else {
+          document.getElementById('yearone').classList.add("greysquare");
+          shareboard.textContent += "⬜";
+        }
+        localStorage.setItem("1yeartoheight", "go")
+    }
+    )
+
+    $.getJSON(urlheightfull,
+    function(data) {
+        localStorage.setItem("firstplayerheight", data.result);
+        document.getElementById("heightone").innerHTML = data.result;
+
+    }
+    )
+
+    $.getJSON(checkheightfull,
+    function(data) {
+      // while(localStorage.getItem("1yeartoheight")!="go") {
+      //    //bah
+      // }
+      var shareboard = document.getElementById("copy-text")
+
+        localStorage.setItem("firstheightcheck", data.result);
+        if (localStorage.getItem("firstheightcheck")==="true") {
+          document.getElementById('heightone').classList.add("greensquare");
+          shareboard.textContent += "🟩";
+        }
+        else if (localStorage.getItem("firstheightcheck")==="middle") {
+          document.getElementById('heightone').classList.add("yellowsquare");
+          shareboard.textContent += "🟨";
+        }
+        else {
+          document.getElementById('heightone').classList.add("greysquare");
+          shareboard.textContent += "⬜";
+
+        }
+        localStorage.setItem("1heighttonumber", "go")
+    }
+    )
+
+    $.getJSON(urlnumberfull,
+    function(data) {
+      
+        localStorage.setItem("firstplayernumber", data.result);
+        document.getElementById("numberone").innerHTML = data.result;
+
+    }
+    )
+
+    $.getJSON(checknumberfull,
+    function(data) {
+      var shareboard = document.getElementById("copy-text")
+
+        localStorage.setItem("firstnumbercheck", data.result);
+        
+        if (localStorage.getItem("firstnumbercheck")==="true") {
+        document.getElementById('numberone').classList.add("greensquare");
+        shareboard.textContent += "🟩\n";
+
+    if(localStorage.getItem("wonthegame")==="winner") {
+      var shareboard = document.getElementById("copy-text")
+      var share1 =  shareboard.textContent.slice(0, 14);
+      var share2 =  shareboard.textContent.slice(14);
+      var gc = localStorage.getItem("guesscount"); 
+      var newshareboard = share1 + gc + share2 + "aurardle.pythonanywhere.com";
+      shareboard.textContent = newshareboard;
+      winnerimprovedshareboard();
+      fixstatsonwin();
+      document.getElementById("enterdivsmall2").classList.add('getridofrow');
+    }
+  }
+    else if (localStorage.getItem("firstnumbercheck")==="middle") {
+          document.getElementById('numberone').classList.add("yellowsquare");
+          shareboard.textContent += "🟨\n";
+        }
+
+        
+        else {
+          document.getElementById('numberone').classList.add("greysquare");
+          shareboard.textContent += "⬜\n";
+        }
+    }
+    )
+
+    if (!localStorage.getItem("guesscount")) {
+      localStorage.setItem("guesscount", 1);
+    }
+    else {
+      localStorage.setItem("guesscount", (parseInt(localStorage.getItem("guesscount")) + 1));
+    }
+
+    $('#submitaplayer')[0].reset();
+    
+  
+
+  $('#tags').val('');
+  document.getElementById("submitaplayer").classList.add('getridofinput');
+
+}
 });
                 </script>
-        </form>
       </div>
-       
-        <table>
-            <tr class="tabletop">
-              <th class="namecol">Name</th>
-              <th>Sport</th>
-              <th>Position</th>
-              <th>Year</th>
-              <th>Height</th>
-              <th>Number</th>
-            </tr>
-            <tr class={{row1}}>
-              <td class="namecol" bgcolor={{namecolor1}}>{{name1}}</td>
-              <td bgcolor={{sportcolor1}}>{{sport1}}</td>
-              <td bgcolor={{positioncolor1}}>{{position1}}</td>
-              <td bgcolor={{yearcolor1}}>{{year1}}</td>
-              <td bgcolor={{heightcolor1}}>{{height1}}</td>
-              <td bgcolor={{numbercolor1}}>{{number1}}</td>
-            </tr>
-            <tr class={{row2}}>
-                <td class="namecol" bgcolor={{namecolor2}}>{{name2}}</td>
-                <td bgcolor={{sportcolor2}}>{{sport2}}</td>
-                <td bgcolor={{positioncolor2}}>{{position2}}</td>
-                <td bgcolor={{yearcolor2}}>{{year2}}</td>
-                <td bgcolor={{heightcolor2}}>{{height2}}</td>
-                <td bgcolor={{numbercolor2}}>{{number2}}</td>
-            </tr>
-            <tr class={{row3}}>
-                <td class="namecol" bgcolor={{namecolor3}}>{{name3}}</td>
-                <td bgcolor={{sportcolor3}}>{{sport3}}</td>
-                <td bgcolor={{positioncolor3}}>{{position3}}</td>
-                <td bgcolor={{yearcolor3}}>{{year3}}</td>
-                <td bgcolor={{heightcolor3}}>{{height3}}</td>
-                <td bgcolor={{numbercolor3}}>{{number3}}</td>
-            </tr>
-            <tr class={{row4}}>
-                <td class="namecol" bgcolor={{namecolor4}}>{{name4}}</td>
-                <td bgcolor={{sportcolor4}}>{{sport4}}</td>
-                <td bgcolor={{positioncolor4}}>{{position4}}</td>
-                <td bgcolor={{yearcolor4}}>{{year4}}</td>
-                <td bgcolor={{heightcolor4}}>{{height4}}</td>
-                <td bgcolor={{numbercolor4}}>{{number4}}</td>
-            </tr>
-            <tr class={{row5}}>
-                <td class="namecol" bgcolor={{namecolor5}}>{{name5}}</td>
-                <td bgcolor={{sportcolor5}}>{{sport5}}</td>
-                <td bgcolor={{positioncolor5}}>{{position5}}</td>
-                <td bgcolor={{yearcolor5}}>{{year5}}</td>
-                <td bgcolor={{heightcolor5}}>{{height5}}</td>
-                <td bgcolor={{numbercolor5}}>{{number5}}</td>
-            </tr>
-          </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="enterdiv">
+        <div id="enterdivsmall2" class="getridofrow">
+          <form method="GET" id="submitaplayer2">
+            <input type="text" id="tags2" name="text" class="enterplayer"
+              placeholder="Guess 2 of 5">
+            <input type="submit" id="sub2" class="invissubmit">
+            </form>
+  
+
+
+      <script>
+        function shuffle(array) {
+let currentIndex = array.length,  randomIndex;
+
+// While there remain elements to shuffle...
+while (currentIndex != 0) {
+
+// Pick a remaining element...
+randomIndex = Math.floor(Math.random() * currentIndex);
+currentIndex--;
+
+// And swap it with the current element.
+[array[currentIndex], array[randomIndex]] = [
+array[randomIndex], array[currentIndex]];
+}
+
+return array;
+}
+
+
+
+          var availableTags = [
+          "Jahmyl Telfort",
+          "Jason Strong",
+          "Vito Cubrilo",
+          "Glen McClintock",
+          "Tyreek Scott-Grayson",
+          "Alex Nwagha",
+          "Nikola Djogo",
+          "Coleman Stucke",
+          "Quirin Emanga",
+          "Joe Pridgen",
+          "Shaquille Walters",
+          "Connor Braun",
+          "Chris Doherty",
+          "To Randriasalama",
+
+          "Kendall Currence",
+          "Izzy Larson",
+          "Donna Ntambue",
+          "Century McCartney",
+          "Camille Clement",
+          "Katie May",
+          "Amryah Sapenter",
+          "Anna Boruta",
+          "Leyla Ozturk",
+          "Maddie Vizza",
+          "Gemima Motema",
+          "Asha Parker",
+          "Claudia Soriano",
+          "Sammie Martin",
+          "Emily Calabrese",
+
+          "Alexa Matses",
+          "Lauren Macinnis",
+          "Gillian Foote",
+          "Molly Griffin",
+          "Miceala Sindoris",
+          "Katy Knoll",
+          "Brooke Tucker",
+          "Andrea Renner",
+          "Emma Jurusik",
+          "Brooke Hobson",
+          "Alina Mueller",
+          "Chloe Aurard",
+          "Katie Cipra",
+          "Mia Brown",
+          "Lily Yovetich",
+          "Maddie Mills",
+          "Abbey Marohn",
+          "Maureen Murphy",
+          "Skylar Fontaine",
+          "Kate Holmes",
+          "Peyton Cullaton",
+          "Megan Carter",
+          "Taylor Guarino",
+          "Aerin Frankel",
+          "Paige Taborski",
+          "Gwyneth Philips",
+          "Tessa Ward",
+          "Tory Mariano",
+          "Skylar Irving",
+          "Peyton Anderson",
+
+          "Devon Levi",
+          "Jordan Harris",
+          "Jayden Struble",
+          "Jeremie Bucheler",
+          "Matt Choupani",
+          "Chase Mcinnis",
+          "Michael Outzen",
+          "Julian Kislin",
+          "Jakov Novak",
+          "Gunnarwolfe Fontaine",
+          "Tommy Miller",
+          "Ryan St. Louis",
+          "Ty Jackson",
+          "Dylan Jackson",
+          "Sam Colangelo",
+          "Marco Bozzo",
+          "Tyler Spott",
+          "Riley Hughes",
+          "Alex Mella",
+          "Matt Demelis",
+          "Cam Gaudette",
+          "Steven Agriogianis",
+          "Aidan McDonough",
+          "James Davenport",
+          "Jack Hughes",
+          "Justin Hryckowian",
+          "TJ Semptimphelter",
+          "Evan Fear",
+
+          "Danny Crossen",
+          "Hayden Smith",
+          "Max Viera",
+          "Dennis Colleran",
+          "Jeff Costello",
+          "Cam Schlittler",
+          "Kyle Hoog",
+          "Mike Sirota",
+          "Owen Langan",
+          "Corey Diloreto",
+          "Eric Yost",
+          "Sebastian Keane",
+          "Thomas Balboni",
+          "Matt Downing",
+          "Mark Darakjy",
+          "Brett Dunham",
+          "JP Olson",
+          "Luke Beckstein",
+          "Jordy Allard",
+          "Justin Bosland",
+          "Spenser Smith",
+          "Ed Jarvis",
+          "Buddy Mrowka",
+          "Michael Gemma",
+          "James Quinlivan",
+          "Teddy Beaudet",
+          "Luke Masiuk",
+          "Jack Beauchesne",
+          "Nick Davis",
+          "Jake Gigliotti",
+          "Sean Quinlivan",
+          "Ryan Cervone",
+          "Jack Thorbahn",
+          "Will Jones",
+          "Wyatt Scotti",
+          "Matt Devlin",
+          "Luke Bottger",
+          "Gregory Bozzo",
+
+          "Tyson Walker"];
+          shuffle(availableTags);
+
+
+            $( "#tags2" ).autocomplete({
+source: availableTags,
+select: function (event, ui) {
+  $(this).val(ui.item.value);
+  document.getElementById("getridofrowsometimes2").classList.add('revealrow');
+  document.getElementById("enterdivsmall3").classList.remove('getridofrow');
+
+ // document.getElementById("sub").click();
+ var urlheight = 'http://127.0.0.1:4999/determine/height?playertyped='
+ var urlsport = 'http://127.0.0.1:4999/determine/sport?playertyped='
+ var urlposition = 'http://127.0.0.1:4999/determine/position?playertyped='
+ var urlyear = 'http://127.0.0.1:4999/determine/year?playertyped='
+ var urlnumber = 'http://127.0.0.1:4999/determine/number?playertyped='
+ var urlcheckwinner = 'http://127.0.0.1:4999/check/winner?playertyped='
+
+ var checkheight = 'http://127.0.0.1:4999/check/height?playertyped='
+ var checksport = 'http://127.0.0.1:4999/check/sport?playertyped='
+ var checkposition = 'http://127.0.0.1:4999/check/position?playertyped='
+ var checkyear = 'http://127.0.0.1:4999/check/year?playertyped='
+ var checknumber = 'http://127.0.0.1:4999/check/number?playertyped='
+
+
+
+ var playertyped = document.getElementById("tags2").value;
+ var urlheightfull = urlheight + playertyped
+ var urlsportfull = urlsport + playertyped
+ var urlpositionfull = urlposition + playertyped
+ var urlyearfull = urlyear + playertyped
+ var urlnumberfull = urlnumber + playertyped
+ var checkwinnerfull = urlcheckwinner + playertyped
+
+ var checkheightfull = checkheight + playertyped
+ var checksportfull = checksport + playertyped
+ var checkpositionfull = checkposition + playertyped
+ var checkyearfull = checkyear + playertyped
+ var checknumberfull = checknumber + playertyped
+
+ localStorage.setItem("secondplayername", playertyped);
+ document.getElementById("nametwo").innerHTML = localStorage.getItem("secondplayername");
+
+ playertyped = ''
+    document.getElementById("getridofrowsometimes2").classList.add('revealrow');
+    document.getElementById("getridofrowsometimes2").classList.remove('getridofrow');
+    document.getElementById("enterdivsmall3").classList.remove('getridofrow');
+
+
+    localStorage.setItem("2nametosport", "stop")
+    localStorage.setItem("2sporttoposition", "stop")
+    localStorage.setItem("2positiontoyear", "stop")
+    localStorage.setItem("2yeartoheight", "stop")
+    localStorage.setItem("2heighttonumber", "stop")
+
+
+
+$.getJSON(checkwinnerfull,
+
+function(data) {
+localStorage.setItem("wonthegame", data.result);
+var shareboard = document.getElementById("copy-text")
+if(localStorage.getItem("wonthegame")==="winner") {
+document.getElementById("nametwo").classList.add('greensquare');
+document.getElementById('winnerbox').click();
+localStorage.setItem("namecolor2", "green");
+shareboard.textContent += "🟩";
+}
+else {
+shareboard.textContent += "⬜";
+// alert("name")
+}
+localStorage.setItem("2nametosport", "go")
+})
+
+ $.getJSON(urlsportfull,
+function(data) {
+  localStorage.setItem("secondplayersport", data.result);
+  document.getElementById("sporttwo").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checksportfull,
+function(data) {
+  // while(localStorage.getItem("2nametosport")!="go") {
+  //   //bah
+  // }
+  localStorage.setItem("secondsportcheck", data.result);
+  var shareboard = document.getElementById("copy-text")
+  if (localStorage.getItem("secondsportcheck")==="true") {
+    document.getElementById('sporttwo').classList.add("greensquare");
+    shareboard.textContent += "🟩";
+    // alert("sport")
+  }
+  else if (localStorage.getItem("secondsportcheck")==="middle") {
+          document.getElementById('sporttwo').classList.add("yellowsquare");
+          shareboard.textContent += "🟨";
+        }
+  else {
+    document.getElementById('sporttwo').classList.add("greysquare");
+    shareboard.textContent += "⬜";
+  }
+  localStorage.setItem("2sporttoposition", "go")
+
+}
+)
+
+$.getJSON(urlpositionfull,
+function(data) {
+  localStorage.setItem("secondplayerposition", data.result);
+  document.getElementById("positiontwo").innerHTML = data.result;
+}
+)
+
+$.getJSON(checkpositionfull,
+function(data) {
+  // while(localStorage.getItem("2sporttoposition")!="go") {
+  //   //bah
+  // }
+  localStorage.setItem("secondpositioncheck", data.result);
+  var shareboard = document.getElementById("copy-text")
+
+  if (localStorage.getItem("secondpositioncheck")==="true") {
+    document.getElementById('positiontwo').classList.add("greensquare");
+    shareboard.textContent += "🟩";
+  }
+  else if (localStorage.getItem("secondpositioncheck")==="middle") {
+          document.getElementById('positiontwo').classList.add("yellowsquare");
+          shareboard.textContent += "🟨";
+        }
+  else {
+    document.getElementById('positiontwo').classList.add("greysquare");
+    shareboard.textContent += "⬜";
+    // alert("position")
+
+  }
+  localStorage.setItem("2positiontoyear", "go")
+}
+)
+
+$.getJSON(urlyearfull,
+function(data) {
+  localStorage.setItem("secondplayeryear", data.result);
+  document.getElementById("yeartwo").innerHTML = data.result;
+}
+)
+
+$.getJSON(checkyearfull,
+function(data) {
+  // while(localStorage.getItem("2positiontoyear")!="go") {
+  //   //bah
+  // }
+var shareboard = document.getElementById("copy-text")
+
+  localStorage.setItem("secondyearcheck", data.result);
+  if (localStorage.getItem("secondyearcheck")==="true") {
+    document.getElementById('yeartwo').classList.add("greensquare");
+    shareboard.textContent += "🟩";
+    // alert("year")
+  }
+  else {
+    document.getElementById('yeartwo').classList.add("greysquare");
+    shareboard.textContent += "⬜";
+  }
+  localStorage.setItem("2yeartoheight", "go")
+}
+)
+
+$.getJSON(urlheightfull,
+function(data) {
+  localStorage.setItem("secondplayerheight", data.result);
+  document.getElementById("heighttwo").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checkheightfull,
+function(data) {
+  // while(localStorage.getItem("2yeartoheight")!="go") {
+  //   //bah
+  // }
+var shareboard = document.getElementById("copy-text")
+
+  localStorage.setItem("secondheightcheck", data.result);
+  if (localStorage.getItem("secondheightcheck")==="true") {
+    document.getElementById('heighttwo').classList.add("greensquare");
+    shareboard.textContent += "🟩";
+    // alert("height")
+  }
+  else if (localStorage.getItem("secondheightcheck")==="middle") {
+          document.getElementById('heighttwo').classList.add("yellowsquare");
+          shareboard.textContent += "🟨";
+        }
+  else {
+    document.getElementById('heighttwo').classList.add("greysquare");
+    shareboard.textContent += "⬜";
+
+  }
+  localStorage.setItem("2heighttonumber", "go")
+}
+)
+
+$.getJSON(urlnumberfull,
+function(data) {
+
+  localStorage.setItem("secondplayernumber", data.result);
+  document.getElementById("numbertwo").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checknumberfull,
+function(data) {
+  // while(localStorage.getItem("2heighttonumber")!="go") {
+  //   //bah
+  // }
+var shareboard = document.getElementById("copy-text")
+
+  localStorage.setItem("secondnumbercheck", data.result);
+  
+  if (localStorage.getItem("secondnumbercheck")==="true") {
+  document.getElementById('numbertwo').classList.add("greensquare");
+  shareboard.textContent += "🟩\n";
+
+if(localStorage.getItem("wonthegame")==="winner") {
+var shareboard = document.getElementById("copy-text")
+var share1 =  shareboard.textContent.slice(0, 14);
+var share2 =  shareboard.textContent.slice(14);
+var gc = localStorage.getItem("guesscount"); 
+var newshareboard = share1 + gc + share2 + "aurardle.pythonanywhere.com";
+shareboard.textContent = newshareboard;
+winnerimprovedshareboard();
+fixstatsonwin();
+document.getElementById("enterdivsmall3").classList.add('getridofrow');
+
+
+}
+  }
+else if (localStorage.getItem("secondnumbercheck")==="middle") {
+          document.getElementById('numbertwo').classList.add("yellowsquare");
+          shareboard.textContent += "🟨";
+        }
+
+  
+  else {
+    document.getElementById('numbertwo').classList.add("greysquare");
+    shareboard.textContent += "⬜\n";
+    // alert("number")
+  }
+}
+)
+
+if (!localStorage.getItem("guesscount")) {
+localStorage.setItem("guesscount", 1);
+}
+else {
+localStorage.setItem("guesscount", (parseInt(localStorage.getItem("guesscount")) + 1));
+}
+
+$('#submitaplayer')[0].reset();
+
+
+
+$('#tags').val('');
+document.getElementById("submitaplayer2").classList.add('getridofinput');
+
+}
+});
+          </script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="enterdiv">
+  <div id="enterdivsmall3" class="getridofrow">
+    <form method="GET" id="submitaplayer3">
+      <input type="text" id="tags3" name="text" class="enterplayer"
+        placeholder="Guess 3 of 5">
+      <input type="submit" id="sub3" class="invissubmit">
+      </form>
+
+
+
+<script>
+  function shuffle(array) {
+let currentIndex = array.length,  randomIndex;
+
+// While there remain elements to shuffle...
+while (currentIndex != 0) {
+
+// Pick a remaining element...
+randomIndex = Math.floor(Math.random() * currentIndex);
+currentIndex--;
+
+// And swap it with the current element.
+[array[currentIndex], array[randomIndex]] = [
+array[randomIndex], array[currentIndex]];
+}
+
+return array;
+}
+
+
+
+    var availableTags = [
+    "Jahmyl Telfort",
+    "Jason Strong",
+    "Vito Cubrilo",
+    "Glen McClintock",
+    "Tyreek Scott-Grayson",
+    "Alex Nwagha",
+    "Nikola Djogo",
+    "Coleman Stucke",
+    "Quirin Emanga",
+    "Joe Pridgen",
+    "Shaquille Walters",
+    "Connor Braun",
+    "Chris Doherty",
+    "To Randriasalama",
+
+    "Kendall Currence",
+    "Izzy Larson",
+    "Donna Ntambue",
+    "Century McCartney",
+    "Camille Clement",
+    "Katie May",
+    "Amryah Sapenter",
+    "Anna Boruta",
+    "Leyla Ozturk",
+    "Maddie Vizza",
+    "Gemima Motema",
+    "Asha Parker",
+    "Claudia Soriano",
+    "Sammie Martin",
+    "Emily Calabrese",
+
+    "Alexa Matses",
+    "Lauren Macinnis",
+    "Gillian Foote",
+    "Molly Griffin",
+    "Miceala Sindoris",
+    "Katy Knoll",
+    "Brooke Tucker",
+    "Andrea Renner",
+    "Emma Jurusik",
+    "Brooke Hobson",
+    "Alina Mueller",
+    "Chloe Aurard",
+    "Katie Cipra",
+    "Mia Brown",
+    "Lily Yovetich",
+    "Maddie Mills",
+    "Abbey Marohn",
+    "Maureen Murphy",
+    "Skylar Fontaine",
+    "Kate Holmes",
+    "Peyton Cullaton",
+    "Megan Carter",
+    "Taylor Guarino",
+    "Aerin Frankel",
+    "Paige Taborski",
+    "Gwyneth Philips",
+    "Tessa Ward",
+    "Tory Mariano",
+    "Skylar Irving",
+    "Peyton Anderson",
+
+    "Devon Levi",
+    "Jordan Harris",
+    "Jayden Struble",
+    "Jeremie Bucheler",
+    "Matt Choupani",
+    "Chase Mcinnis",
+    "Michael Outzen",
+    "Julian Kislin",
+    "Jakov Novak",
+    "Gunnarwolfe Fontaine",
+    "Tommy Miller",
+    "Ryan St. Louis",
+    "Ty Jackson",
+    "Dylan Jackson",
+    "Sam Colangelo",
+    "Marco Bozzo",
+    "Tyler Spott",
+    "Riley Hughes",
+    "Alex Mella",
+    "Matt Demelis",
+    "Cam Gaudette",
+    "Steven Agriogianis",
+    "Aidan McDonough",
+    "James Davenport",
+    "Jack Hughes",
+    "Justin Hryckowian",
+    "TJ Semptimphelter",
+    "Evan Fear",
+
+    "Danny Crossen",
+    "Hayden Smith",
+    "Max Viera",
+    "Dennis Colleran",
+    "Jeff Costello",
+    "Cam Schlittler",
+    "Kyle Hoog",
+    "Mike Sirota",
+    "Owen Langan",
+    "Corey Diloreto",
+    "Eric Yost",
+    "Sebastian Keane",
+    "Thomas Balboni",
+    "Matt Downing",
+    "Mark Darakjy",
+    "Brett Dunham",
+    "JP Olson",
+    "Luke Beckstein",
+    "Jordy Allard",
+    "Justin Bosland",
+    "Spenser Smith",
+    "Ed Jarvis",
+    "Buddy Mrowka",
+    "Michael Gemma",
+    "James Quinlivan",
+    "Teddy Beaudet",
+    "Luke Masiuk",
+    "Jack Beauchesne",
+    "Nick Davis",
+    "Jake Gigliotti",
+    "Sean Quinlivan",
+    "Ryan Cervone",
+    "Jack Thorbahn",
+    "Will Jones",
+    "Wyatt Scotti",
+    "Matt Devlin",
+    "Luke Bottger",
+    "Gregory Bozzo",
+
+    "Tyson Walker"];
+    shuffle(availableTags);
+
+
+      $( "#tags3" ).autocomplete({
+source: availableTags,
+select: function (event, ui) {
+$(this).val(ui.item.value);
+document.getElementById("getridofrowsometimes3").classList.add('revealrow');
+// document.getElementById("sub").click();
+var urlheight = 'http://127.0.0.1:4999/determine/height?playertyped='
+var urlsport = 'http://127.0.0.1:4999/determine/sport?playertyped='
+var urlposition = 'http://127.0.0.1:4999/determine/position?playertyped='
+var urlyear = 'http://127.0.0.1:4999/determine/year?playertyped='
+var urlnumber = 'http://127.0.0.1:4999/determine/number?playertyped='
+var urlcheckwinner = 'http://127.0.0.1:4999/check/winner?playertyped='
+
+var checkheight = 'http://127.0.0.1:4999/check/height?playertyped='
+var checksport = 'http://127.0.0.1:4999/check/sport?playertyped='
+var checkposition = 'http://127.0.0.1:4999/check/position?playertyped='
+var checkyear = 'http://127.0.0.1:4999/check/year?playertyped='
+var checknumber = 'http://127.0.0.1:4999/check/number?playertyped='
+
+
+
+var playertyped = document.getElementById("tags3").value;
+var urlheightfull = urlheight + playertyped
+var urlsportfull = urlsport + playertyped
+var urlpositionfull = urlposition + playertyped
+var urlyearfull = urlyear + playertyped
+var urlnumberfull = urlnumber + playertyped
+var checkwinnerfull = urlcheckwinner + playertyped
+
+var checkheightfull = checkheight + playertyped
+var checksportfull = checksport + playertyped
+var checkpositionfull = checkposition + playertyped
+var checkyearfull = checkyear + playertyped
+var checknumberfull = checknumber + playertyped
+
+localStorage.setItem("thirdplayername", playertyped);
+document.getElementById("namethree").innerHTML = localStorage.getItem("thirdplayername");
+
+playertyped = ''
+document.getElementById("getridofrowsometimes3").classList.add('revealrow');
+document.getElementById("getridofrowsometimes3").classList.remove('getridofrow');
+document.getElementById("enterdivsmall4").classList.remove('getridofrow');
+
+
+
+
+
+$.getJSON(checkwinnerfull,
+
+function(data) {
+localStorage.setItem("wonthegame", data.result);
+var shareboard = document.getElementById("copy-text")
+if(localStorage.getItem("wonthegame")==="winner") {
+document.getElementById("namethree").classList.add('greensquare');
+document.getElementById('winnerbox').click();
+localStorage.setItem("namecolor3", "green");
+shareboard.textContent += "🟩";
+}
+else {
+shareboard.textContent += "⬜";
+}
+})
+
+$.getJSON(urlsportfull,
+function(data) {
+localStorage.setItem("thirdplayersport", data.result);
+document.getElementById("sportthree").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checksportfull,
+function(data) {
+localStorage.setItem("thirdsportcheck", data.result);
+var shareboard = document.getElementById("copy-text")
+if (localStorage.getItem("thirdsportcheck")==="true") {
+document.getElementById('sportthree').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else if (localStorage.getItem("thirdsportcheck")==="middle") {
+    document.getElementById('sportthree').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+else {
+document.getElementById('sportthree').classList.add("greysquare");
+shareboard.textContent += "⬜";
+}
+
+}
+)
+
+$.getJSON(urlpositionfull,
+function(data) {
+localStorage.setItem("thirdplayerposition", data.result);
+document.getElementById("positionthree").innerHTML = data.result;
+}
+)
+
+$.getJSON(checkpositionfull,
+function(data) {
+localStorage.setItem("thirdpositioncheck", data.result);
+var shareboard = document.getElementById("copy-text")
+
+if (localStorage.getItem("thirdpositioncheck")==="true") {
+document.getElementById('positionthree').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else if (localStorage.getItem("thirdpositioncheck")==="middle") {
+    document.getElementById('positionthree').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+else {
+document.getElementById('positionthree').classList.add("greysquare");
+shareboard.textContent += "⬜";
+}
+
+}
+)
+
+$.getJSON(urlyearfull,
+function(data) {
+localStorage.setItem("thirdplayeryear", data.result);
+document.getElementById("yearthree").innerHTML = data.result;
+}
+)
+
+$.getJSON(checkyearfull,
+function(data) {
+var shareboard = document.getElementById("copy-text")
+
+localStorage.setItem("thirdyearcheck", data.result);
+if (localStorage.getItem("thirdyearcheck")==="true") {
+document.getElementById('yearthree').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else {
+document.getElementById('yearthree').classList.add("greysquare");
+shareboard.textContent += "⬜";
+}
+
+}
+)
+
+$.getJSON(urlheightfull,
+function(data) {
+localStorage.setItem("thirdplayerheight", data.result);
+document.getElementById("heightthree").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checkheightfull,
+function(data) {
+var shareboard = document.getElementById("copy-text")
+
+localStorage.setItem("thirdheightcheck", data.result);
+if (localStorage.getItem("thirdheightcheck")==="true") {
+document.getElementById('heightthree').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else if (localStorage.getItem("thirdheightcheck")==="middle") {
+    document.getElementById('heightthree').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+else {
+document.getElementById('heightthree').classList.add("greysquare");
+shareboard.textContent += "⬜";
+
+}
+}
+)
+
+$.getJSON(urlnumberfull,
+function(data) {
+
+localStorage.setItem("thirdplayernumber", data.result);
+document.getElementById("numberthree").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checknumberfull,
+function(data) {
+var shareboard = document.getElementById("copy-text")
+
+localStorage.setItem("thirdnumbercheck", data.result);
+
+if (localStorage.getItem("thirdnumbercheck")==="true") {
+document.getElementById('numberthree').classList.add("greensquare");
+shareboard.textContent += "🟩\n";
+
+if(localStorage.getItem("wonthegame")==="winner") {
+var shareboard = document.getElementById("copy-text")
+var share1 =  shareboard.textContent.slice(0, 14);
+var share2 =  shareboard.textContent.slice(14);
+var gc = localStorage.getItem("guesscount"); 
+var newshareboard = share1 + gc + share2 + "aurardle.pythonanywhere.com";
+shareboard.textContent = newshareboard;
+winnerimprovedshareboard();
+fixstatsonwin();
+
+document.getElementById("enterdivsmall4").classList.add('getridofrow');
+
+
+}
+}
+else if (localStorage.getItem("thirdnumbercheck")==="middle") {
+    document.getElementById('numberthree').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+
+
+else {
+document.getElementById('numberthree').classList.add("greysquare");
+shareboard.textContent += "⬜\n";
+}
+}
+)
+
+if (!localStorage.getItem("guesscount")) {
+localStorage.setItem("guesscount", 1);
+}
+else {
+localStorage.setItem("guesscount", (parseInt(localStorage.getItem("guesscount")) + 1));
+}
+
+$('#submitaplayer')[0].reset();
+
+
+
+$('#tags3').val('');
+document.getElementById("submitaplayer3").classList.add('getridofinput');
+
+}
+});
+    </script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="enterdiv">
+  <div id="enterdivsmall4" class="getridofrow">
+    <form method="GET" id="submitaplayer4">
+      <input type="text" id="tags4" name="text" class="enterplayer"
+        placeholder="Guess 4 of 5">
+      <input type="submit" id="sub4" class="invissubmit">
+      </form>
+
+
+
+<script>
+  function shuffle(array) {
+let currentIndex = array.length,  randomIndex;
+
+// While there remain elements to shuffle...
+while (currentIndex != 0) {
+
+// Pick a remaining element...
+randomIndex = Math.floor(Math.random() * currentIndex);
+currentIndex--;
+
+// And swap it with the current element.
+[array[currentIndex], array[randomIndex]] = [
+array[randomIndex], array[currentIndex]];
+}
+
+return array;
+}
+
+
+
+    var availableTags = [
+    "Jahmyl Telfort",
+    "Jason Strong",
+    "Vito Cubrilo",
+    "Glen McClintock",
+    "Tyreek Scott-Grayson",
+    "Alex Nwagha",
+    "Nikola Djogo",
+    "Coleman Stucke",
+    "Quirin Emanga",
+    "Joe Pridgen",
+    "Shaquille Walters",
+    "Connor Braun",
+    "Chris Doherty",
+    "To Randriasalama",
+
+    "Kendall Currence",
+    "Izzy Larson",
+    "Donna Ntambue",
+    "Century McCartney",
+    "Camille Clement",
+    "Katie May",
+    "Amryah Sapenter",
+    "Anna Boruta",
+    "Leyla Ozturk",
+    "Maddie Vizza",
+    "Gemima Motema",
+    "Asha Parker",
+    "Claudia Soriano",
+    "Sammie Martin",
+    "Emily Calabrese",
+
+    "Alexa Matses",
+    "Lauren Macinnis",
+    "Gillian Foote",
+    "Molly Griffin",
+    "Miceala Sindoris",
+    "Katy Knoll",
+    "Brooke Tucker",
+    "Andrea Renner",
+    "Emma Jurusik",
+    "Brooke Hobson",
+    "Alina Mueller",
+    "Chloe Aurard",
+    "Katie Cipra",
+    "Mia Brown",
+    "Lily Yovetich",
+    "Maddie Mills",
+    "Abbey Marohn",
+    "Maureen Murphy",
+    "Skylar Fontaine",
+    "Kate Holmes",
+    "Peyton Cullaton",
+    "Megan Carter",
+    "Taylor Guarino",
+    "Aerin Frankel",
+    "Paige Taborski",
+    "Gwyneth Philips",
+    "Tessa Ward",
+    "Tory Mariano",
+    "Skylar Irving",
+    "Peyton Anderson",
+
+    "Devon Levi",
+    "Jordan Harris",
+    "Jayden Struble",
+    "Jeremie Bucheler",
+    "Matt Choupani",
+    "Chase Mcinnis",
+    "Michael Outzen",
+    "Julian Kislin",
+    "Jakov Novak",
+    "Gunnarwolfe Fontaine",
+    "Tommy Miller",
+    "Ryan St. Louis",
+    "Ty Jackson",
+    "Dylan Jackson",
+    "Sam Colangelo",
+    "Marco Bozzo",
+    "Tyler Spott",
+    "Riley Hughes",
+    "Alex Mella",
+    "Matt Demelis",
+    "Cam Gaudette",
+    "Steven Agriogianis",
+    "Aidan McDonough",
+    "James Davenport",
+    "Jack Hughes",
+    "Justin Hryckowian",
+    "TJ Semptimphelter",
+    "Evan Fear",
+
+    "Danny Crossen",
+    "Hayden Smith",
+    "Max Viera",
+    "Dennis Colleran",
+    "Jeff Costello",
+    "Cam Schlittler",
+    "Kyle Hoog",
+    "Mike Sirota",
+    "Owen Langan",
+    "Corey Diloreto",
+    "Eric Yost",
+    "Sebastian Keane",
+    "Thomas Balboni",
+    "Matt Downing",
+    "Mark Darakjy",
+    "Brett Dunham",
+    "JP Olson",
+    "Luke Beckstein",
+    "Jordy Allard",
+    "Justin Bosland",
+    "Spenser Smith",
+    "Ed Jarvis",
+    "Buddy Mrowka",
+    "Michael Gemma",
+    "James Quinlivan",
+    "Teddy Beaudet",
+    "Luke Masiuk",
+    "Jack Beauchesne",
+    "Nick Davis",
+    "Jake Gigliotti",
+    "Sean Quinlivan",
+    "Ryan Cervone",
+    "Jack Thorbahn",
+    "Will Jones",
+    "Wyatt Scotti",
+    "Matt Devlin",
+    "Luke Bottger",
+    "Gregory Bozzo",
+
+    "Tyson Walker"];
+    shuffle(availableTags);
+
+
+      $( "#tags4" ).autocomplete({
+source: availableTags,
+select: function (event, ui) {
+$(this).val(ui.item.value);
+document.getElementById("getridofrowsometimes4").classList.add('revealrow');
+// document.getElementById("sub").click();
+var urlheight = 'http://127.0.0.1:4999/determine/height?playertyped='
+var urlsport = 'http://127.0.0.1:4999/determine/sport?playertyped='
+var urlposition = 'http://127.0.0.1:4999/determine/position?playertyped='
+var urlyear = 'http://127.0.0.1:4999/determine/year?playertyped='
+var urlnumber = 'http://127.0.0.1:4999/determine/number?playertyped='
+var urlcheckwinner = 'http://127.0.0.1:4999/check/winner?playertyped='
+
+var checkheight = 'http://127.0.0.1:4999/check/height?playertyped='
+var checksport = 'http://127.0.0.1:4999/check/sport?playertyped='
+var checkposition = 'http://127.0.0.1:4999/check/position?playertyped='
+var checkyear = 'http://127.0.0.1:4999/check/year?playertyped='
+var checknumber = 'http://127.0.0.1:4999/check/number?playertyped='
+
+
+
+var playertyped = document.getElementById("tags4").value;
+var urlheightfull = urlheight + playertyped
+var urlsportfull = urlsport + playertyped
+var urlpositionfull = urlposition + playertyped
+var urlyearfull = urlyear + playertyped
+var urlnumberfull = urlnumber + playertyped
+var checkwinnerfull = urlcheckwinner + playertyped
+
+var checkheightfull = checkheight + playertyped
+var checksportfull = checksport + playertyped
+var checkpositionfull = checkposition + playertyped
+var checkyearfull = checkyear + playertyped
+var checknumberfull = checknumber + playertyped
+
+localStorage.setItem("fourthplayername", playertyped);
+document.getElementById("namefour").innerHTML = localStorage.getItem("fourthplayername");
+
+playertyped = ''
+document.getElementById("getridofrowsometimes4").classList.add('revealrow');
+document.getElementById("getridofrowsometimes4").classList.remove('getridofrow');
+document.getElementById("enterdivsmall5").classList.remove('getridofrow');
+
+
+
+
+
+$.getJSON(checkwinnerfull,
+
+function(data) {
+localStorage.setItem("wonthegame", data.result);
+var shareboard = document.getElementById("copy-text")
+if(localStorage.getItem("wonthegame")==="winner") {
+document.getElementById("namefour").classList.add('greensquare');
+document.getElementById('winnerbox').click();
+localStorage.setItem("namecolor4", "green");
+shareboard.textContent += "🟩";
+}
+else {
+shareboard.textContent += "⬜";
+}
+})
+
+$.getJSON(urlsportfull,
+function(data) {
+localStorage.setItem("fourthplayersport", data.result);
+document.getElementById("sportfour").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checksportfull,
+function(data) {
+localStorage.setItem("fourthsportcheck", data.result);
+var shareboard = document.getElementById("copy-text")
+if (localStorage.getItem("fourthsportcheck")==="true") {
+document.getElementById('sportfour').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else if (localStorage.getItem("fourthsportcheck")==="middle") {
+    document.getElementById('sportfour').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+else {
+document.getElementById('sportfour').classList.add("greysquare");
+shareboard.textContent += "⬜";
+}
+
+}
+)
+
+$.getJSON(urlpositionfull,
+function(data) {
+localStorage.setItem("fourthplayerposition", data.result);
+document.getElementById("positionfour").innerHTML = data.result;
+}
+)
+
+$.getJSON(checkpositionfull,
+function(data) {
+localStorage.setItem("fourthpositioncheck", data.result);
+var shareboard = document.getElementById("copy-text")
+
+if (localStorage.getItem("fourthpositioncheck")==="true") {
+document.getElementById('positionfour').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else if (localStorage.getItem("fourthpositioncheck")==="middle") {
+    document.getElementById('positionfour').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+else {
+document.getElementById('positionfour').classList.add("greysquare");
+shareboard.textContent += "⬜";
+}
+
+}
+)
+
+$.getJSON(urlyearfull,
+function(data) {
+localStorage.setItem("fourthplayeryear", data.result);
+document.getElementById("yearfour").innerHTML = data.result;
+}
+)
+
+$.getJSON(checkyearfull,
+function(data) {
+var shareboard = document.getElementById("copy-text")
+
+localStorage.setItem("fourthyearcheck", data.result);
+if (localStorage.getItem("fourthyearcheck")==="true") {
+document.getElementById('yearfour').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else {
+document.getElementById('yearfour').classList.add("greysquare");
+shareboard.textContent += "⬜";
+}
+
+}
+)
+
+$.getJSON(urlheightfull,
+function(data) {
+localStorage.setItem("fourthplayerheight", data.result);
+document.getElementById("heightfour").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checkheightfull,
+function(data) {
+var shareboard = document.getElementById("copy-text")
+
+localStorage.setItem("fourthheightcheck", data.result);
+if (localStorage.getItem("fourthheightcheck")==="true") {
+document.getElementById('heightfour').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else if (localStorage.getItem("fourthheightcheck")==="middle") {
+    document.getElementById('heightfour').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+else {
+document.getElementById('heightfour').classList.add("greysquare");
+shareboard.textContent += "⬜";
+
+}
+}
+)
+
+$.getJSON(urlnumberfull,
+function(data) {
+
+localStorage.setItem("fourthplayernumber", data.result);
+document.getElementById("numberfour").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checknumberfull,
+function(data) {
+var shareboard = document.getElementById("copy-text")
+
+localStorage.setItem("fourthnumbercheck", data.result);
+
+if (localStorage.getItem("fourthnumbercheck")==="true") {
+document.getElementById('numberfour').classList.add("greensquare");
+shareboard.textContent += "🟩\n";
+
+if(localStorage.getItem("wonthegame")==="winner") {
+var shareboard = document.getElementById("copy-text")
+var share1 =  shareboard.textContent.slice(0, 14);
+var share2 =  shareboard.textContent.slice(14);
+var gc = localStorage.getItem("guesscount"); 
+var newshareboard = share1 + gc + share2 + "aurardle.pythonanywhere.com";
+shareboard.textContent = newshareboard;
+winnerimprovedshareboard();
+fixstatsonwin();
+
+document.getElementById("enterdivsmall4").classList.add('getridofrow');
+
+}
+}
+else if (localStorage.getItem("fourthnumbercheck")==="middle") {
+    document.getElementById('numberfour').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+
+
+else {
+document.getElementById('numberfour').classList.add("greysquare");
+shareboard.textContent += "⬜\n";
+}
+}
+)
+
+if (!localStorage.getItem("guesscount")) {
+localStorage.setItem("guesscount", 1);
+}
+else {
+localStorage.setItem("guesscount", (parseInt(localStorage.getItem("guesscount")) + 1));
+}
+
+$('#submitaplayer')[0].reset();
+
+
+
+$('#tags4').val('');
+document.getElementById("submitaplayer4").classList.add('getridofinput');
+
+}
+});
+    </script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="enterdiv">
+  <div id="enterdivsmall5" class="getridofrow">
+    <form method="GET" id="submitaplayer5">
+      <input type="text" id="tags5" name="text" class="enterplayer"
+        placeholder="Guess 5 of 5">
+      <input type="submit" id="sub5" class="invissubmit">
+      </form>
+
+
+
+<script>
+  function shuffle(array) {
+let currentIndex = array.length,  randomIndex;
+
+// While there remain elements to shuffle...
+while (currentIndex != 0) {
+
+// Pick a remaining element...
+randomIndex = Math.floor(Math.random() * currentIndex);
+currentIndex--;
+
+// And swap it with the current element.
+[array[currentIndex], array[randomIndex]] = [
+array[randomIndex], array[currentIndex]];
+}
+
+return array;
+}
+
+
+
+    var availableTags = [
+    "Jahmyl Telfort",
+    "Jason Strong",
+    "Vito Cubrilo",
+    "Glen McClintock",
+    "Tyreek Scott-Grayson",
+    "Alex Nwagha",
+    "Nikola Djogo",
+    "Coleman Stucke",
+    "Quirin Emanga",
+    "Joe Pridgen",
+    "Shaquille Walters",
+    "Connor Braun",
+    "Chris Doherty",
+    "To Randriasalama",
+
+    "Kendall Currence",
+    "Izzy Larson",
+    "Donna Ntambue",
+    "Century McCartney",
+    "Camille Clement",
+    "Katie May",
+    "Amryah Sapenter",
+    "Anna Boruta",
+    "Leyla Ozturk",
+    "Maddie Vizza",
+    "Gemima Motema",
+    "Asha Parker",
+    "Claudia Soriano",
+    "Sammie Martin",
+    "Emily Calabrese",
+
+    "Alexa Matses",
+    "Lauren Macinnis",
+    "Gillian Foote",
+    "Molly Griffin",
+    "Miceala Sindoris",
+    "Katy Knoll",
+    "Brooke Tucker",
+    "Andrea Renner",
+    "Emma Jurusik",
+    "Brooke Hobson",
+    "Alina Mueller",
+    "Chloe Aurard",
+    "Katie Cipra",
+    "Mia Brown",
+    "Lily Yovetich",
+    "Maddie Mills",
+    "Abbey Marohn",
+    "Maureen Murphy",
+    "Skylar Fontaine",
+    "Kate Holmes",
+    "Peyton Cullaton",
+    "Megan Carter",
+    "Taylor Guarino",
+    "Aerin Frankel",
+    "Paige Taborski",
+    "Gwyneth Philips",
+    "Tessa Ward",
+    "Tory Mariano",
+    "Skylar Irving",
+    "Peyton Anderson",
+
+    "Devon Levi",
+    "Jordan Harris",
+    "Jayden Struble",
+    "Jeremie Bucheler",
+    "Matt Choupani",
+    "Chase Mcinnis",
+    "Michael Outzen",
+    "Julian Kislin",
+    "Jakov Novak",
+    "Gunnarwolfe Fontaine",
+    "Tommy Miller",
+    "Ryan St. Louis",
+    "Ty Jackson",
+    "Dylan Jackson",
+    "Sam Colangelo",
+    "Marco Bozzo",
+    "Tyler Spott",
+    "Riley Hughes",
+    "Alex Mella",
+    "Matt Demelis",
+    "Cam Gaudette",
+    "Steven Agriogianis",
+    "Aidan McDonough",
+    "James Davenport",
+    "Jack Hughes",
+    "Justin Hryckowian",
+    "TJ Semptimphelter",
+    "Evan Fear",
+
+    "Danny Crossen",
+    "Hayden Smith",
+    "Max Viera",
+    "Dennis Colleran",
+    "Jeff Costello",
+    "Cam Schlittler",
+    "Kyle Hoog",
+    "Mike Sirota",
+    "Owen Langan",
+    "Corey Diloreto",
+    "Eric Yost",
+    "Sebastian Keane",
+    "Thomas Balboni",
+    "Matt Downing",
+    "Mark Darakjy",
+    "Brett Dunham",
+    "JP Olson",
+    "Luke Beckstein",
+    "Jordy Allard",
+    "Justin Bosland",
+    "Spenser Smith",
+    "Ed Jarvis",
+    "Buddy Mrowka",
+    "Michael Gemma",
+    "James Quinlivan",
+    "Teddy Beaudet",
+    "Luke Masiuk",
+    "Jack Beauchesne",
+    "Nick Davis",
+    "Jake Gigliotti",
+    "Sean Quinlivan",
+    "Ryan Cervone",
+    "Jack Thorbahn",
+    "Will Jones",
+    "Wyatt Scotti",
+    "Matt Devlin",
+    "Luke Bottger",
+    "Gregory Bozzo",
+
+    "Tyson Walker"];
+    shuffle(availableTags);
+
+
+      $( "#tags5" ).autocomplete({
+source: availableTags,
+select: function (event, ui) {
+$(this).val(ui.item.value);
+document.getElementById("getridofrowsometimes5").classList.add('revealrow');
+// document.getElementById("sub").click();
+var urlheight = 'http://127.0.0.1:4999/determine/height?playertyped='
+var urlsport = 'http://127.0.0.1:4999/determine/sport?playertyped='
+var urlposition = 'http://127.0.0.1:4999/determine/position?playertyped='
+var urlyear = 'http://127.0.0.1:4999/determine/year?playertyped='
+var urlnumber = 'http://127.0.0.1:4999/determine/number?playertyped='
+var urlcheckwinner = 'http://127.0.0.1:4999/check/winner?playertyped='
+
+var checkheight = 'http://127.0.0.1:4999/check/height?playertyped='
+var checksport = 'http://127.0.0.1:4999/check/sport?playertyped='
+var checkposition = 'http://127.0.0.1:4999/check/position?playertyped='
+var checkyear = 'http://127.0.0.1:4999/check/year?playertyped='
+var checknumber = 'http://127.0.0.1:4999/check/number?playertyped='
+
+
+
+var playertyped = document.getElementById("tags5").value;
+var urlheightfull = urlheight + playertyped
+var urlsportfull = urlsport + playertyped
+var urlpositionfull = urlposition + playertyped
+var urlyearfull = urlyear + playertyped
+var urlnumberfull = urlnumber + playertyped
+var checkwinnerfull = urlcheckwinner + playertyped
+
+var checkheightfull = checkheight + playertyped
+var checksportfull = checksport + playertyped
+var checkpositionfull = checkposition + playertyped
+var checkyearfull = checkyear + playertyped
+var checknumberfull = checknumber + playertyped
+
+localStorage.setItem("fifthplayername", playertyped);
+document.getElementById("namefive").innerHTML = localStorage.getItem("fifthplayername");
+
+playertyped = ''
+document.getElementById("getridofrowsometimes5").classList.add('revealrow');
+document.getElementById("getridofrowsometimes5").classList.remove('getridofrow');
+
+
+
+
+$.getJSON(checkwinnerfull,
+
+function(data) {
+localStorage.setItem("wonthegame", data.result);
+var shareboard = document.getElementById("copy-text")
+if(localStorage.getItem("wonthegame")==="winner") {
+document.getElementById("namefive").classList.add('greensquare');
+document.getElementById('winnerbox').click();
+localStorage.setItem("namecolor5", "green");
+shareboard.textContent += "🟩";
+}
+else {
+shareboard.textContent += "⬜";
+}
+})
+
+$.getJSON(urlsportfull,
+function(data) {
+localStorage.setItem("fifthplayersport", data.result);
+document.getElementById("sportfive").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checksportfull,
+function(data) {
+localStorage.setItem("fifthsportcheck", data.result);
+var shareboard = document.getElementById("copy-text")
+if (localStorage.getItem("fifthsportcheck")==="true") {
+document.getElementById('sportfive').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else if (localStorage.getItem("fifthsportcheck")==="middle") {
+    document.getElementById('sportfive').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+else {
+document.getElementById('sportfive').classList.add("greysquare");
+shareboard.textContent += "⬜";
+}
+
+}
+)
+
+$.getJSON(urlpositionfull,
+function(data) {
+localStorage.setItem("fifthplayerposition", data.result);
+document.getElementById("positionfive").innerHTML = data.result;
+}
+)
+
+$.getJSON(checkpositionfull,
+function(data) {
+localStorage.setItem("fifthpositioncheck", data.result);
+var shareboard = document.getElementById("copy-text")
+
+if (localStorage.getItem("fifthpositioncheck")==="true") {
+document.getElementById('positionfive').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else if (localStorage.getItem("fifthpositioncheck")==="middle") {
+    document.getElementById('positionfive').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+else {
+document.getElementById('positionfive').classList.add("greysquare");
+shareboard.textContent += "⬜";
+}
+
+}
+)
+
+$.getJSON(urlyearfull,
+function(data) {
+localStorage.setItem("fifthplayeryear", data.result);
+document.getElementById("yearfive").innerHTML = data.result;
+}
+)
+
+$.getJSON(checkyearfull,
+function(data) {
+var shareboard = document.getElementById("copy-text")
+
+localStorage.setItem("fifthyearcheck", data.result);
+if (localStorage.getItem("fifthyearcheck")==="true") {
+document.getElementById('yearfive').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else {
+document.getElementById('yearfive').classList.add("greysquare");
+shareboard.textContent += "⬜";
+}
+
+}
+)
+
+$.getJSON(urlheightfull,
+function(data) {
+localStorage.setItem("fifthplayerheight", data.result);
+document.getElementById("heightfive").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checkheightfull,
+function(data) {
+var shareboard = document.getElementById("copy-text")
+
+localStorage.setItem("fifthheightcheck", data.result);
+if (localStorage.getItem("fifthheightcheck")==="true") {
+document.getElementById('heightfive').classList.add("greensquare");
+shareboard.textContent += "🟩";
+}
+else if (localStorage.getItem("fifthheightcheck")==="middle") {
+    document.getElementById('heightfive').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+  }
+else {
+document.getElementById('heightfive').classList.add("greysquare");
+shareboard.textContent += "⬜";
+
+}
+}
+)
+
+$.getJSON(urlnumberfull,
+function(data) {
+
+localStorage.setItem("fifthplayernumber", data.result);
+document.getElementById("numberfive").innerHTML = data.result;
+
+}
+)
+
+$.getJSON(checknumberfull,
+function(data) {
+var shareboard = document.getElementById("copy-text")
+
+localStorage.setItem("fifthnumbercheck", data.result);
+
+if (localStorage.getItem("fifthnumbercheck")==="true") {
+document.getElementById('numberfive').classList.add("greensquare");
+shareboard.textContent += "🟩\n";
+
+if(localStorage.getItem("wonthegame")==="winner") {
+var shareboard = document.getElementById("copy-text")
+var share1 =  shareboard.textContent.slice(0, 14);
+var share2 =  shareboard.textContent.slice(14);
+var gc = localStorage.getItem("guesscount"); 
+var newshareboard = share1 + gc + share2 + "aurardle.pythonanywhere.com";
+shareboard.textContent = newshareboard;
+winnerimprovedshareboard();
+fixstatsonwin();
+
+}
+else {
+  // var losttext = document.getElementById("losertext")
+  //   losttext.textContent += "Maddie Mills.";
+    document.getElementById('loserbox').click();
+    fixstatsonloss();
+  winnerimprovedshareboard();
+}
+}
+else if (localStorage.getItem("fifthnumbercheck")==="middle") {
+    document.getElementById('numberfive').classList.add("yellowsquare");
+    shareboard.textContent += "🟨";
+    // var losttext = document.getElementById("losertext")
+    // losttext.textContent += "Maddie Mills.";
+    document.getElementById('loserbox').click();
+    localStorage.setItem("lostthegame", "loser");
+    fixstatsonloss();
+    winnerimprovedshareboard();
+  }
+
+
+else {
+document.getElementById('numberfive').classList.add("greysquare");
+shareboard.textContent += "⬜\n";
+// var losttext = document.getElementById("losertext")
+//     losttext.textContent += "Maddie Mills.";
+document.getElementById('loserbox').click();
+localStorage.setItem("lostthegame", "loser");
+fixstatsonloss();
+
+winnerimprovedshareboard();
+}
+}
+)
+
+if (!localStorage.getItem("guesscount")) {
+localStorage.setItem("guesscount", 1);
+}
+else {
+localStorage.setItem("guesscount", (parseInt(localStorage.getItem("guesscount")) + 1));
+}
+
+$('#submitaplayer')[0].reset();
+
+
+
+$('#tags5').val('');
+document.getElementById("submitaplayer5").classList.add('getridofinput');
+
+}
+});
+    </script>
+</div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+  function fixstatsonwin() {
+    localStorage.setItem("winspersist", String(Number(localStorage.getItem("winspersist")) + 1));
+
+
+    if (localStorage.getItem("maxstreakpersist")===localStorage.getItem("streakpersist")) {
+      localStorage.setItem("maxstreakpersist", String(     Number(localStorage.getItem("maxstreakpersist")) + 1));
+    }
+
+    localStorage.setItem("streakpersist", String(   Number(localStorage.getItem("streakpersist")) + 1));
+
+
+    if (localStorage.getItem("lossespersist")==="0") {
+      localStorage.setItem("winpercentpersist", "100");
+    }
+    else {
+      var answer = String(Math.floor(100 *((Number(localStorage.getItem("winspersist"))) / (Number(localStorage.getItem("winspersist")) + Number(localStorage.getItem("lossespersist"))))));
+      localStorage.setItem("winpercentpersist", answer);
+    }
+
+
+  document.getElementById("wins").innerHTML = localStorage.getItem("winspersist");
+  document.getElementById("winpercent").innerHTML = localStorage.getItem("winpercentpersist");
+  document.getElementById("streak").innerHTML = localStorage.getItem("streakpersist");
+  document.getElementById("maxstreak").innerHTML = localStorage.getItem("maxstreakpersist");
+  }
+</script>
+
+
+
+<script>
+  function fixstatsonloss() {
+
+
+    localStorage.setItem("lossespersist", String(Number(localStorage.getItem("lossespersist")) + 1));
+
+    localStorage.setItem("streakpersist", "0");
+
+ 
+      var answer = String(Math.floor(100 *((Number(localStorage.getItem("winspersist"))) / (Number(localStorage.getItem("winspersist")) + Number(localStorage.getItem("lossespersist"))))));
+      localStorage.setItem("winpercentpersist", answer);
+
+
+  document.getElementById("wins").innerHTML = localStorage.getItem("winspersist");
+  document.getElementById("winpercent").innerHTML = localStorage.getItem("winpercentpersist");
+  document.getElementById("streak").innerHTML = localStorage.getItem("streakpersist");
+  document.getElementById("maxstreak").innerHTML = localStorage.getItem("maxstreakpersist");
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+      <table>
+        <tr class="tabletop">
+          <th class="namecoltop">Name</th>
+          <th>Sport</th>
+          <th>Position</th>
+          <th>Year</th>
+          <th>Height</th>
+          <th>Number</th>
+        </tr>
+        <tr id="getridofrowsometimes" class="getridofrow">
+          <td class="namecol" id="nameone"></td>
+          <td id="sportone"></td>
+          <td id="positionone"></td>
+          <td id="yearone"></td>
+          <td id="heightone"></td>
+          <td id="numberone"></td>
+        </tr>
+        <tr id="getridofrowsometimes2" class="getridofrow">
+          <td class="namecol" id="nametwo"></td>
+          <td id="sporttwo"></td>
+          <td id="positiontwo"></td>
+          <td id="yeartwo"></td>
+          <td id="heighttwo"></td>
+          <td id="numbertwo"></td>
+        </tr>
+        <tr id="getridofrowsometimes3" class="getridofrow">
+          <td class="namecol" id="namethree"></td>
+          <td id="sportthree"></td>
+          <td id="positionthree"></td>
+          <td id="yearthree"></td>
+          <td id="heightthree"></td>
+          <td id="numberthree"></td>
+        </tr>
+        <tr id="getridofrowsometimes4" class="getridofrow">
+          <td class="namecol" id="namefour"></td>
+          <td id="sportfour"></td>
+          <td id="positionfour"></td>
+          <td id="yearfour"></td>
+          <td id="heightfour"></td>
+          <td id="numberfour"></td>
+        </tr>
+        <tr id="getridofrowsometimes5" class="getridofrow">
+          <td class="namecol" id="namefive"></td>
+          <td id="sportfive"></td>
+          <td id="positionfive"></td>
+          <td id="yearfive"></td>
+          <td id="heightfive"></td>
+          <td id="numberfive"></td>
+        </tr>
+      </table>
     </div>
-    
+
     <div class="bottomnav">
-        <div id="textbox">
-            <p class="alignleft">&nbsp;&nbsp;&nbsp;Inspirations:  
-                <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a>,  <a href="https://wardle.app/">WARdle</a>, 
-                and <a href="https://poeltl.dunk.town/">Poetl</a></p>
-            <button class="aligncenter" onclick="document.getElementById('popupboxabout').click()">ABOUT</button>
-            <div class="alignright">
-                <a href="https://twitter.com/justindiament">@justindiament&nbsp;&nbsp;&nbsp;</a> <br>
-                <a href="https://twitter.com/NURabbitHole">@NURabbitHole&nbsp;&nbsp;&nbsp;</a>
-            </div>
-            </div>
+      <div id="textbox">
+        <p class="alignleft">&nbsp;&nbsp;&nbsp;Inspirations:
+          <a href="https://www.nytimes.com/games/wordle/index.html">Wordle</a>,
+          <a href="https://wardle.app/">WARdle</a>,
+          and <a href="https://poeltl.dunk.town/">Poetl</a></p>
+        <button class="aligncenter"
+          onclick="document.getElementById('popupboxabout').click()">ABOUT</button>
+        <div class="alignright">
+          <a href="https://twitter.com/justindiament">@justindiament&nbsp;&nbsp;&nbsp;</a>
+          <br>
+          <a href="https://twitter.com/NURabbitHole">@NURabbitHole&nbsp;&nbsp;&nbsp;</a>
+        </div>
       </div>
+    </div>
 
-      <div class="pop">
-        <p><center><label for="4" class="open" id = "popupboxabout">HOW TO PLAY</label></center></p>
-        <input type="checkbox" id="4" />
-        <div class="modal">
-          <div class="modal__inner">
-            <div class="aboutheaders">About</div>
-            <div class="howtoplay">
-              Aurardle is a Northeastern Huskies athlete guessing game in the vein of the origin Wordle. Each day, a new mystery player is chosen at random. Your job is to 
-                guess the player in 5 attempts or less, with the assistance of hints each time you make a guess. <br>
-                <br>
-                Check the stats page to see how well you've done or share the results image with your friends and compete for better scores! 
-                <br>
-                <br>
+    <div class="pop">
+      <p><center><label for="4" class="open" id="popupboxabout">HOW TO PLAY</label></center></p>
+      <input type="checkbox" id="4" />
+      <div class="modal">
+        <div class="modal__inner">
+          <div class="aboutheaders">About</div>
+          <div class="howtoplay">
+            Aurardle is a Northeastern Huskies athlete guessing game in the vein
+            of the origin Wordle. Each day, a new mystery player is chosen at
+            random. Your job is to
+            guess the player in 5 attempts or less, with the assistance of hints
+            each time you make a guess. 
+            <br>
+            <br>
 
-              <div class="aboutheaders">Enjoying Aurardle?</div> 
-              Enjoying Aurardle? Even better, are you a Husky athlete enjoying Aurardle?
-              I'd love to hear from you! Comments and suggestions are also welcome! Tweet or DM me <a href="https://twitter.com/justindiament" class="aboutlinks">@justindiament</a> on Twitter, or email me at <a href="mailto:aurardlegame@gmail.com" class="aboutlinks">aurardlegame@gmail.com</a> <br>
-              <br>
-              Want more fun Northeastern sports content? Check out the <a href="https://twitter.com/NURabbitHole" class="aboutlinks">Northeastern Sports Rabbit Hole</a> on Twitter, where I post daily Northeastern Sports fun facts, memorabilia, and archived media!  
-              <br><br>
-              Looking for Northeastern sports news and live converage? Don't miss Your Home for Huskies Sports: <a href="https://twitter.com/WRBBSports" class="aboutlinks">WRBB Sports</a>! 
-              Follow us on Twitter for radio broadcast information and written coverage.
-              <br><br>
-            <div class="aboutheaders">Credits</div> 
-              Aurardle was created by Northeastern CCIS student and Huskies basketball radio broadcaster <a href="https://twitter.com/justindiament" class="aboutlinks">Justin Diament</a>.<br>
-              <br>
-              Thank you to <a href="https://twitter.com/daisysroberts" class="aboutlinks">Daisy Roberts</a> for the idea to create a Northeastern sports Wordle game.<br>
-              <br>
-              Aurardle is inspired by the original Wordle, but also the many other sports-themed Wordle clones out there, such as <a href="https://wardle.app" class="aboutlinks">WARdle</a> for MLB, 
-              <a href="https://poeltl.dunk.town" class="aboutlinks">Poeltl</a> for the NBA, and <a href="https://www.weddlegame.com/" class="aboutlinks">Weddle</a> for the NFL.
+            <div class="aboutheaders">Enjoying Aurardle?</div>
+            Enjoying Aurardle? Even better, are you a Husky athlete enjoying
+            Aurardle?
+            I'd love to hear from you! Comments and suggestions are also
+            welcome! Tweet or DM me <a href="https://twitter.com/justindiament"
+              class="aboutlinks">@justindiament</a> on Twitter, or email me at
+            <a href="mailto:aurardlegame@gmail.com" class="aboutlinks">aurardlegame@gmail.com</a>
+            <br>
+            <br>
+            Want more fun Northeastern sports content? Check out the <a
+              href="https://twitter.com/NURabbitHole" class="aboutlinks">Northeastern
+              Sports Rabbit Hole</a> on Twitter, where I post daily Northeastern
+            Sports fun facts, memorabilia, and archived media!
+            <br><br>
+            Looking for Northeastern sports news and live converage? Don't miss
+            Your Home for Huskies Sports: <a
+              href="https://twitter.com/WRBBSports" class="aboutlinks">WRBB
+              Sports</a>!
+            Follow us on Twitter for radio broadcast information and written
+            coverage.
+            <br><br>
+            <div class="aboutheaders">Credits</div>
+            Aurardle was created by Northeastern CCIS student and Huskies
+            basketball radio broadcaster <a
+              href="https://twitter.com/justindiament" class="aboutlinks">Justin
+              Diament</a>.<br>
+            <br>
+            Thank you to <a href="https://twitter.com/daisysroberts"
+              class="aboutlinks">Daisy Roberts</a> for the idea to create a
+            Northeastern sports Wordle game.<br>
+            <br>
+            Aurardle is inspired by the original Wordle, but also the many other
+            sports-themed Wordle clones out there, such as <a
+              href="https://wardle.app" class="aboutlinks">WARdle</a> for MLB,
+            <a href="https://poeltl.dunk.town" class="aboutlinks">Poeltl</a> for
+            the NBA, and <a href="https://www.weddlegame.com/"
+              class="aboutlinks">Weddle</a> for the NFL.
             <label id="closepop" class="btn-close" for="4">&#215;</label>
           </div>
         </div>
-   
-    </div>
 
-    <script>
+      </div>
+
+      <script>
  function keyPress (e) {
     if(e.key === "Escape") {
       document.getElementById("closepop").click();
@@ -472,7 +2646,7 @@ window.onload = function() {
 
 </script>
 
-<script>
+      <script>
   function gameover() {
     var x = document.getElementById("enterdivsmall");
     const gameisover = "{{gameover}}"
@@ -480,7 +2654,7 @@ window.onload = function() {
       x.style.display = "none";
     }
   }
-  
+
       const pageAccessedByReload = (
     (window.performance.navigation && window.performance.navigation.type === 1) ||
       window.performance
@@ -488,10 +2662,307 @@ window.onload = function() {
         .map((nav) => nav.type)
         .includes('reload')
   );
-  
+
       gameover();
     </script>
-  
 
-</body>
 
+    <script>
+      /*for (let i=0; i < 5; i++) {
+        for (let i=0; i < 5; i++) {
+        
+      }
+      }*/
+      function winnerimprovedshareboard() {
+      var shareboard = document.getElementById("copy-text-better");
+      shareboard.textContent+= "Aurardle #1 - ";
+
+      if(localStorage.getItem("wonthegame")==="winner") {
+        shareboard.textContent+= localStorage.getItem("guesscount");
+      }
+      else {
+        shareboard.textContent+= "X";
+      }
+
+      shareboard.textContent+= "/5\n";
+
+      if (localStorage.getItem("guesscount")==="1") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("firstsportcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("firstsportcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("firstpositioncheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("firstpositioncheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("firstyearcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("firstheightcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("firstheightcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("firstnumbercheck")==="true") {
+        shareboard.textContent+= "🟩\n";
+      }
+      else if (localStorage.getItem("firstnumbercheck")==="middle") {
+        shareboard.textContent+= "🟨\n";
+      }
+      else {
+        shareboard.textContent+= "⬛\n";
+      }
+
+
+      if (localStorage.getItem("guesscount")!= "1") {
+        if (localStorage.getItem("guesscount")==="2") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("secondsportcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("secondsportcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("secondpositioncheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("secondpositioncheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("secondyearcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("secondheightcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("secondheightcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("secondnumbercheck")==="true") {
+        shareboard.textContent+= "🟩\n";
+      }
+      else if (localStorage.getItem("secondnumbercheck")==="middle") {
+        shareboard.textContent+= "🟨\n";
+      }
+      else {
+        shareboard.textContent+= "⬛\n";
+      }
+      }
+
+
+
+
+      if (localStorage.getItem("guesscount")!= "2" && localStorage.getItem("guesscount")!= "1") {
+        if (localStorage.getItem("guesscount")==="3") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("thirdsportcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("thirdsportcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("thirdpositioncheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("thirdsitioncheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("thirdyearcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("thirdheightcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("thirdheightcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("thirdnumbercheck")==="true") {
+        shareboard.textContent+= "🟩\n";
+      }
+      else if (localStorage.getItem("thirdnumbercheck")==="middle") {
+        shareboard.textContent+= "🟨\n";
+      }
+      else {
+        shareboard.textContent+= "⬛\n";
+      }
+      }
+
+
+
+
+
+
+
+
+      if (localStorage.getItem("guesscount")!= "3" && localStorage.getItem("guesscount")!= "2" && localStorage.getItem("guesscount")!= "1") {
+        if (localStorage.getItem("guesscount")==="4") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fourthsportcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("fourthsportcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fourthpositioncheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("fourthsitioncheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fourthyearcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fourthheightcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("fourthheightcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fourthnumbercheck")==="true") {
+        shareboard.textContent+= "🟩\n";
+      }
+      else if (localStorage.getItem("fourthnumbercheck")==="middle") {
+        shareboard.textContent+= "🟨\n";
+      }
+      else {
+        shareboard.textContent+= "⬛\n";
+      }
+      }
+
+
+
+
+
+
+      if (localStorage.getItem("guesscount")!= "4" && localStorage.getItem("guesscount")!= "3" && localStorage.getItem("guesscount")!= "2" && localStorage.getItem("guesscount")!= "1") {
+        if (localStorage.getItem("wonthegame")==="winner") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fifthsportcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("fifthsportcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fifthpositioncheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("fifthpositioncheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fifthyearcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fifthheightcheck")==="true") {
+        shareboard.textContent+= "🟩";
+      }
+      else if (localStorage.getItem("fifthheightcheck")==="middle") {
+        shareboard.textContent+= "🟨";
+      }
+      else {
+        shareboard.textContent+= "⬛";
+      }
+      if (localStorage.getItem("fifthnumbercheck")==="true") {
+        shareboard.textContent+= "🟩\n";
+      }
+      else if (localStorage.getItem("fifthnumbercheck")==="middle") {
+        shareboard.textContent+= "🟨\n";
+      }
+      else {
+        shareboard.textContent+= "⬛\n";
+      }
+      }
+
+
+      shareboard.textContent+= "aurardle.pythonanywhere.com";
+
+    }
+      
+      
+
+    </script>
+
+
+    </body>

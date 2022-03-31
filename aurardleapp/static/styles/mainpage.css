@@ -1,3 +1,63 @@
+.getridofrow {
+  display: none !important;
+  height: 100px;
+
+}
+
+.centerme {
+  text-align: center;
+}
+
+.statsmysteryplayer {
+  text-align: center;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+}
+
+.statsheaders {
+  font-size: 26px;
+  color: #D41B2C;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.wider {
+  width: 150px;
+}
+
+.fontforstatstable {
+font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+font-size: 16px;
+font-weight: 400 !important;
+}
+
+.getridofinput {
+  display: none !important;
+}
+
+.greensquare {
+  background-color: #0f9f6e !important;  
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.greysquare {
+  background-color: #e2e8f0 !important;  
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.yellowsquare {
+  background-color: #faca17 !important;  
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px; 
+  font-weight: 400;
+}
+
 .title {
   margin-top: 20px;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -5,9 +65,15 @@
   font-weight: 700
 }
 
+.namecoltop {
+  width: 170px;
+}
+
 .namecol {
   width: 170px;
   font-weight: bold;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px; 
 }
 
 .subhead {
@@ -43,17 +109,34 @@
     border: 2px solid #000000;
   }
 
+  .enterplayer:focus {
+    outline: none !important;
+    border: 2px solid #D41B2C;
+  }
+
 input[type="text"] {
     font-size:24px;
     font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
-  
+
+input[type="text"]:focus {
+       border: 2px solid #D41B2C;
+}
+
 
 .tabletop {
   vertical-align:bottom;
   text-align:center;
   height: 30px;
   border-bottom: 2px solid black;
+}
+
+.getridofinput {
+  display: none !important;
+}
+
+.revealrow {
+  height: 100px;
 }
 
   table, th, td {
@@ -120,7 +203,7 @@ input[type="text"] {
   border: none;
   outline: none;
   cursor: pointer;
-  color: white; 
+  color: white;
   width: 15%;
 }
 
@@ -158,10 +241,10 @@ input[type="text"] {
   color: white;
 }
 
-.rowinvisible {
-  display:none;
-  height: 100px;
-}
+/*.rowinvisible {
+}*/
+
+
 
 .rowvisible {
   height: 100px;
@@ -239,7 +322,7 @@ body {background-color: #f4f2ec};
   border-width: 4px;
   border-color: #D41B2C;
   border-radius: 10px;
-  
+
 }
 
 .pop .modal__inner2 {
@@ -352,7 +435,7 @@ line-height: 30px;
   border: none;
   outline: none;
   cursor: pointer;
-  color: white; 
+  color: white;
   width: 33.33333%;
 }
 
@@ -387,9 +470,9 @@ a:active {
   justify-content: flex-start;
 }
 
-.ui-autocomplete { 
-  max-height: 300px; 
-  overflow-y: scroll; 
+.ui-autocomplete {
+  max-height: 300px;
+  overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;
     top: 100%;
@@ -401,8 +484,9 @@ a:active {
     padding: 4px 0;
     margin: 0 0 10px 25px;
     list-style: none;
+    font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     background-color: #ffffff;
-    border-color: #ccc;
+    border-color: black;
     border-color: rgba(0, 0, 0, 0.2);
     border-style: solid;
     border-width: 1px;
@@ -425,7 +509,7 @@ a:active {
   clear: both;
   font-weight: normal;
   line-height: 18px;
-  color: #555555;
+  color: black;
   white-space: nowrap;
   text-decoration: none;
 }
@@ -433,18 +517,19 @@ a:active {
 .ui-state-hover, .ui-state-active {
   color: #ffffff;
   text-decoration: none;
-  background-color: #0088cc;
+  background-color: #D41B2C;
   border-radius: 0px;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   background-image: none;
+  border-color: #D41B2C;
 }
 
 .guessthenuplayer {
   font-size: 30px;
   color: #D41B2C;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  font-weight: 700; 
+  font-weight: 700;
   text-align: center;
 }
 
@@ -462,7 +547,7 @@ li:not(:last-child) {
   font-size: 18px;
   color: #D41B2C;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  font-weight: 700; 
+  font-weight: 700;
   text-align: center;
   margin-bottom: 0px;
 }
@@ -551,4 +636,51 @@ li:not(:last-child) {
   font-size: 16px;
   border-radius: 12px;
   cursor:pointer;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 600px) {
+  body {
+
+    zoom: 1.7;
+    -moz-transform: scale(1.7);
+    -moz-transform-origin: 0 0;
+
+    font-size: 125%;
+    }
+
+  table, th, td {
+    margin-top: 20px;
+    border-collapse: collapse;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .howtoplay {
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 23px;
+  font-weight: 400;
+}
+
+.pop .modal__inner {
+
+  width: 80% !important;
+
+}
+
+.bottomnav {
+    position:fixed !important;
+    bottom:0 !important;
+}
+
+.navlinks {
+  width: 30% !important;
+}
+
+.alignleft {
+  display: none !important;
+}
+
 }

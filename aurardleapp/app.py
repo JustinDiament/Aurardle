@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, make_response
+from ast import arguments
+import math
+from flask import Flask, render_template, request, make_response, jsonify
 app = Flask(__name__)
 
 global globalnamecolors
@@ -19,7 +21,7 @@ globalyearcolors = ["ffffff", "ffffff", "ffffff", "ffffff", "ffffff", "ffffff"]
 global globalnumbercolors
 globalnumbercolors = ["ffffff", "ffffff", "ffffff", "ffffff", "ffffff", "ffffff"]
 
-global globalguesses 
+global globalguesses
 globalguesses = 0
 
 global guesstext
@@ -45,10 +47,267 @@ player("Jahmyl Telfort", 79, "MBB", "Guard", "So", 11),
 player("Jahmyl Telfort", 79, "MBB", "Guard", "So", 11),
 ]
 
-global chosenplayerdisplayheights 
+global chosenplayerdisplayheights
 chosenplayerdisplayheights = ["", "", "", "", ""]
 
-@app.route("/", methods=["POST", "GET"])
+
+def playerproperties(playertyped):
+    allplayers= [player("Jahmyl Telfort", 79, "MBB", "Guard", "So", 11),
+        player("Jason Strong", 80, "MBB", "Forward", "Sr", 0),
+        player("Vito Cubrilo", 76, "MBB", "Guard", "Jr", 1),
+        player("Glen McClintock", 74, "MBB", "Guard", "So", 2),
+        player("Tyreek Scott-Grayson", 77, "MBB", "Guard", "Sr", 10),
+        player("Alex Nwagha", 80, "MBB", "Forward", "So", 12),
+        player("Nikola Djogo", 80, "MBB", "Guard", "Sr", 13),
+        player("Coleman Stucke", 79, "MBB", "Forward", "So", 15),
+        player("Quirin Emanga", 77, "MBB", "Guard", "Jr", 22),
+        player("Joe Pridgen", 77, "MBB", "Guard", "Jr", 23),
+        player("Shaquille Walters", 78, "MBB", "Guard", "Sr", 24),
+        player("Connor Braun", 81, "MBB", "Forward", "So", 32),
+        player("Chris Doherty", 79, "MBB", "Forward", "Jr", 33),
+        player("To Randriasalama", 75, "MBB", "Guard", "Fr", 55),
+
+        player("Kendall Currence", 63, "WBB", "Guard", "Sr", 1),
+        player("Izzy Larson", 73, "WBB", "Forward", "So", 2),
+        player("Donna Ntambue", 69, "WBB", "Guard", "So", 3),
+        player("Century McCartney", 71, "WBB", "Guard", "Jr", 5),
+        player("Camille Clement", 68, "WBB", "Guard", "Fr", 12),
+        player("Katie May", 71, "WBB", "Guard", "Sr", 13),
+        player("Amryah Sapenter", 68, "WBB", "Guard", "So", 14),
+        player("Anna Boruta", 70, "WBB", "Guard", "Jr", 15),
+        player("Leyla Ozturk", 73, "WBB", "Guard", "So", 21),
+        player("Maddie Vizza", 66, "WBB", "Guard", "So", 22),
+        player("Gemima Motema", 69, "WBB", "Guard", "Fr", 23),
+        player("Asha Parker", 74, "WBB", "Guard", "Fr", 24),
+        player("Claudia Soriano", 67, "WBB", "Guard", "Fr", 25),
+        player("Sammie Martin", 73, "WBB", "Forward", "Jr", 30),
+        player("Emily Calabrese", 72, "WBB", "Forward", "Sr", 32),
+
+        player("Alexa Matses", 68, "WHKY", "Goaltender", "Jr", 1),
+        player("Lauren Macinnis", 68, "WHKY", "Defense", "Sr", 2),
+        player("Gillian Foote", 72, "WHKY", "Defense", "Sr", 3),
+        player("Molly Griffin", 64, "WHKY", "Wing", "So", 4),
+        player("Miceala Sindoris", 65, "WHKY", "Wing", "Sr", 5),
+        player("Katy Knoll", 67, "WHKY", "Center", "Jr", 6),
+        player("Brooke Tucker", 68, "WHKY", "Defense", "Sr", 7),
+        player("Andrea Renner", 64, "WHKY", "Wing", "Sr", 8),
+        player("Emma Jurusik", 63, "WHKY", "Wing", "Sr", 9),
+        player("Brooke Hobson", 66, "WHKY", "Defense", "Sr", 10),
+        player("Alina Mueller", 65, "WHKY", "Center", "Sr", 11),
+        player("Chloe Aurard", 66, "WHKY", "Wing", "Sr", 12),
+        player("Katie Cipra", 65, "WHKY", "Wing", "Sr", 13),
+        player("Mia Brown", 69, "WHKY", "Wing", "Sr", 15),
+        player("Lily Yovetich", 64, "WHKY", "Defense", "So", 16),
+        player("Maddie Mills", 64, "WHKY", "Wing", "Sr", 17),
+        player("Abbey Marohn", 67, "WHKY", "Defense", "So", 19),
+        player("Maureen Murphy", 64, "WHKY", "Wing", "Sr", 21),
+        player("Skylar Fontaine", 64, "WHKY", "Defense", "Sr", 22),
+        player("Kate Holmes", 62, "WHKY", "Center", "Jr", 24),
+        player("Peyton Cullaton", 67, "WHKY", "Wing", "Jr", 26),
+        player("Megan Carter", 68, "WHKY", "Defense", "Jr", 27),
+        player("Taylor Guarino", 65, "WHKY", "Defense", "Fr", 28),
+        player("Aerin Frankel", 65, "WHKY", "Goaltender", "Sr", 33),
+        player("Paige Taborski", 67, "WHKY", "Goaltender", "Fr", 35),
+        player("Gwyneth Philips", 67, "WHKY", "Goaltender", "Jr", 37),
+        player("Tessa Ward", 69, "WHKY", "Center", "Jr", 42),
+        player("Tory Mariano", 69, "WHKY", "Wing", "Fr", 44),
+        player("Skylar Irving", 68, "WHKY", "Wing", "Fr", 88),
+        player("Peyton Anderson", 65, "WHKY", "Wing", "Jr", 91),
+
+        player("Devon Levi", 72, "MHKY", "Goaltender", "So", 1),
+        player("Jordan Harris", 71, "MHKY", "Defense", "Sr", 2),
+        player("Jayden Struble", 73, "MHKY", "Defense", "Jr", 3),
+        player("Jeremie Bucheler", 76, "MHKY", "Defense", "Jr", 4),
+        player("Matt Choupani", 71, "MHKY", "Wing", "Fr", 5),
+        player("Chase Mcinnis", 71, "MHKY", "Wing", "Fr", 6),
+        player("Michael Outzen", 72, "MHKY", "Center", "So", 7),
+        player("Julian Kislin", 73, "MHKY", "Defense", "Sr", 8),
+        player("Jakov Novak", 75, "MHKY", "Wing", "Sr", 10),
+        player("Gunnarwolfe Fontaine", 70, "MHKY", "Wing", "So", 11),
+        player("Tommy Miller", 74, "MHKY", "Defense", "Sr", 12),
+        player("Ryan St. Louis", 70, "MHKY", "Wing", "Fr", 13),
+        player("Ty Jackson", 68, "MHKY", "Center", "So", 14),
+        player("Dylan Jackson", 70, "MHKY", "Wing", "So", 15),
+        player("Sam Colangelo", 75, "MHKY", "Wing", "So", 16),
+        player("Marco Bozzo", 71, "MHKY", "Wing", "Sr", 17),
+        player("Tyler Spott", 71, "MHKY", "Defense", "Jr", 18),
+        player("Riley Hughes", 74, "MHKY", "Wing", "Jr", 19),
+        player("Alex Mella", 72, "MHKY", "Wing", "Jr", 20),
+        player("Matt Demelis", 73, "MHKY", "Wing", "Jr", 21),
+        player("Cam Gaudette", 73, "MHKY", "Defense", "Fr", 23),
+        player("Steven Agriogianis", 69, "MHKY", "Center", "So", 24),
+        player("Aidan McDonough", 74, "MHKY", "Wing", "Jr", 25),
+        player("James Davenport", 71, "MHKY", "Defense", "So", 26),
+        player("Jack Hughes", 72, "MHKY", "Center", "Fr", 27),
+        player("Justin Hryckowian", 70, "MHKY", "Center", "Fr", 29),
+        player("TJ Semptimphelter", 73, "MHKY", "Goaltender", "Fr", 29),
+        player("Evan Fear", 74, "MHKY", "Goaltender", "Jr", 35),
+
+        player("Danny Crossen", 72, "Baseball", "UTL", "Jr", 1),
+        player("Hayden Smith", 75, "Baseball", "RHP", "Fr", 2),
+        player("Max Viera", 70, "Baseball", "INF", "Fr", 3),
+        player("Dennis Colleran", 75, "Baseball", "RHP", "Fr", 4),
+        player("Jeff Costello", 71, "Baseball", "OF", "Sr", 5),
+        player("Cam Schlittler", 78, "Baseball", "RHP", "So", 6),
+        player("Kyle Hoog", 74, "Baseball", "OF", "So", 7),
+        player("Mike Sirota", 74, "Baseball", "OF", "Fr", 8),
+        player("Owen Langan", 72, "Baseball", "RHP", "Jr", 9),
+        player("Corey Diloreto", 76, "Baseball", "INF", "Jr", 10),
+        player("Eric Yost", 73, "Baseball", "RHP", "So", 11),
+        player("Sebastian Keane", 75, "Baseball", "RHP", "So", 13),
+        player("Thomas Balboni", 76, "Baseball", "RHP", "So", 14),
+        player("Matt Downing", 74, "Baseball", "LHP", "So", 15),
+        player("Mark Darakjy", 75, "Baseball", "OF", "So", 16),
+        player("Brett Dunham", 74, "Baseball", "RHP", "Fr", 17),
+        player("JP Olson", 73, "Baseball", "Catcher", "Fr", 18),
+        player("Luke Beckstein", 67, "Baseball", "INF", "So", 19),
+        player("Jordy Allard", 69, "Baseball", "RHP", "Sr", 20),
+        player("Justin Bosland", 77, "Baseball", "UTL", "Fr", 21),
+        player("Spenser Smith", 74, "Baseball", "INF", "Jr", 22),
+        player("Ed Jarvis", 71, "Baseball", "Catcher", "So", 24),
+        player("Buddy Mrowka", 71, "Baseball", "INF", "Sr", 28),
+        player("Michael Gemma", 77, "Baseball", "RHP", "Sr", 31),
+        player("James Quinlivan", 78, "Baseball", "LHP", "So", 32),
+        player("Teddy Beaudet", 71, "Baseball", "Cat", "Sr", 33),
+        player("Luke Masiuk", 73, "Baseball", "OF", "Fr", 34),
+        player("Jack Beauchesne", 74, "Baseball", "RHP", "Fr", 35),
+        player("Nick Davis", 77, "Baseball", "RHP", "Jr", 36),
+        player("Jake Gigliotti", 73, "Baseball", "RHP", "So", 37),
+        player("Sean Quinlivan", 73, "Baseball", "RHP", "Fr", 39),
+        player("Ryan Cervone", 70, "Baseball", "OF", "So", 42),
+        player("Jack Thorbahn", 75, "Baseball", "INF", "So", 43),
+        player("Will Jones", 77, "Baseball", "LHP", "So", 45),
+        player("Wyatt Scotti", 75, "Baseball", "RHP", "So", 46),
+        player("Matt Devlin", 75, "Baseball", "LHP", "Sr", 47),
+        player("Luke Bottger", 76, "Baseball", "LHP", "So", 48),
+        player("Gregory Bozzo", 72, "Baseball", "Catcher", "So", 49),
+
+        player("Tyson Walker", 72, "MBB", "Guard", "Jr", 2)]
+
+    userplayer = None
+
+    for player1 in allplayers:
+        if player1.name == playertyped:
+            userplayer = player1
+            break
+    
+    return userplayer
+
+global correctplayer
+correctplayer = "Maddie Mills"
+
+
+def determinewinner2(playertyped):
+    if (playertyped==correctplayer):
+        return True
+    else:
+        return False
+
+@app.route("/check/winner")
+def determinewinner():
+    if determinewinner2(**request.args):
+        return jsonify(result="winner")
+    else:
+        return jsonify(result="notyet")
+
+@app.route("/determine/height")
+def determineheight():
+    heightinches = playerproperties(**request.args).height
+    feet = heightinches//12
+    inches = heightinches - (feet*12)
+
+    heightoverall = str(feet) + '′' + " " + str(inches) + "″"
+
+    return jsonify(result=heightoverall)
+
+@app.route("/determine/sport")
+def determinesport():
+    return jsonify(result=playerproperties(**request.args).sport)
+
+@app.route("/determine/position")
+def determinepostition():
+    return jsonify(result=playerproperties(**request.args).position)
+
+@app.route("/determine/year")
+def determineyear():
+    return jsonify(result=playerproperties(**request.args).year)
+
+@app.route("/determine/number")
+def determinenumber():
+    return jsonify(result=playerproperties(**request.args).number)
+
+
+@app.route("/check/height")
+def checkheight():
+    heightguessed = playerproperties(**request.args).height
+    heightcorrect = playerproperties(correctplayer).height
+    if (heightguessed==heightcorrect):
+        final = "true"
+    elif (abs(int(heightguessed) - int(heightcorrect)) <= 2):
+        final = "middle"
+    else:
+        final = "false"
+
+    return jsonify(result=final)
+
+@app.route("/check/sport")
+def checksport():
+    sportguessed = playerproperties(**request.args).sport
+    sportcorrect = playerproperties(correctplayer).sport
+    if (sportguessed==sportcorrect):
+        final = "true"
+    elif ((sportguessed=="MBB" and sportcorrect=="WBB") or (sportguessed=="MBB" and sportcorrect=="WBB")):
+        final = "middle"
+    elif ((sportguessed=="MHKY" and sportcorrect=="WHKY") or (sportguessed=="WHKY" and sportcorrect=="MHKY")):
+        final = "middle"
+    else:
+        final = "false"
+
+    return jsonify(result=final)
+
+@app.route("/check/position")
+def checkposition():
+    positionguessed = playerproperties(**request.args).position
+    positioncorrect = playerproperties(correctplayer).position
+
+    if (positionguessed==positioncorrect):
+        final = "true"
+    elif (positionguessed=="Catcher" and (positioncorrect=="UTL" or positionguessed=="OF" and positioncorrect=="INF")):
+        final = "middle"
+    elif (positionguessed=="UTL" and (positioncorrect=="Catcher" or positionguessed=="OF" and positioncorrect=="INF")):
+        final = "middle"
+    elif (positionguessed=="OF" and (positioncorrect=="Catcher" or positionguessed=="UTL" and positioncorrect=="INF")):
+        final = "middle"
+    elif (positionguessed=="INF" and (positioncorrect=="Catcher" or positionguessed=="UTL" and positioncorrect=="OF")):
+        final = "middle"
+    elif (positionguessed=="LHP" and positioncorrect=="RHP"):
+        final = "middle"
+    elif (positionguessed=="RHP" and positioncorrect=="LHP"):
+        final = "middle"
+    else:
+        final = "false"
+
+    return jsonify(result=final)
+
+@app.route("/check/year")
+def checkyear():
+    return jsonify(result=playerproperties(**request.args).year==playerproperties(correctplayer).year)
+
+@app.route("/check/number")
+def checknumber():
+    numberguessed = playerproperties(**request.args).number
+    numbercorrect = playerproperties(correctplayer).number
+    if (numberguessed==numbercorrect):
+        final = "true"
+    elif (abs(int(numberguessed) - int(numbercorrect)) <= 2):
+        final = "middle"
+    else:
+        final = "false"
+
+    return jsonify(result=final)
+
+
+@app.route("/", methods=["GET"])
 def home():
     playernames = [player("Jahmyl Telfort", 79, "MBB", "Guard", "So", 11),
         player("Jason Strong", 80, "MBB", "Forward", "Sr", 0),
@@ -187,94 +446,228 @@ def home():
     for player2 in playernames:
         playernamessuggest.append(player2.name)
 
-    if request.method == "GET":
-        return render_template('my-form.html', 
-                    namecolor1 = globalnamecolors[1],
-                    namecolor2 = globalnamecolors[2],
-                    namecolor3 = globalnamecolors[3],
-                    namecolor4 = globalnamecolors[4],
-                    namecolor5 = globalnamecolors[5],   
 
-                    heightcolor1 = globalheightcolors[1],  
-                    heightcolor2 = globalheightcolors[2],  
-                    heightcolor3 = globalheightcolors[3],  
-                    heightcolor4 = globalheightcolors[4],  
-                    heightcolor5 = globalheightcolors[5],  
-            
-                    sportcolor1 = globalsportcolors[1],  
-                    sportcolor2 = globalsportcolors[2],  
-                    sportcolor3 = globalsportcolors[3],  
-                    sportcolor4 = globalsportcolors[4],  
-                    sportcolor5 = globalsportcolors[5],  
+    return render_template('my-form.html',
+                namecolor1 = globalnamecolors[1],
+                namecolor2 = globalnamecolors[2],
+                namecolor3 = globalnamecolors[3],
+                namecolor4 = globalnamecolors[4],
+                namecolor5 = globalnamecolors[5],
 
-                    positioncolor1 = globalpositioncolors[1],  
-                    positioncolor2 = globalpositioncolors[2],  
-                    positioncolor3 = globalpositioncolors[3],  
-                    positioncolor4 = globalpositioncolors[4],  
-                    positioncolor5 = globalpositioncolors[5],  
+                heightcolor1 = globalheightcolors[1],
+                heightcolor2 = globalheightcolors[2],
+                heightcolor3 = globalheightcolors[3],
+                heightcolor4 = globalheightcolors[4],
+                heightcolor5 = globalheightcolors[5],
 
-                    yearcolor1 = globalpositioncolors[1],  
-                    yearcolor2 = globalpositioncolors[2],  
-                    yearcolor3 = globalpositioncolors[3],  
-                    yearcolor4 = globalpositioncolors[4],  
-                    yearcolor5 = globalpositioncolors[5],  
+                sportcolor1 = globalsportcolors[1],
+                sportcolor2 = globalsportcolors[2],
+                sportcolor3 = globalsportcolors[3],
+                sportcolor4 = globalsportcolors[4],
+                sportcolor5 = globalsportcolors[5],
 
-                    numbercolor1 = globalyearcolors[1],  
-                    numbercolor2 = globalyearcolors[2],  
-                    numbercolor3 = globalyearcolors[3],  
-                    numbercolor4 = globalyearcolors[4],  
-                    numbercolor5 = globalyearcolors[5],
-                    
-                    playernames=playernamessuggest, 
-                    guessblankofblank=guesstext,
-                    
-                    row1=rows[0],
-                    row2=rows[1],
-                    row3=rows[2],
-                    row4=rows[3],
-                    row5=rows[4],
+                positioncolor1 = globalpositioncolors[1],
+                positioncolor2 = globalpositioncolors[2],
+                positioncolor3 = globalpositioncolors[3],
+                positioncolor4 = globalpositioncolors[4],
+                positioncolor5 = globalpositioncolors[5],
 
-                    name1=chosenplayers[0].name,
-                    name2=chosenplayers[1].name,
-                    name3=chosenplayers[2].name,
-                    name4=chosenplayers[3].name,
-                    name5=chosenplayers[4].name,
+                yearcolor1 = globalpositioncolors[1],
+                yearcolor2 = globalpositioncolors[2],
+                yearcolor3 = globalpositioncolors[3],
+                yearcolor4 = globalpositioncolors[4],
+                yearcolor5 = globalpositioncolors[5],
 
-                    height1=chosenplayers[0].height,
-                    height2=chosenplayers[1].height,
-                    height3=chosenplayers[2].height,
-                    height4=chosenplayers[3].height,
-                    height5=chosenplayers[4].height,
+                numbercolor1 = globalyearcolors[1],
+                numbercolor2 = globalyearcolors[2],
+                numbercolor3 = globalyearcolors[3],
+                numbercolor4 = globalyearcolors[4],
+                numbercolor5 = globalyearcolors[5],
 
-                    sport1=chosenplayers[0].sport,
-                    sport2=chosenplayers[1].sport,
-                    sport3=chosenplayers[2].sport,
-                    sport4=chosenplayers[3].sport,
-                    sport5=chosenplayers[4].sport,
+                playernames=playernamessuggest,
+                guessblankofblank=guesstext,
 
-                    position1=chosenplayers[0].position,
-                    position2=chosenplayers[1].position,
-                    position3=chosenplayers[2].position,
-                    position4=chosenplayers[3].position,
-                    position5=chosenplayers[4].position,
+                row1=rows[0],
+                row2=rows[1],
+                row3=rows[2],
+                row4=rows[3],
+                row5=rows[4],
 
-                    year1=chosenplayers[0].year,
-                    year2=chosenplayers[1].year,
-                    year3=chosenplayers[2].year,
-                    year4=chosenplayers[3].year,
-                    year5=chosenplayers[4].year,
+                name1=chosenplayers[0].name,
+                name2=chosenplayers[1].name,
+                name3=chosenplayers[2].name,
+                name4=chosenplayers[3].name,
+                name5=chosenplayers[4].name,
 
-                    number1=chosenplayers[0].number,
-                    number2=chosenplayers[1].number,
-                    number3=chosenplayers[2].number,
-                    number4=chosenplayers[3].number,
-                    number5=chosenplayers[4].number
+                height1=chosenplayers[0].height,
+                height2=chosenplayers[1].height,
+                height3=chosenplayers[2].height,
+                height4=chosenplayers[3].height,
+                height5=chosenplayers[4].height,
 
-                    )
-    
-    if request.method == "POST":
+                sport1=chosenplayers[0].sport,
+                sport2=chosenplayers[1].sport,
+                sport3=chosenplayers[2].sport,
+                sport4=chosenplayers[3].sport,
+                sport5=chosenplayers[4].sport,
 
-        userplayername = request.form['text']
+                position1=chosenplayers[0].position,
+                position2=chosenplayers[1].position,
+                position3=chosenplayers[2].position,
+                position4=chosenplayers[3].position,
+                position5=chosenplayers[4].position,
+
+                year1=chosenplayers[0].year,
+                year2=chosenplayers[1].year,
+                year3=chosenplayers[2].year,
+                year4=chosenplayers[3].year,
+                year5=chosenplayers[4].year,
+
+                number1=chosenplayers[0].number,
+                number2=chosenplayers[1].number,
+                number3=chosenplayers[2].number,
+                number4=chosenplayers[3].number,
+                number5=chosenplayers[4].number
+
+                )
+
+
+
+def other():
+    playernames = [player("Jahmyl Telfort", 79, "MBB", "Guard", "So", 11),
+        player("Jason Strong", 80, "MBB", "Forward", "Sr", 0),
+        player("Vito Cubrilo", 76, "MBB", "Guard", "Jr", 1),
+        player("Glen McClintock", 74, "MBB", "Guard", "So", 2),
+        player("Tyreek Scott-Grayson", 77, "MBB", "Guard", "Sr", 10),
+        player("Alex Nwagha", 80, "MBB", "Forward", "So", 12),
+        player("Nikola Djogo", 80, "MBB", "Guard", "Sr", 13),
+        player("Coleman Stucke", 79, "MBB", "Forward", "So", 15),
+        player("Quirin Emanga", 77, "MBB", "Guard", "Jr", 22),
+        player("Joe Pridgen", 77, "MBB", "Guard", "Jr", 23),
+        player("Shaquille Walters", 78, "MBB", "Guard", "Sr", 24),
+        player("Connor Braun", 81, "MBB", "Forward", "So", 32),
+        player("Chris Doherty", 79, "MBB", "Forward", "Jr", 33),
+        player("To Randriasalama", 75, "MBB", "Guard", "Fr", 55),
+
+        player("Kendall Currence", 63, "WBB", "Guard", "Sr", 1),
+        player("Izzy Larson", 73, "WBB", "Forward", "So", 2),
+        player("Donna Ntambue", 69, "WBB", "Guard", "So", 3),
+        player("Century McCartney", 71, "WBB", "Guard", "Jr", 5),
+        player("Camille Clement", 68, "WBB", "Guard", "Fr", 12),
+        player("Katie May", 71, "WBB", "Guard", "Sr", 13),
+        player("Amryah Sapenter", 68, "WBB", "Guard", "So", 14),
+        player("Anna Boruta", 70, "WBB", "Guard", "Jr", 15),
+        player("Leyla Ozturk", 73, "WBB", "Guard", "So", 21),
+        player("Maddie Vizza", 66, "WBB", "Guard", "So", 22),
+        player("Gemima Motema", 69, "WBB", "Guard", "Fr", 23),
+        player("Asha Parker", 74, "WBB", "Guard", "Fr", 24),
+        player("Claudia Soriano", 67, "WBB", "Guard", "Fr", 25),
+        player("Sammie Martin", 73, "WBB", "Forward", "Jr", 30),
+        player("Emily Calabrese", 72, "WBB", "Forward", "Sr", 32),
+
+        player("Alexa Matses", 68, "WHKY", "Gl", "Jr", 1),
+        player("Lauren Macinnis", 68, "WHKY", "Def", "Sr", 2),
+        player("Gillian Foote", 72, "WHKY", "Def", "Sr", 3),
+        player("Molly Griffin", 64, "WHKY", "For", "So", 4),
+        player("Miceala Sindoris", 65, "WHKY", "For", "Sr", 5),
+        player("Katy Knoll", 67, "WHKY", "For", "Jr", 6),
+        player("Brooke Tucker", 68, "WHKY", "Def", "Sr", 7),
+        player("Andrea Renner", 64, "WHKY", "For", "Sr", 8),
+        player("Emma Jurusik", 63, "WHKY", "For", "Sr", 9),
+        player("Brooke Hobson", 66, "WHKY", "Def", "Sr", 10),
+        player("Alina Mueller", 65, "WHKY", "For", "Sr", 11),
+        player("Chloe Aurard", 66, "WHKY", "For", "Sr", 12),
+        player("Katie Cipra", 65, "WHKY", "For", "Sr", 13),
+        player("Mia Brown", 69, "WHKY", "For", "Sr", 15),
+        player("Lily Yovetich", 64, "WHKY", "Def", "So", 16),
+        player("Maddie Mills", 64, "WHKY", "For", "Sr", 17),
+        player("Abbey Marohn", 67, "WHKY", "Def", "So", 19),
+        player("Maureen Murphy", 64, "WHKY", "For", "Sr", 21),
+        player("Skylar Fontaine", 64, "WHKY", "Def", "Sr", 22),
+        player("Kate Holmes", 62, "WHKY", "For", "Jr", 24),
+        player("Peyton Cullaton", 67, "WHKY", "For", "Jr", 26),
+        player("Megan Carter", 68, "WHKY", "Def", "Jr", 27),
+        player("Taylor Guarino", 65, "WHKY", "Def", "Fr", 28),
+        player("Aerin Frankel", 65, "WHKY", "Gl", "Sr", 33),
+        player("Paige Taborski", 67, "WHKY", "Gl", "Fr", 35),
+        player("Gwyneth Philips", 67, "WHKY", "Gl", "Jr", 37),
+        player("Tessa Ward", 69, "WHKY", "For", "Jr", 42),
+        player("Tory Mariano", 69, "WHKY", "For", "Fr", 44),
+        player("Skylar Irving", 68, "WHKY", "For", "Fr", 88),
+        player("Peyton Anderson", 65, "WHKY", "For", "Jr", 91),
+
+        player("Devon Levi", 72, "MHKY", "Gl", "So", 1),
+        player("Jordan Harris", 71, "MHKY", "Def", "Sr", 2),
+        player("Jayden Struble", 73, "MHKY", "Def", "Jr", 3),
+        player("Jeremie Bucheler", 76, "MHKY", "Def", "Jr", 4),
+        player("Matt Choupani", 71, "MHKY", "For", "Fr", 5),
+        player("Chase Mcinnis", 71, "MHKY", "For", "Fr", 6),
+        player("Michael Outzen", 72, "MHKY", "For", "So", 7),
+        player("Julian Kislin", 73, "MHKY", "Def", "Sr", 8),
+        player("Jakov Novak", 75, "MHKY", "For", "Sr", 10),
+        player("Gunnarwolfe Fontaine", 70, "MHKY", "For", "So", 11),
+        player("Tommy Miller", 74, "MHKY", "Def", "Sr", 12),
+        player("Ryan St. Louis", 70, "MHKY", "For", "Fr", 13),
+        player("Ty Jackson", 68, "MHKY", "For", "So", 14),
+        player("Dylan Jackson", 70, "MHKY", "For", "So", 15),
+        player("Sam Colangelo", 75, "MHKY", "For", "So", 16),
+        player("Marco Bozzo", 71, "MHKY", "For", "Sr", 17),
+        player("Tyler Spott", 71, "MHKY", "Def", "Jr", 18),
+        player("Riley Hughes", 74, "MHKY", "For", "Jr", 19),
+        player("Alex Mella", 72, "MHKY", "For", "Jr", 20),
+        player("Matt Demelis", 73, "MHKY", "For", "Jr", 21),
+        player("Cam Gaudette", 73, "MHKY", "Def", "Fr", 23),
+        player("Steven Agriogianis", 69, "MHKY", "For", "So", 24),
+        player("Aidan McDonough", 74, "MHKY", "For", "Jr", 25),
+        player("James Davenport", 71, "MHKY", "Def", "So", 26),
+        player("Jack Hughes", 72, "MHKY", "For", "Fr", 27),
+        player("Justin Hryckowian", 70, "MHKY", "For", "Fr", 29),
+        player("TJ Semptimphelter", 73, "MHKY", "Gl", "Fr", 29),
+        player("Evan Fear", 74, "MHKY", "Gl", "Jr", 35),
+
+        player("Danny Crossen", 72, "Baseball", "UTL", "Jr", 1),
+        player("Hayden Smith", 75, "Baseball", "RHP", "Fr", 2),
+        player("Max Viera", 70, "Baseball", "INF", "Fr", 3),
+        player("Dennis Colleran", 75, "Baseball", "RHP", "Fr", 4),
+        player("Jeff Costello", 71, "Baseball", "OF", "Sr", 5),
+        player("Cam Schlittler", 78, "Baseball", "RHP", "So", 6),
+        player("Kyle Hoog", 74, "Baseball", "OF", "So", 7),
+        player("Mike Sirota", 74, "Baseball", "OF", "Fr", 8),
+        player("Owen Langan", 72, "Baseball", "RHP", "Jr", 9),
+        player("Corey Diloreto", 76, "Baseball", "INF", "Jr", 10),
+        player("Eric Yost", 73, "Baseball", "RHP", "So", 11),
+        player("Sebastian Keane", 75, "Baseball", "RHP", "So", 13),
+        player("Thomas Balboni", 76, "Baseball", "RHP", "So", 14),
+        player("Matt Downing", 74, "Baseball", "LHP", "So", 15),
+        player("Mark Darakjy", 75, "Baseball", "OF", "So", 16),
+        player("Brett Dunham", 74, "Baseball", "RHP", "Fr", 17),
+        player("JP Olson", 73, "Baseball", "Catcher", "Fr", 18),
+        player("Luke Beckstein", 67, "Baseball", "INF", "So", 19),
+        player("Jordy Allard", 69, "Baseball", "RHP", "Sr", 20),
+        player("Justin Bosland", 77, "Baseball", "UTL", "Fr", 21),
+        player("Spenser Smith", 74, "Baseball", "INF", "Jr", 22),
+        player("Ed Jarvis", 71, "Baseball", "Catcher", "So", 24),
+        player("Buddy Mrowka", 71, "Baseball", "INF", "Sr", 28),
+        player("Michael Gemma", 77, "Baseball", "RHP", "Sr", 31),
+        player("James Quinlivan", 78, "Baseball", "LHP", "So", 32),
+        player("Teddy Beaudet", 71, "Baseball", "Cat", "Sr", 33),
+        player("Luke Masiuk", 73, "Baseball", "OF", "Fr", 34),
+        player("Jack Beauchesne", 74, "Baseball", "RHP", "Fr", 35),
+        player("Nick Davis", 77, "Baseball", "RHP", "Jr", 36),
+        player("Jake Gigliotti", 73, "Baseball", "RHP", "So", 37),
+        player("Sean Quinlivan", 73, "Baseball", "RHP", "Fr", 39),
+        player("Ryan Cervone", 70, "Baseball", "OF", "So", 42),
+        player("Jack Thorbahn", 75, "Baseball", "INF", "So", 43),
+        player("Will Jones", 77, "Baseball", "LHP", "So", 45),
+        player("Wyatt Scotti", 75, "Baseball", "RHP", "So", 46),
+        player("Matt Devlin", 75, "Baseball", "LHP", "Sr", 47),
+        player("Luke Bottger", 76, "Baseball", "LHP", "So", 48),
+        player("Gregory Bozzo", 72, "Baseball", "Catcher", "So", 49),
+
+        player("Tyson Walker", 72, "MBB", "Guard", "Jr", 2)]
+
+    if True:
+        userplayername = "Katie May"
         userplayer = None
 
         global globalguesses
@@ -292,7 +685,7 @@ def home():
             if player1.name == userplayername:
                 userplayer = player1
                 break
-        
+
         chosenplayers[globalguesses] = userplayer
 
         if (userplayer.name.lower() == todaysname.lower()):
@@ -315,7 +708,7 @@ def home():
             globalsportcolors[globalguesses + 1] = "faca17" # yellow
         else:
             globalsportcolors[globalguesses + 1] = "e2e8f0" # red
-        
+
         if (userplayer.position == todaysposition):
             globalpositioncolors[globalguesses + 1] = "0f9f6e" # green
         elif (todayssport == "Baseball" and ((todaysposition == "INF" or todaysposition == "OF" or todaysposition == "UTL" or todaysposition == "C") and (userplayer.position == "INF" or userplayer.position == "OF" or userplayer.position == "UTL" or userplayer.position == "C"))):
@@ -362,82 +755,82 @@ def home():
         for i in range (1, globalguesses+1):
             if (globalnamecolors[i]=="0f9f6e"):
                 shareboard[i] = shareboard[i] + '\U0001F7E9'
-            else: 
+            else:
                 shareboard[i] = shareboard[i] + '\U00002B1B'
 
             if (globalsportcolors[i]=='0f9f6e'):
                 shareboard[i] = shareboard[i] + '\U0001F7E9'
             elif globalsportcolors[i]=='faca17':
                 shareboard[i] = shareboard[i] + '\U0001F7E8'
-            else: 
+            else:
                 shareboard[i] = shareboard[i] + '\U00002B1B'
 
             if (globalpositioncolors[i]=='0f9f6e'):
                 shareboard[i] = shareboard[i] + '\U0001F7E9'
             elif globalpositioncolors[i]=='faca17':
                 shareboard[i] = shareboard[i] + '\U0001F7E8'
-            else: 
+            else:
                 shareboard[i] = shareboard[i] + '\U00002B1B'
-            
+
             if (globalyearcolors[i]=='0f9f6e'):
                 shareboard[i] = shareboard[i] + '\U0001F7E9'
-            else: 
+            else:
                 shareboard[i] = shareboard[i] + '\U00002B1B'
 
             if (globalheightcolors[i]=='0f9f6e'):
                 shareboard[i] = shareboard[i] + '\U0001F7E9'
             elif globalheightcolors[i]=='faca17':
                 shareboard[i] = shareboard[i] + '\U0001F7E8'
-            else: 
+            else:
                 shareboard[i] = shareboard[i] + '\U00002B1B'
 
             if (globalnumbercolors[i]=='0f9f6e'):
                 shareboard[i] = shareboard[i] + '\U0001F7E9'
             elif globalnumbercolors[i]=='faca17':
                 shareboard[i] = shareboard[i] + '\U0001F7E8'
-            else: 
-                shareboard[i] = shareboard[i] + '\U00002B1B'  
+            else:
+                shareboard[i] = shareboard[i] + '\U00002B1B'
 
-        return render_template('my-form.html', 
+        return render_template('my-form.html',
             namecolor1 = globalnamecolors[1],
             namecolor2 = globalnamecolors[2],
             namecolor3 = globalnamecolors[3],
             namecolor4 = globalnamecolors[4],
-            namecolor5 = globalnamecolors[5],   
+            namecolor5 = globalnamecolors[5],
 
-            heightcolor1 = globalheightcolors[1],  
-            heightcolor2 = globalheightcolors[2],  
-            heightcolor3 = globalheightcolors[3],  
-            heightcolor4 = globalheightcolors[4],  
-            heightcolor5 = globalheightcolors[5],  
-    
-            sportcolor1 = globalsportcolors[1],  
-            sportcolor2 = globalsportcolors[2],  
-            sportcolor3 = globalsportcolors[3],  
-            sportcolor4 = globalsportcolors[4],  
-            sportcolor5 = globalsportcolors[5],  
+            heightcolor1 = globalheightcolors[1],
+            heightcolor2 = globalheightcolors[2],
+            heightcolor3 = globalheightcolors[3],
+            heightcolor4 = globalheightcolors[4],
+            heightcolor5 = globalheightcolors[5],
 
-            positioncolor1 = globalpositioncolors[1],  
-            positioncolor2 = globalpositioncolors[2],  
-            positioncolor3 = globalpositioncolors[3],  
-            positioncolor4 = globalpositioncolors[4],  
-            positioncolor5 = globalpositioncolors[5],  
+            sportcolor1 = globalsportcolors[1],
+            sportcolor2 = globalsportcolors[2],
+            sportcolor3 = globalsportcolors[3],
+            sportcolor4 = globalsportcolors[4],
+            sportcolor5 = globalsportcolors[5],
 
-            yearcolor1 = globalyearcolors[1],  
-            yearcolor2 = globalyearcolors[2],  
-            yearcolor3 = globalyearcolors[3],  
-            yearcolor4 = globalyearcolors[4],  
-            yearcolor5 = globalyearcolors[5],  
+            positioncolor1 = globalpositioncolors[1],
+            positioncolor2 = globalpositioncolors[2],
+            positioncolor3 = globalpositioncolors[3],
+            positioncolor4 = globalpositioncolors[4],
+            positioncolor5 = globalpositioncolors[5],
 
-            numbercolor1 = globalnumbercolors[1],  
-            numbercolor2 = globalnumbercolors[2],  
-            numbercolor3 = globalnumbercolors[3],  
-            numbercolor4 = globalnumbercolors[4],  
+            yearcolor1 = globalyearcolors[1],
+            yearcolor2 = globalyearcolors[2],
+            yearcolor3 = globalyearcolors[3],
+            yearcolor4 = globalyearcolors[4],
+            yearcolor5 = globalyearcolors[5],
+
+            numbercolor1 = globalnumbercolors[1],
+            numbercolor2 = globalnumbercolors[2],
+            numbercolor3 = globalnumbercolors[3],
+            numbercolor4 = globalnumbercolors[4],
             numbercolor5 = globalnumbercolors[5],
-            
+
             playernames=playernamessuggest,
             guessblankofblank=guesstext,
-            
+
             row1=rows[0],
             row2=rows[1],
             row3=rows[2],
@@ -490,14 +883,3 @@ def home():
                     lost=lost,
                     correctplayer=todaysname
             )
-
-
-@app.route('/setcookie', methods = ['POST', 'GET'])
-def setcookie():
-   resp = make_response(render_template("my-form.html"))
-   resp.set_cookie('somecookiename', 'I am cookie')
-   return resp 
-   
-@app.route('/get-cookie/')
-def get_cookie():
-    username = request.cookies.get('somecookiename')
