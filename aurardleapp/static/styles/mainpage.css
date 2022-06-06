@@ -1,3 +1,68 @@
+.getridofrow {
+  display: none !important;
+  height: 100px;
+
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover {
+    border: #D41B2C !important;
+    background: #D41B2C 50% 50% !important;
+}
+
+.centerme {
+  text-align: center;
+}
+
+.statsmysteryplayer {
+  text-align: center;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+}
+
+.statsheaders {
+  font-size: 26px;
+  color: #D41B2C;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.wider {
+  width: 150px;
+}
+
+.fontforstatstable {
+font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+font-size: 16px;
+font-weight: 400 !important;
+}
+
+.getridofinput {
+  display: none !important;
+}
+
+.greensquare {
+  background-color: #0f9f6e !important;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.greysquare {
+  background-color: #e2e8f0 !important;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.yellowsquare {
+  background-color: #faca17 !important;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
 .title {
   margin-top: 20px;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -5,9 +70,15 @@
   font-weight: 700
 }
 
+.namecoltop {
+  width: 170px;
+}
+
 .namecol {
   width: 170px;
   font-weight: bold;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
 }
 
 .subhead {
@@ -63,6 +134,14 @@ input[type="text"]:focus {
   text-align:center;
   height: 30px;
   border-bottom: 2px solid black;
+}
+
+.getridofinput {
+  display: none !important;
+}
+
+.revealrow {
+  height: 100px;
 }
 
   table, th, td {
@@ -167,10 +246,10 @@ input[type="text"]:focus {
   color: white;
 }
 
-.rowinvisible {
-  display:none;
-  height: 100px;
-}
+/*.rowinvisible {
+}*/
+
+
 
 .rowvisible {
   height: 100px;
@@ -571,7 +650,7 @@ li:not(:last-child) {
     -moz-transform: scale(1.7);
     -moz-transform-origin: 0 0;
 
-    font-size: 125%;
+    font-size: 120%;
     }
 
   table, th, td {
@@ -582,6 +661,7 @@ li:not(:last-child) {
     margin-right: auto;
     table-layout: fixed;
     width: 100%;
+    padding: 2px;
   }
 
   .howtoplay {
@@ -605,4 +685,27 @@ li:not(:last-child) {
   width: 30% !important;
 }
 
+.alignleft {
+    color: #D41B2C !important;
+}
+}
+
+
+@media only screen and (max-device-width : 389px) {
+body {
+
+   /*zoom: 1.6;
+    -moz-transform: scale(1.6);
+    -moz-transform-origin: 0 0;*/
+
+    font-size: 110%;
+    }
+
+.namecol {
+    font-size: 15px;
+}
+
+.howtoplay {
+    font-size: 15px;
+}
 }
