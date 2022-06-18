@@ -6,11 +6,11 @@ import sys
 
 # overwritten daily
 # #daily correct player that must be guessed
-correctplayer = "Brooke Hobson"
+correctplayer = "Ty Jackson"
 
 # increased by one daily automatically
 # the index in the set player order of the current correct player
-dayindex = 62
+dayindex = 73
 
 # defines a player and their attributes that are shown to the user
 class player:
