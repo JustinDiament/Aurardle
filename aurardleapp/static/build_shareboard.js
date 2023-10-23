@@ -13,7 +13,7 @@ function construct_shareboard() {
   shareboard.textContent = "";
   shareboard.textContent += "Aurardle #" + game_number + " - ";
 
-  // if the player won, include the number of guesses it took
+  // If the player won, include the number of guesses it took
   if (localStorage.getItem("wonthegame") === "winner") {
     shareboard.textContent += localStorage.getItem("guesscount");
     // if they lost, put an X
@@ -21,326 +21,117 @@ function construct_shareboard() {
     shareboard.textContent += "X";
   }
 
-  // out of 6 allowed guess attempts
+  // Out of 6 allowed guess attempts
   shareboard.textContent += "/6\n";
 
+  // Add the rows representing how well the user guessed each turn to the shareboard
+  add_all_rows_to_shareboard(shareboard);
 
-  add_row_to_shareboard(shareboard, "1");
-  //
-//   if (localStorage.getItem("guesscount") === "1") {
-//     shareboard.textContent += "🟩";
-//   } else {
-//     shareboard.textContent += "⬛";
-//   }
-//   if (localStorage.getItem("sport_check_1") === "true") {
-//     shareboard.textContent += "🟩";
-//   } else if (localStorage.getItem("sport_check_1") === "middle") {
-//     shareboard.textContent += "🟨";
-//   } else {
-//     shareboard.textContent += "⬛";
-//   }
-//   if (localStorage.getItem("position_check_1") === "true") {
-//     shareboard.textContent += "🟩";
-//   } else if (localStorage.getItem("position_check_1") === "middle") {
-//     shareboard.textContent += "🟨";
-//   } else {
-//     shareboard.textContent += "⬛";
-//   }
-//   if (localStorage.getItem("year_check_1") === "true") {
-//     shareboard.textContent += "🟩";
-//   } else {
-//     shareboard.textContent += "⬛";
-//   }
-//   if (localStorage.getItem("height_check_1") === "true") {
-//     shareboard.textContent += "🟩";
-//   } else if (localStorage.getItem("height_check_1") === "middle") {
-//     shareboard.textContent += "🟨";
-//   } else {
-//     shareboard.textContent += "⬛";
-//   }
-//   if (localStorage.getItem("number_check_1") === "true") {
-//     shareboard.textContent += "🟩\n";
-//   } else if (localStorage.getItem("number_check_1") === "middle") {
-//     shareboard.textContent += "🟨\n";
-//   } else {
-//     shareboard.textContent += "⬛\n";
-//   }
-
-  if (localStorage.getItem("guesscount") != "1") {
-    add_row_to_shareboard(shareboard, "2");
-    // if (localStorage.getItem("guesscount") === "2") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("sport_check_2") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("sport_check_2") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("position_check_2") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("position_check_2") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("year_check_2") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("height_check_2") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("height_check_2") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("number_check_2") === "true") {
-    //   shareboard.textContent += "🟩\n";
-    // } else if (localStorage.getItem("number_check_2") === "middle") {
-    //   shareboard.textContent += "🟨\n";
-    // } else {
-    //   shareboard.textContent += "⬛\n";
-    // }
-  }
-
-  if (
-    localStorage.getItem("guesscount") != "2" &&
-    localStorage.getItem("guesscount") != "1"
-  ) {
-    add_row_to_shareboard(shareboard, "3");
-    // if (localStorage.getItem("guesscount") === "3") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("sport_check_3") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("sport_check_3") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("position_check_3") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("position_check_3") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("year_check_3") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("height_check_3") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("height_check_3") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("number_check_3") === "true") {
-    //   shareboard.textContent += "🟩\n";
-    // } else if (localStorage.getItem("number_check_3") === "middle") {
-    //   shareboard.textContent += "🟨\n";
-    // } else {
-    //   shareboard.textContent += "⬛\n";
-    // }
-  }
-
-  if (
-    localStorage.getItem("guesscount") != "3" &&
-    localStorage.getItem("guesscount") != "2" &&
-    localStorage.getItem("guesscount") != "1"
-  ) {
-    add_row_to_shareboard(shareboard, "4");
-    // if (localStorage.getItem("guesscount") === "4") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("sport_check_4") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("sport_check_4") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("position_check_4") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("fourthsitioncheck") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("year_check_4") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("height_check_4") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("height_check_4") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("number_check_4") === "true") {
-    //   shareboard.textContent += "🟩\n";
-    // } else if (localStorage.getItem("number_check_4") === "middle") {
-    //   shareboard.textContent += "🟨\n";
-    // } else {
-    //   shareboard.textContent += "⬛\n";
-    // }
-  }
-
-  if (
-    localStorage.getItem("guesscount") != "4" &&
-    localStorage.getItem("guesscount") != "3" &&
-    localStorage.getItem("guesscount") != "2" &&
-    localStorage.getItem("guesscount") != "1"
-  ) {
-    add_row_to_shareboard(shareboard, "5");
-    // if (localStorage.getItem("guesscount") === "5") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("sport_check_5") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("sport_check_5") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("position_check_5") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("position_check_5") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("year_check_5") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("height_check_5") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("height_check_5") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("number_check_5") === "true") {
-    //   shareboard.textContent += "🟩\n";
-    // } else if (localStorage.getItem("number_check_5") === "middle") {
-    //   shareboard.textContent += "🟨\n";
-    // } else {
-    //   shareboard.textContent += "⬛\n";
-    // }
-  }
-
-  if (
-    localStorage.getItem("guesscount") != "5" &&
-    localStorage.getItem("guesscount") != "4" &&
-    localStorage.getItem("guesscount") != "3" &&
-    localStorage.getItem("guesscount") != "2" &&
-    localStorage.getItem("guesscount") != "1"
-  ) {
-    add_row_to_shareboard(shareboard, "6")
-    // if (localStorage.getItem("wonthegame") === "winner") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("sport_check_6") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("sport_check_6") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("position_check_6") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("position_check_6") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("year_check_6") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("height_check_6") === "true") {
-    //   shareboard.textContent += "🟩";
-    // } else if (localStorage.getItem("height_check_6") === "middle") {
-    //   shareboard.textContent += "🟨";
-    // } else {
-    //   shareboard.textContent += "⬛";
-    // }
-    // if (localStorage.getItem("number_check_6") === "true") {
-    //   shareboard.textContent += "🟩\n";
-    // } else if (localStorage.getItem("number_check_6") === "middle") {
-    //   shareboard.textContent += "🟨\n";
-    // } else {
-    //   shareboard.textContent += "⬛\n";
-    // }
-  }
-
+  // End the shareboard with the site link
   shareboard.textContent += "www.aurardle.com";
 }
 
+// Add the rows representing how well the user guessed each turn to the shareboard
+function add_all_rows_to_shareboard(shareboard) {
+  // add the turn 1 row to the shareboard
+  add_row_to_shareboard(shareboard, "1");
+
+  // if it took the player 2 or more turns, add the turn 2 row to the shareboard
+  if (localStorage.getItem("guesscount") != "1") {
+    add_row_to_shareboard(shareboard, "2");
+  } else {
+    return;
+  }
+
+  // if it took the player 3 or more turns, add the turn 3 row to the shareboard
+  if (localStorage.getItem("guesscount") != "2") {
+    add_row_to_shareboard(shareboard, "3");
+  } else {
+    return;
+  }
+
+  // if it took the player 4 or more turns, add the turn 4 row to the shareboard
+  if (localStorage.getItem("guesscount") != "3") {
+    add_row_to_shareboard(shareboard, "4");
+  } else {
+    return;
+  }
+
+  // if it took the player 5 or more turns, add the turn 5 row to the shareboard
+  if (localStorage.getItem("guesscount") != "4") {
+    add_row_to_shareboard(shareboard, "5");
+  } else {
+    return;
+  }
+
+  // if it took the player 6 or more turns, add the turn 6 row to the shareboard
+  if (localStorage.getItem("guesscount") != "5") {
+    add_row_to_shareboard(shareboard, "6");
+  }
+}
+
+
+// Add one row representing how good the user's was to the shareboard
 function add_row_to_shareboard(shareboard, number_of_guess) {
+  // If the user got the answer this turn, add green. Else, add black
   if (localStorage.getItem("guesscount") === number_of_guess) {
-    shareboard.textContent += "🟩";
+    shareboard.textContent += correct_guess;
   } else {
-    shareboard.textContent += "⬛";
+    shareboard.textContent += incorrect_guess;
   }
 
+  // If the user got the right sport and gender, add green. If right sport but wrong gender, add yellow.
+  // Else, add black.
   if (localStorage.getItem("sport_check_" + number_of_guess) === "true") {
-    shareboard.textContent += "🟩";
-  } else if (localStorage.getItem("sport_check_" + number_of_guess) === "middle") {
-    shareboard.textContent += "🟨";
+    shareboard.textContent += correct_guess;
+  } else if (
+    localStorage.getItem("sport_check_" + number_of_guess) === "middle"
+  ) {
+    shareboard.textContent += partially_correct_guess;
   } else {
-    shareboard.textContent += "⬛";
+    shareboard.textContent += incorrect_guess;
   }
 
+  // If the user got the right position, add green. If close baseball position, add yellow.
+  // Else, add black.
   if (localStorage.getItem("position_check_" + number_of_guess) === "true") {
-    shareboard.textContent += "🟩";
+    shareboard.textContent += correct_guess;
   } else if (
     localStorage.getItem("position_check_" + number_of_guess) === "middle"
   ) {
-    shareboard.textContent += "🟨";
+    shareboard.textContent += partially_correct_guess;
   } else {
-    shareboard.textContent += "⬛";
+    shareboard.textContent += incorrect_guess;
   }
 
+  // If the user got the right year, add green. Else, add black.
   if (localStorage.getItem("year_check_" + number_of_guess) === "true") {
-    shareboard.textContent += "🟩";
+    shareboard.textContent += correct_guess;
   } else {
-    shareboard.textContent += "⬛";
+    shareboard.textContent += incorrect_guess;
   }
 
+  // If the user got the right height, add green. If within 2 inches, add yellow.
+  // Else, add black.
   if (localStorage.getItem("height_check_" + number_of_guess) === "true") {
-    shareboard.textContent += "🟩";
-  } else if (localStorage.getItem("height_check_" + number_of_guess) === "middle") {
-    shareboard.textContent += "🟨";
+    shareboard.textContent += correct_guess;
+  } else if (
+    localStorage.getItem("height_check_" + number_of_guess) === "middle"
+  ) {
+    shareboard.textContent += partially_correct_guess;
   } else {
-    shareboard.textContent += "⬛";
+    shareboard.textContent += incorrect_guess;
   }
 
+  // If the user got the right number, add green. If within two, add yellow.
+  // Else, add black.
   if (localStorage.getItem("number_check_" + number_of_guess) === "true") {
-    shareboard.textContent += "🟩\n";
-  } else if (localStorage.getItem("number_check_" + number_of_guess) === "middle") {
-    shareboard.textContent += "🟨\n";
+    shareboard.textContent += correct_guess + "\n";
+  } else if (
+    localStorage.getItem("number_check_" + number_of_guess) === "middle"
+  ) {
+    shareboard.textContent += partially_correct_guess + "\n";
   } else {
-    shareboard.textContent += "⬛\n";
+    shareboard.textContent += incorrect_guess + "\n";
   }
 }
