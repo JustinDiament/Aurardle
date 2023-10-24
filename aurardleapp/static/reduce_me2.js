@@ -157,8 +157,8 @@ return array;
 source: availableTags,
 select: function (event, ui) {
 $(this).val(ui.item.value);
-document.getElementById("getridofrowsometimes2").classList.add('revealrow');
-document.getElementById("enterdivsmall3").classList.remove('getridofrow');
+document.getElementById("hide_row_sometimes2").classList.add('revealrow');
+document.getElementById("enter_div_3").classList.remove('getridofrow');
 
 // document.getElementById("sub").click();
 var urlheight = 'http://127.0.0.1:5000/determine/height?playertyped='
@@ -190,13 +190,13 @@ var checkpositionfull = checkposition + playertyped
 var checkyearfull = checkyear + playertyped
 var checknumberfull = checknumber + playertyped
 
-localStorage.setItem("secondplayername", playertyped);
-document.getElementById("nametwo").innerHTML = localStorage.getItem("secondplayername");
+localStorage.setItem("player_name_2", playertyped);
+document.getElementById("nametwo").innerHTML = localStorage.getItem("player_name_2");
 
 playertyped = ''
-document.getElementById("getridofrowsometimes2").classList.add('revealrow');
-document.getElementById("getridofrowsometimes2").classList.remove('getridofrow');
-document.getElementById("enterdivsmall3").classList.remove('getridofrow');
+document.getElementById("hide_row_sometimes2").classList.add('revealrow');
+document.getElementById("hide_row_sometimes2").classList.remove('getridofrow');
+document.getElementById("enter_div_3").classList.remove('getridofrow');
 
 
 localStorage.setItem("2nametosport", "stop")
@@ -211,8 +211,8 @@ if( el ) el.blur();
 $.getJSON(checkwinnerfull,
 
 function(data) {
-localStorage.setItem("wonthegame", data.result);
-if(localStorage.getItem("wonthegame")==="winner") {
+localStorage.setItem("game_over", data.result);
+if(localStorage.getItem("game_over")==="winner") {
 document.getElementById("nametwo").classList.add('greensquare');
 document.getElementById('winnerbox').click();
 localStorage.setItem("namecolor2", "green");
@@ -349,9 +349,9 @@ localStorage.setItem("number_check_2", data.result);
 if (localStorage.getItem("number_check_2")==="true") {
 document.getElementById('numbertwo').classList.add("greensquare");
 
-if(localStorage.getItem("wonthegame")==="winner") {
-fixstatsonwin();
-document.getElementById("enterdivsmall3").classList.add('getridofrow');
+if(localStorage.getItem("game_over")==="winner") {
+fix_stats_on_win();
+document.getElementById("enter_div_3").classList.add('getridofrow');
 
 
 }
@@ -368,19 +368,19 @@ document.getElementById('numbertwo').classList.add("greysquare");
 }
 )
 
-if (!localStorage.getItem("guesscount")) {
-localStorage.setItem("guesscount", 1);
+if (!localStorage.getItem("guess_count")) {
+localStorage.setItem("guess_count", 1);
 }
 else {
-localStorage.setItem("guesscount", (parseInt(localStorage.getItem("guesscount")) + 1));
+localStorage.setItem("guess_count", (parseInt(localStorage.getItem("guess_count")) + 1));
 }
 
-$('#submitaplayer')[0].reset();
+// $('#submit_player_')[0].reset();
 
 
 
 $('#enter_field_1').val('');
-document.getElementById("submitaplayer2").classList.add('getridofinput');
+document.getElementById("submit_player_2").classList.add('getridofinput');
 
 }
 });

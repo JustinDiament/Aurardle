@@ -157,7 +157,7 @@ return array;
 source: availableTags,
 select: function (event, ui) {
 $(this).val(ui.item.value);
-document.getElementById("getridofrowsometimes5").classList.add('revealrow');
+document.getElementById("hide_row_sometimes5").classList.add('revealrow');
 // document.getElementById("sub").click();
 var urlheight = 'http://127.0.0.1:5000/determine/height?playertyped='
 var urlsport = 'http://127.0.0.1:5000/determine/sport?playertyped='
@@ -192,8 +192,8 @@ localStorage.setItem("sixthplayername", playertyped);
 document.getElementById("namesix").innerHTML = localStorage.getItem("sixthplayername");
 
 playertyped = ''
-document.getElementById("getridofrowsometimes6").classList.add('revealrow');
-document.getElementById("getridofrowsometimes6").classList.remove('getridofrow');
+document.getElementById("hide_row_sometimes6").classList.add('revealrow');
+document.getElementById("hide_row_sometimes6").classList.remove('getridofrow');
 
 let el = document.querySelector( ':focus' );
 if( el ) el.blur();
@@ -204,8 +204,8 @@ if( el ) el.blur();
 $.getJSON(checkwinnerfull,
 
 function(data) {
-localStorage.setItem("wonthegame", data.result);
-if(localStorage.getItem("wonthegame")==="winner") {
+localStorage.setItem("game_over", data.result);
+if(localStorage.getItem("game_over")==="winner") {
 document.getElementById("namesix").classList.add('greensquare');
 document.getElementById('winnerbox').click();
 localStorage.setItem("namecolor6", "green");
@@ -325,15 +325,15 @@ localStorage.setItem("number_check_6", data.result);
 if (localStorage.getItem("number_check_6")==="true") {
 document.getElementById('numbersix').classList.add("greensquare");
 
-if(localStorage.getItem("wonthegame")==="winner") {
-fixstatsonwin();
+if(localStorage.getItem("game_over")==="winner") {
+fix_stats_on_win();
 
 }
 else {
   // var losttext = document.getElementById("losertext")
   //   losttext.textContent += "Maddie Mills.";
     document.getElementById('loserbox').click();
-    localStorage.setItem("lostthegame", "loser");
+    localStorage.setItem("game_over", "loser");
     fixstatsonloss();
 }
 }
@@ -342,7 +342,7 @@ else if (localStorage.getItem("number_check_6")==="middle") {
     // var losttext = document.getElementById("losertext")
     // losttext.textContent += "Maddie Mills.";
     document.getElementById('loserbox').click();
-    localStorage.setItem("lostthegame", "loser");
+    localStorage.setItem("game_over", "loser");
     fixstatsonloss();
   }
 
@@ -352,26 +352,26 @@ document.getElementById('numbersix').classList.add("greysquare");
 // var losttext = document.getElementById("losertext")
 //     losttext.textContent += "Maddie Mills.";
 document.getElementById('loserbox').click();
-localStorage.setItem("lostthegame", "loser");
+localStorage.setItem("game_over", "loser");
 fixstatsonloss();
 
 }
 }
 )
 
-if (!localStorage.getItem("guesscount")) {
-localStorage.setItem("guesscount", 1);
+if (!localStorage.getItem("guess_count")) {
+localStorage.setItem("guess_count", 1);
 }
 else {
-localStorage.setItem("guesscount", (parseInt(localStorage.getItem("guesscount")) + 1));
+localStorage.setItem("guess_count", (parseInt(localStorage.getItem("guess_count")) + 1));
 }
 
-$('#submitaplayer')[0].reset();
+// $('#submit_player_')[0].reset();
 
 
 
 $('#enter_field_6').val('');
-document.getElementById("submitaplayer6").classList.add('getridofinput');
+document.getElementById("submit_player_6").classList.add('getridofinput');
 
 }
 });

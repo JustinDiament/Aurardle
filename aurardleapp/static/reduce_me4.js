@@ -156,7 +156,7 @@ return array;
 source: availableTags,
 select: function (event, ui) {
 $(this).val(ui.item.value);
-document.getElementById("getridofrowsometimes4").classList.add('revealrow');
+document.getElementById("hide_row_sometimes4").classList.add('revealrow');
 // document.getElementById("sub").click();
 var urlheight = 'http://127.0.0.1:5000/determine/height?playertyped='
 var urlsport = 'http://127.0.0.1:5000/determine/sport?playertyped='
@@ -191,9 +191,9 @@ localStorage.setItem("fourthplayername", playertyped);
 document.getElementById("namefour").innerHTML = localStorage.getItem("fourthplayername");
 
 playertyped = ''
-document.getElementById("getridofrowsometimes4").classList.add('revealrow');
-document.getElementById("getridofrowsometimes4").classList.remove('getridofrow');
-document.getElementById("enterdivsmall5").classList.remove('getridofrow');
+document.getElementById("hide_row_sometimes4").classList.add('revealrow');
+document.getElementById("hide_row_sometimes4").classList.remove('getridofrow');
+document.getElementById("enter_div_5").classList.remove('getridofrow');
 
 
 let el = document.querySelector( ':focus' );
@@ -203,8 +203,8 @@ if( el ) el.blur();
 $.getJSON(checkwinnerfull,
 
 function(data) {
-localStorage.setItem("wonthegame", data.result);
-if(localStorage.getItem("wonthegame")==="winner") {
+localStorage.setItem("game_over", data.result);
+if(localStorage.getItem("game_over")==="winner") {
 document.getElementById("namefour").classList.add('greensquare');
 document.getElementById('winnerbox').click();
 localStorage.setItem("namecolor4", "green");
@@ -324,10 +324,10 @@ localStorage.setItem("number_check_4", data.result);
 if (localStorage.getItem("number_check_4")==="true") {
 document.getElementById('numberfour').classList.add("greensquare");
 
-if(localStorage.getItem("wonthegame")==="winner") {
-fixstatsonwin();
+if(localStorage.getItem("game_over")==="winner") {
+fix_stats_on_win();
 
-document.getElementById("enterdivsmall4").classList.add('getridofrow');
+document.getElementById("enter_div_4").classList.add('getridofrow');
 
 }
 }
@@ -342,19 +342,19 @@ document.getElementById('numberfour').classList.add("greysquare");
 }
 )
 
-if (!localStorage.getItem("guesscount")) {
-localStorage.setItem("guesscount", 1);
+if (!localStorage.getItem("guess_count")) {
+localStorage.setItem("guess_count", 1);
 }
 else {
-localStorage.setItem("guesscount", (parseInt(localStorage.getItem("guesscount")) + 1));
+localStorage.setItem("guess_count", (parseInt(localStorage.getItem("guess_count")) + 1));
 }
 
-$('#submitaplayer')[0].reset();
+// $('#submit_player_')[0].reset();
 
 
 
 $('#enter_field_4').val('');
-document.getElementById("submitaplayer4").classList.add('getridofinput');
+document.getElementById("submit_player_4").classList.add('getridofinput');
 
 }
 });

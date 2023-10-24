@@ -14,8 +14,8 @@ function construct_shareboard() {
   shareboard.textContent += "Aurardle #" + game_number + " - ";
 
   // If the player won, include the number of guesses it took
-  if (localStorage.getItem("wonthegame") === "winner") {
-    shareboard.textContent += localStorage.getItem("guesscount");
+  if (localStorage.getItem("game_over") === "winner") {
+    shareboard.textContent += localStorage.getItem("guess_count");
     // if they lost, put an X
   } else {
     shareboard.textContent += "X";
@@ -37,35 +37,35 @@ function add_all_rows_to_shareboard(shareboard) {
   add_row_to_shareboard(shareboard, "1");
 
   // if it took the player 2 or more turns, add the turn 2 row to the shareboard
-  if (localStorage.getItem("guesscount") != "1") {
+  if (localStorage.getItem("guess_count") != "1") {
     add_row_to_shareboard(shareboard, "2");
   } else {
     return;
   }
 
   // if it took the player 3 or more turns, add the turn 3 row to the shareboard
-  if (localStorage.getItem("guesscount") != "2") {
+  if (localStorage.getItem("guess_count") != "2") {
     add_row_to_shareboard(shareboard, "3");
   } else {
     return;
   }
 
   // if it took the player 4 or more turns, add the turn 4 row to the shareboard
-  if (localStorage.getItem("guesscount") != "3") {
+  if (localStorage.getItem("guess_count") != "3") {
     add_row_to_shareboard(shareboard, "4");
   } else {
     return;
   }
 
   // if it took the player 5 or more turns, add the turn 5 row to the shareboard
-  if (localStorage.getItem("guesscount") != "4") {
+  if (localStorage.getItem("guess_count") != "4") {
     add_row_to_shareboard(shareboard, "5");
   } else {
     return;
   }
 
   // if it took the player 6 or more turns, add the turn 6 row to the shareboard
-  if (localStorage.getItem("guesscount") != "5") {
+  if (localStorage.getItem("guess_count") != "5") {
     add_row_to_shareboard(shareboard, "6");
   }
 }
@@ -74,7 +74,7 @@ function add_all_rows_to_shareboard(shareboard) {
 // Add one row representing how good the user's was to the shareboard
 function add_row_to_shareboard(shareboard, number_of_guess) {
   // If the user got the answer this turn, add green. Else, add black
-  if (localStorage.getItem("guesscount") === number_of_guess) {
+  if (localStorage.getItem("guess_count") === number_of_guess && localStorage.getItem("game_over") === "winner") {
     shareboard.textContent += correct_guess;
   } else {
     shareboard.textContent += incorrect_guess;
