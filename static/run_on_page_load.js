@@ -31,10 +31,15 @@ window.onload = function () {
   // Use the local storage values to set the values in the statistics popup
   document.getElementById("wins").innerHTML =
     localStorage.getItem("wins_storage");
-  document.getElementById("winpercent").innerHTML =
-    localStorage.getItem("wins_percent_storage");
-  document.getElementById("streak").innerHTML =
-    localStorage.getItem("current_streak_storage");
+  document.getElementById("winpercent").innerHTML = localStorage.getItem(
+    "wins_percent_storage"
+  );
+  document.getElementById("streak").innerHTML = localStorage.getItem(
+    "current_streak_storage"
+  );
   document.getElementById("maxstreak").innerHTML =
     localStorage.getItem("max_streak_storage");
+
+  // Set up the player input box for the first guess
+  autocomplete_player_input();
 };

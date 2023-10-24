@@ -1,11 +1,3 @@
-// Set emoji blocks for share copy paste text (aka the "shareboard")
-var correct_guess = "🟩";
-var partially_correct_guess = "🟨";
-var incorrect_guess = "⬛";
-
-// Overwritten daily by a cron job
-var game_number = "125";
-
 // Construct the shareboard based on the game results
 function construct_shareboard() {
   // set up the hidden element to construct the shareboard in
@@ -82,10 +74,10 @@ function add_row_to_shareboard(shareboard, number_of_guess) {
 
   // If the user got the right sport and gender, add green. If right sport but wrong gender, add yellow.
   // Else, add black.
-  if (localStorage.getItem("sport_check_" + number_of_guess) === "true") {
+  if (localStorage.getItem("sport_check_" + number_of_guess) === "correct") {
     shareboard.textContent += correct_guess;
   } else if (
-    localStorage.getItem("sport_check_" + number_of_guess) === "middle"
+    localStorage.getItem("sport_check_" + number_of_guess) === "partially_correct"
   ) {
     shareboard.textContent += partially_correct_guess;
   } else {
@@ -94,10 +86,10 @@ function add_row_to_shareboard(shareboard, number_of_guess) {
 
   // If the user got the right position, add green. If close baseball position, add yellow.
   // Else, add black.
-  if (localStorage.getItem("position_check_" + number_of_guess) === "true") {
+  if (localStorage.getItem("position_check_" + number_of_guess) === "correct") {
     shareboard.textContent += correct_guess;
   } else if (
-    localStorage.getItem("position_check_" + number_of_guess) === "middle"
+    localStorage.getItem("position_check_" + number_of_guess) === "partially_correct"
   ) {
     shareboard.textContent += partially_correct_guess;
   } else {
@@ -105,7 +97,7 @@ function add_row_to_shareboard(shareboard, number_of_guess) {
   }
 
   // If the user got the right year, add green. Else, add black.
-  if (localStorage.getItem("year_check_" + number_of_guess) === "true") {
+  if (localStorage.getItem("year_check_" + number_of_guess) === "correct") {
     shareboard.textContent += correct_guess;
   } else {
     shareboard.textContent += incorrect_guess;
@@ -113,10 +105,10 @@ function add_row_to_shareboard(shareboard, number_of_guess) {
 
   // If the user got the right height, add green. If within 2 inches, add yellow.
   // Else, add black.
-  if (localStorage.getItem("height_check_" + number_of_guess) === "true") {
+  if (localStorage.getItem("height_check_" + number_of_guess) === "correct") {
     shareboard.textContent += correct_guess;
   } else if (
-    localStorage.getItem("height_check_" + number_of_guess) === "middle"
+    localStorage.getItem("height_check_" + number_of_guess) === "partially_correct"
   ) {
     shareboard.textContent += partially_correct_guess;
   } else {
@@ -125,10 +117,10 @@ function add_row_to_shareboard(shareboard, number_of_guess) {
 
   // If the user got the right number, add green. If within two, add yellow.
   // Else, add black.
-  if (localStorage.getItem("number_check_" + number_of_guess) === "true") {
+  if (localStorage.getItem("number_check_" + number_of_guess) === "correct") {
     shareboard.textContent += correct_guess + "\n";
   } else if (
-    localStorage.getItem("number_check_" + number_of_guess) === "middle"
+    localStorage.getItem("number_check_" + number_of_guess) === "partially_correct"
   ) {
     shareboard.textContent += partially_correct_guess + "\n";
   } else {

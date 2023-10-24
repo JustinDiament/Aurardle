@@ -1,26 +1,31 @@
-.getridofrow {
+/* Hide table row */
+.hide_table_row {
   display: none !important;
   height: 100px;
-
 }
 
+/* Style autocomplete dropdown */
 .ui-state-hover,
 .ui-widget-content .ui-state-hover {
   border: #D41B2C !important;
   background: #D41B2C 50% 50% !important;
 }
 
-.centerme {
+/* Centers a div */
+.center_div {
   text-align: center;
 }
 
-.statsmysteryplayer {
+/* Style mystery player replaced line */
+.stats_mystery_player {
   text-align: center;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
 }
 
-.statsheaders {
+
+/* Statistics popup header */
+.stats_popup_header {
   font-size: 26px;
   color: #D41B2C;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -29,10 +34,12 @@
   margin-bottom: 0px;
 }
 
+/* Make some parts of the table in the statistics popup wider */
 .wider {
   width: 150px;
 }
 
+/* Set the fonts in the table in the statistics popup */
 .fontforstatstable {
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
@@ -43,7 +50,7 @@
   display: none !important;
 }
 
-.greensquare {
+.green_square {
   background-color: #0f9f6e !important;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
@@ -159,7 +166,7 @@ table, th, td {
   text-align: center !important;
   line-height: 60px;
   height: 60px;
-  vertical-align: middle;
+  vertical-align: partially_correct;
   overflow: hidden;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
@@ -170,7 +177,7 @@ table, th, td {
   background-color: #D41B2C;
   text-align: center !important;
   height: 60px;
-  vertical-align: middle;
+  vertical-align: partially_correct;
   overflow: hidden;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
@@ -194,7 +201,7 @@ table, th, td {
   text-align: center !important;
   line-height: 60px;
   height: 60px;
-  vertical-align: middle;
+  vertical-align: partially_correct;
   overflow: hidden;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 18px;
@@ -213,7 +220,7 @@ table, th, td {
   display: none;
 }
 
-#winnerbox {
+#winner_popup_box {
   display: none;
 }
 
@@ -418,7 +425,7 @@ body {background-color: #f4f2ec};
   text-align: center !important;
   line-height: 60px;
   height: 60px;
-  vertical-align: middle;
+  vertical-align: partially_correct;
   overflow: hidden;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 18px;
