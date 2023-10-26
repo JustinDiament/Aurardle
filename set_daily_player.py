@@ -6,7 +6,7 @@ import global_vars as g
 # Returns the player at the argument index in the set order
 def todays_player(index):
 # Open the list of players, in order by who will be the correct answer each day
-    with open('/static/player_files/player_of_the_day_2023_24.txt', 'r') as file:
+    with open('./static/player_files/player_of_the_day_2023_24.txt', 'r') as file:
         # Put them in a list
         players_order = file.readlines()
 
