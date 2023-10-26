@@ -5,4 +5,6 @@ similar to other sports Wordle games like MLB's Pickle (formerly WARdle) and NBA
 
 Aurardle is named after Northeastern Women's Hockey player Chloe Aurard.
 
+Recently updated for the 2023-24 season! 
+
 Play online at www.aurardle.com! 
