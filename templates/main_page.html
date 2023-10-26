@@ -33,18 +33,18 @@
   <body>
     <div class="flex-wrapper">
       <!-- Header bar -->
-      <div class="topnav">
+      <div class="header_design">
         <!-- Header button to open stats popup. -->
         <button
-          class="navlinks"
+          class="nav_links"
           onclick="document.getElementById('popup_box_stats').click()"
         >
           STATS
         </button>
         <!-- Header button to open how to play popup. -->
         <button
-          class="navlinks"
-          onclick="document.getElementById('popup_box_howtoplay').click()"
+          class="nav_links"
+          onclick="document.getElementById('popup_box_how_to_play').click()"
         >
           HOW TO PLAY
         </button>
@@ -52,15 +52,15 @@
 
       <!-- How to play popup -->
       <div class="pop">
-        <label for="howtoplay" class="open" id="popup_box_howtoplay"></label>
-        <input type="checkbox" id="howtoplay" />
+        <label for="how_to_play" class="open" id="popup_box_how_to_play"></label>
+        <input type="checkbox" id="how_to_play" />
         <div class="modal">
           <div class="popup_inner">
-            <div class="guessthenuplayer">Guess the mystery player!</div>
+            <div class="guess_player_header">Guess the mystery player!</div>
             <br />
-            <div class="howtoplay">
+            <div class="how_to_play">
               <ul>
-                <li class="howtoplay">You get 6 guesses.</li>
+                <li class="how_to_play">You get 6 guesses.</li>
                 <li>
                   Sports currently included are men's and women's basketball,
                   hockey, and baseball.
@@ -90,8 +90,8 @@
                   player.
                 </li>
                 <li>
-                  Players and their collegiate year are taken from the 2022-23
-                  seasons.
+                  Players and their collegiate year are taken from the 2023-24
+                  seasons for basketball and hockey and 2023 for baseball.
                 </li>
                 <li>
                   Graduate students are categorized as seniors. Redshirted years
@@ -109,7 +109,7 @@
                 <li>A new mystery player daily at midnight ET!</li>
               </ul>
             </div>
-            <label class="btn-close" for="howtoplay">&#215;</label>
+            <label class="btn-close" for="how_to_play">&#215;</label>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
         <div class="modal">
           <div class="popup_inner">
             <div class="stats_popup_header">Statistics</div>
-            <div class="fontforstatstable">
+            <div class="font_for_stats_table">
               <table>
                 <tr>
                   <th>Wins</th>
@@ -131,7 +131,7 @@
                 </tr>
                 <tr>
                   <th id="wins"></th>
-                  <th id="winpercent"></th>
+                  <th id="win_percent"></th>
                   <th class="wider" id="streak"></th>
                   <th id="maxstreak"></th>
                 </tr>
@@ -148,7 +148,7 @@
                 class="popup"
                 onclick="mini_copied_popup_stats_in_stats_popup()"
               >
-                <button class="sharebutton" id="share_button_in_stats_popup">
+                <button class="share_button" id="share_button_in_stats_popup">
                   Share
                 </button>
                 <span
@@ -164,13 +164,13 @@
       </div>
 
       <!-- Site headline -->
-      <div class="textbox">
+      <div class="footer_text">
         <h1 class="title">Aurardle</h1>
         <h2 class="subhead">Northeastern Player Guessing Game</h2>
       </div>
 
       <!-- Guess attempts and clue responses in the table -->
-      <div class="enterdiv">
+      <div class="enter_div">
         <!-- Guess 1 -->
         <div id="enter_div_1">
           <form method="GET" id="submit_player_1">
@@ -178,10 +178,10 @@
               type="text"
               id="enter_field_1"
               name="text"
-              class="enterplayer"
+              class="enter_player_box"
               placeholder="Guess 1 of 6"
             />
-            <input type="submit" id="sub" class="invissubmit" />
+            <input type="submit" id="sub" class="hide_submit" />
           </form>
         </div>
 
@@ -192,10 +192,10 @@
               type="text"
               id="enter_field_2"
               name="text"
-              class="enterplayer"
+              class="enter_player_box"
               placeholder="Guess 2 of 6"
             />
-            <input type="submit" id="sub2" class="invissubmit" />
+            <input type="submit" id="sub2" class="hide_submit" />
           </form>
         </div>
 
@@ -206,10 +206,10 @@
               type="text"
               id="enter_field_3"
               name="text"
-              class="enterplayer"
+              class="enter_player_box"
               placeholder="Guess 3 of 6"
             />
-            <input type="submit" id="sub3" class="invissubmit" />
+            <input type="submit" id="sub3" class="hide_submit" />
           </form>
         </div>
 
@@ -220,10 +220,10 @@
               type="text"
               id="enter_field_4"
               name="text"
-              class="enterplayer"
+              class="enter_player_box"
               placeholder="Guess 4 of 6"
             />
-            <input type="submit" id="sub4" class="invissubmit" />
+            <input type="submit" id="sub4" class="hide_submit" />
           </form>
         </div>
 
@@ -234,10 +234,10 @@
               type="text"
               id="enter_field_5"
               name="text"
-              class="enterplayer"
+              class="enter_player_box"
               placeholder="Guess 5 of 6"
             />
-            <input type="submit" id="sub5" class="invissubmit" />
+            <input type="submit" id="sub5" class="hide_submit" />
           </form>
         </div>
 
@@ -248,17 +248,17 @@
               type="text"
               id="enter_field_6"
               name="text"
-              class="enterplayer"
+              class="enter_player_box"
               placeholder="Guess 6 of 6"
             />
-            <input type="submit" id="sub6" class="invissubmit" />
+            <input type="submit" id="sub6" class="hide_submit" />
           </form>
         </div>
 
         <!-- Table of results of guesses -->
         <table>
-          <tr class="tabletop">
-            <th class="namecoltop">Name</th>
+          <tr class="table_top_row">
+            <th class="name_col_top_cell">Name</th>
             <th>Sport</th>
             <th>Position</th>
             <th>Year</th>
@@ -266,7 +266,7 @@
             <th>Number</th>
           </tr>
           <tr id="hide_row_sometimes_1" class="hide_table_row">
-            <td class="namecol" id="player_name_1"></td>
+            <td class="name_col" id="player_name_1"></td>
             <td id="sport_1"></td>
             <td id="position_1"></td>
             <td id="year_1"></td>
@@ -274,7 +274,7 @@
             <td id="number_1"></td>
           </tr>
           <tr id="hide_row_sometimes_2" class="hide_table_row">
-            <td class="namecol" id="player_name_2"></td>
+            <td class="name_col" id="player_name_2"></td>
             <td id="sport_2"></td>
             <td id="position_2"></td>
             <td id="year_2"></td>
@@ -282,7 +282,7 @@
             <td id="number_2"></td>
           </tr>
           <tr id="hide_row_sometimes_3" class="hide_table_row">
-            <td class="namecol" id="player_name_3"></td>
+            <td class="name_col" id="player_name_3"></td>
             <td id="sport_3"></td>
             <td id="position_3"></td>
             <td id="year_3"></td>
@@ -290,7 +290,7 @@
             <td id="number_3"></td>
           </tr>
           <tr id="hide_row_sometimes_4" class="hide_table_row">
-            <td class="namecol" id="player_name_4"></td>
+            <td class="name_col" id="player_name_4"></td>
             <td id="sport_4"></td>
             <td id="position_4"></td>
             <td id="year_4"></td>
@@ -298,7 +298,7 @@
             <td id="number_4"></td>
           </tr>
           <tr id="hide_row_sometimes_5" class="hide_table_row">
-            <td class="namecol" id="player_name_5"></td>
+            <td class="name_col" id="player_name_5"></td>
             <td id="sport_5"></td>
             <td id="position_5"></td>
             <td id="year_5"></td>
@@ -306,7 +306,7 @@
             <td id="number_5"></td>
           </tr>
           <tr id="hide_row_sometimes_6" class="hide_table_row">
-            <td class="namecol" id="player_name_6"></td>
+            <td class="name_col" id="player_name_6"></td>
             <td id="sport_6"></td>
             <td id="position_6"></td>
             <td id="year_6"></td>
@@ -317,14 +317,14 @@
       </div>
 
       <!-- Footer bar -->
-      <div class="bottomnav">
-        <div id="textbox">
+      <div class="footer_design">
+        <div id="footer_text">
           <!-- Inspiration game links -->
-          <p class="alignleft">
+          <p class="footer_left">
             &nbsp;&nbsp;&nbsp;Inspirations:
             <a
               href="https://www.nytimes.com/games/wordle/index.html"
-              class="alignleft"
+              class="footer_left"
               >Wordle</a
             >, <a href="https://wardle.app/">MLB Pickle</a>, and
             <a href="https://poeltl.dunk.town/">Poetl</a>
@@ -332,14 +332,14 @@
 
           <!-- Footer button to open about popup -->
           <button
-            class="aligncenter"
+            class="footer_center"
             onclick="document.getElementById('popup_box_about').click()"
           >
             ABOUT
           </button>
 
           <!-- Twitter/X Links -->
-          <div class="alignright">
+          <div class="footer_right">
             <a href="https://twitter.com/justindiament"
               >@justindiament&nbsp;&nbsp;&nbsp;</a
             >
@@ -357,61 +357,61 @@
         <input type="checkbox" id="about" />
         <div class="modal">
           <div class="popup_inner">
-            <div class="aboutheaders">About</div>
-            <div class="howtoplay">
+            <div class="about_popup_headers">About</div>
+            <div class="how_to_play">
               Aurardle is a Northeastern Huskies athlete guessing game in the
               vein of the origin Wordle. Each day, a new mystery player is
               chosen at random. Your job is to guess the player in 6 attempts or
               less, with the assistance of hints each time you make a guess.
               <br />
               <br />
-              <div class="aboutheaders">Enjoying Aurardle?</div>
+              <div class="about_popup_headers">Enjoying Aurardle?</div>
               Enjoying Aurardle? Even better, are you a Husky athlete enjoying
               Aurardle? I'd love to hear from you! Comments and suggestions are
               also welcome! Tweet or DM me
-              <a href="https://twitter.com/justindiament" class="aboutlinks"
+              <a href="https://twitter.com/justindiament" class="about_popup_links"
                 >@justindiament</a
               >
               on Twitter/X, or email me at
-              <a href="mailto:aurardlegame@gmail.com" class="aboutlinks"
+              <a href="mailto:aurardlegame@gmail.com" class="about_popup_links"
                 >aurardlegame@gmail.com</a
               >
               <br />
               <br />
               Want more fun Northeastern sports content? Check out the
-              <a href="https://twitter.com/NURabbitHole" class="aboutlinks"
+              <a href="https://twitter.com/NURabbitHole" class="about_popup_links"
                 >Northeastern Sports Rabbit Hole</a
               >
               on Twitter/X, where I post daily Northeastern Sports fun facts,
               memorabilia, and archived media! <br /><br />
               Looking for Northeastern sports news and live converage? Don't
               miss Your Home for Huskies Sports:
-              <a href="https://twitter.com/WRBBSports" class="aboutlinks"
+              <a href="https://twitter.com/WRBBSports" class="about_popup_links"
                 >WRBB Sports</a
               >! Follow us on Twitter/X for radio broadcast information and
               written coverage. <br /><br />
-              <div class="aboutheaders">Credits</div>
+              <div class="about_popup_headers">Credits</div>
               Aurardle was created by Northeastern CCIS student and Huskies
               basketball radio broadcaster
-              <a href="https://twitter.com/justindiament" class="aboutlinks"
+              <a href="https://twitter.com/justindiament" class="about_popup_links"
                 >Justin Diament</a
               >.<br />
               <br />
               Thank you to
-              <a href="https://twitter.com/daisysroberts" class="aboutlinks"
+              <a href="https://twitter.com/daisysroberts" class="about_popup_links"
                 >Daisy Roberts</a
               >
               for the idea to create a Northeastern sports Wordle game.<br />
               <br />
               Aurardle is inspired by the original Wordle, but also the many
               other sports-themed Wordle clones out there, such as
-              <a href="https://wardle.app" class="aboutlinks"
+              <a href="https://wardle.app" class="about_popup_links"
                 >MLB Pickle (formerly WARdle)</a
               >
               for MLB,
-              <a href="https://poeltl.dunk.town" class="aboutlinks">Poeltl</a>
+              <a href="https://poeltl.dunk.town" class="about_popup_links">Poeltl</a>
               for the NBA, and
-              <a href="https://www.weddlegame.com/" class="aboutlinks"
+              <a href="https://www.weddlegame.com/" class="about_popup_links"
                 >Weddle</a
               >
               for the NFL.
@@ -427,7 +427,7 @@
         <input type="checkbox" id="won" />
         <div class="modal">
           <div class="win_lose_inner">
-            <div class="guessthenuplayer">
+            <div class="guess_player_header">
               Good Job! You guessed the Northeastern player!
             </div>
             <br /><br />
@@ -435,7 +435,7 @@
               class="popup"
               onclick="mini_copied_popup_stats_in_game_win_popup()"
             >
-              <button class="sharebutton" id="share_button_in_won_popup">Share</button>
+              <button class="share_button" id="share_button_in_won_popup">Share</button>
               <span
                 class="popuptext"
                 id="mini_copied_popup_stats_in_game_win_popup_text"
@@ -449,19 +449,19 @@
 
       <!-- Lost the game popup -->
       <div class="pop">
-        <label for="lost_the_game" class="open" id="loserbox"></label>
+        <label for="lost_the_game" class="open" id="loser_box"></label>
         <input type="checkbox" id="lost_the_game" />
         <div class="modal">
           <div class="win_lose_inner">
-            <div class="guessthenuplayer">
-              <p id="losertext">Sorry, the correct answer was Matt Downing</p>
+            <div class="guess_player_header">
+              <p id="loser_text">Sorry, the correct answer was </p>
             </div>
             <br /><br />
             <div
               class="popup"
               onclick="mini_copied_popup_stats_in_game_loss_popup()"
             >
-              <button class="sharebutton" id="share_button_in_lost_popup">Share</button>
+              <button class="share_button" id="share_button_in_lost_popup">Share</button>
               <span
                 class="popuptext"
                 id="mini_copied_popup_stats_in_game_loss_popup_text"
@@ -474,7 +474,7 @@
       </div>
 
       <!-- Text that will be copied to the user's clipboard when the click share (injected here by JS)-->
-      <div class="sharehelp">
+      <div class="share_help">
         <p id="shareboard-text-for-clipboard"></p>
       </div>
 

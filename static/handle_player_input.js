@@ -1,17 +1,17 @@
 // Endpoints to get the values for the player's attributes
-var urlheight = url_prefix + "determine/height?playertyped=";
-var urlsport = url_prefix + "determine/sport?playertyped=";
-var urlposition = url_prefix + "determine/position?playertyped=";
-var urlyear = url_prefix + "determine/year?playertyped=";
-var urlnumber = url_prefix + "determine/number?playertyped=";
+var urlheight = url_prefix + "determine/height?player_typed=";
+var urlsport = url_prefix + "determine/sport?player_typed=";
+var urlposition = url_prefix + "determine/position?player_typed=";
+var urlyear = url_prefix + "determine/year?player_typed=";
+var urlnumber = url_prefix + "determine/number?player_typed=";
 
 // Endpoints to check for partial and full matches with the correct player
-var urlcheckwinner = url_prefix + "check/winner?playertyped=";
-var checkheight = url_prefix + "check/height?playertyped=";
-var checksport = url_prefix + "check/sport?playertyped=";
-var checkposition = url_prefix + "check/position?playertyped=";
-var checkyear = url_prefix + "check/year?playertyped=";
-var checknumber = url_prefix + "check/number?playertyped=";
+var urlcheckwinner = url_prefix + "check/winner?player_typed=";
+var checkheight = url_prefix + "check/height?player_typed=";
+var checksport = url_prefix + "check/sport?player_typed=";
+var checkposition = url_prefix + "check/position?player_typed=";
+var checkyear = url_prefix + "check/year?player_typed=";
+var checknumber = url_prefix + "check/number?player_typed=";
 
 // The current guess turn and next turn
 var turn_number = "0";
@@ -73,7 +73,7 @@ function autocomplete_player_input() {
           // clues table
           document
             .getElementById("hide_row_sometimes_" + turn_number)
-            .classList.add("revealrow");
+            .classList.add("reveal_row");
           document
             .getElementById("hide_row_sometimes_" + turn_number)
             .classList.remove("hide_table_row");
@@ -85,33 +85,33 @@ function autocomplete_player_input() {
           }
           document
             .getElementById("submit_player_" + turn_number)
-            .classList.add("getridofinput");
+            .classList.add("hide_input");
 
           // Get the player name the player chose
-          var playertyped = document.getElementById(
+          var player_typed = document.getElementById(
             "enter_field_" + turn_number
           ).value;
 
           // Add the player name to the endpoints to get the values for
           // the player's attributes
-          var url_height_full = urlheight + playertyped;
-          var url_sport_full = urlsport + playertyped;
-          var url_position_full = urlposition + playertyped;
-          var url_year_full = urlyear + playertyped;
-          var url_number_full = urlnumber + playertyped;
+          var url_height_full = urlheight + player_typed;
+          var url_sport_full = urlsport + player_typed;
+          var url_position_full = urlposition + player_typed;
+          var url_year_full = urlyear + player_typed;
+          var url_number_full = urlnumber + player_typed;
 
           // Add the player name to the endpoints to check for partial and
           // full matches with the correct player
-          var check_winner_full = urlcheckwinner + playertyped;
-          var check_height_full = checkheight + playertyped;
-          var check_sport_full = checksport + playertyped;
-          var check_position_full = checkposition + playertyped;
-          var check_year_full = checkyear + playertyped;
-          var checknumberfull = checknumber + playertyped;
+          var check_winner_full = urlcheckwinner + player_typed;
+          var check_height_full = checkheight + player_typed;
+          var check_sport_full = checksport + player_typed;
+          var check_position_full = checkposition + player_typed;
+          var check_year_full = checkyear + player_typed;
+          var checknumberfull = checknumber + player_typed;
 
           // Set player name in this row of the table to be the selected player
           document.getElementById("player_name_" + turn_number).innerHTML =
-            playertyped;
+            player_typed;
 
           // Array of promises to be executed in order
           promises = [];
@@ -151,7 +151,7 @@ function autocomplete_player_input() {
               } else if (data.result === "partially_correct") {
                 document
                   .getElementById("sport_" + turn_number)
-                  .classList.add("yellowsquare");
+                  .classList.add("yellow_square");
                 localStorage.setItem(
                   "sport_check_" + turn_number,
                   "partially_correct"
@@ -160,7 +160,7 @@ function autocomplete_player_input() {
               } else {
                 document
                   .getElementById("sport_" + turn_number)
-                  .classList.add("greysquare");
+                  .classList.add("grey_square");
                 localStorage.setItem("sport_check_" + turn_number, "incorrect");
               }
             })
@@ -190,7 +190,7 @@ function autocomplete_player_input() {
               } else if (data.result === "partially_correct") {
                 document
                   .getElementById("position_" + turn_number)
-                  .classList.add("yellowsquare");
+                  .classList.add("yellow_square");
                 localStorage.setItem(
                   "position_check_" + turn_number,
                   "partially_correct"
@@ -199,7 +199,7 @@ function autocomplete_player_input() {
               } else {
                 document
                   .getElementById("position_" + turn_number)
-                  .classList.add("greysquare");
+                  .classList.add("grey_square");
                 localStorage.setItem(
                   "position_check_" + turn_number,
                   "incorrect"
@@ -229,7 +229,7 @@ function autocomplete_player_input() {
               } else {
                 document
                   .getElementById("year_" + turn_number)
-                  .classList.add("greysquare");
+                  .classList.add("grey_square");
                 localStorage.setItem("year_check_" + turn_number, "incorrect");
               }
             })
@@ -256,7 +256,7 @@ function autocomplete_player_input() {
               } else if (data.result === "partially_correct") {
                 document
                   .getElementById("height_" + turn_number)
-                  .classList.add("yellowsquare");
+                  .classList.add("yellow_square");
                 localStorage.setItem(
                   "height_check_" + turn_number,
                   "partially_correct"
@@ -265,7 +265,7 @@ function autocomplete_player_input() {
               } else {
                 document
                   .getElementById("height_" + turn_number)
-                  .classList.add("greysquare");
+                  .classList.add("grey_square");
                 localStorage.setItem(
                   "height_check_" + turn_number,
                   "incorrect"
@@ -305,7 +305,7 @@ function autocomplete_player_input() {
               } else if (data.result === "partially_correct") {
                 document
                   .getElementById("number_" + turn_number)
-                  .classList.add("yellowsquare");
+                  .classList.add("yellow_square");
                 localStorage.setItem(
                   "number_check_" + turn_number,
                   "partially_correct"
@@ -314,7 +314,7 @@ function autocomplete_player_input() {
               } else {
                 document
                   .getElementById("number_" + turn_number)
-                  .classList.add("greysquare");
+                  .classList.add("grey_square");
                 localStorage.setItem(
                   "number_check_" + turn_number,
                   "incorrect"
@@ -331,7 +331,7 @@ function autocomplete_player_input() {
               localStorage.getItem("guess_count") >= 6 &&
               localStorage.getItem("game_over") != "winner"
             ) {
-              document.getElementById("loserbox").click();
+              document.getElementById("loser_box").click();
               localStorage.setItem("game_over", "loser");
               fixstatsonloss();
               // If it is not the last turn, set up the the player input box for

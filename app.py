@@ -1,214 +1,152 @@
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
-import fileinput
-import sys
-import all_players_with_data_2023_24 as players
+import player_data.all_players_with_data_2023_24 as players
+import global_vars as g
 
-# overwritten daily
-# daily correct player that must be guessed
-correctplayer = "Matt Downing"
-
-# increased by one daily automatically
-# the index in the set player order of the current correct player
-dayindex = 125
-
-# all players currently avalible to be guessed and their attributes
+# All players currently avalible to be guessed and their attributes
 # currently includes all NU basketball and hockey players from 2022-23
-# plus, all NU baseball players from 2021-22
-# also Tyson Walker because I said so
-allplayers = players.players
+# plus, all NU baseball players from 2021-22.
+# Also Tyson Walker because I said so
+all_players = players.players
 
-# gets the player object with player properties for a player guessed by the user
-def playerproperties(playertyped):
-    userplayer = None
+# Gets the player object with player properties for a player guessed by the user
+def player_properties(player_typed):
+    user_player = None
 
-    for player1 in allplayers:
-        if player1.name == playertyped:
-            userplayer = player1
+    for plyr in all_players:
+        if plyr.name == player_typed:
+            user_player = plyr
             break
 
-    return userplayer
+    return user_player
 
-# gets the height of a guessed player and formats it into feet and inches
+# Gets the height of a guessed player and formats it into feet and inches
 @app.route("/determine/height")
-def determineheight():
-    heightinches = playerproperties(**request.args).height
-    feet = heightinches//12
-    inches = heightinches - (feet*12)
+def determine_height():
+    height_inches = player_properties(**request.args).height
+    feet = height_inches//12
+    inches = height_inches - (feet*12)
 
-    heightoverall = str(feet) + '′' + " " + str(inches) + "″"
+    height_overall = str(feet) + '′' + " " + str(inches) + "″"
 
-    return jsonify(result=heightoverall)
+    return jsonify(result=height_overall)
 
-# gets the sport of a guessed player
+# Gets the sport of a guessed player
 @app.route("/determine/sport")
-def determinesport():
-    return jsonify(result=playerproperties(**request.args).sport)
+def determine_sport():
+    return jsonify(result=player_properties(**request.args).sport)
 
-# gets the position of a guessed player
+# Gets the position of a guessed player
 @app.route("/determine/position")
-def determinepostition():
-    return jsonify(result=playerproperties(**request.args).position)
+def determine_postition():
+    return jsonify(result=player_properties(**request.args).position)
 
-# gets the year of a guessed player
+# Gets the year of a guessed player
 @app.route("/determine/year")
-def determineyear():
-    return jsonify(result=playerproperties(**request.args).year)
+def determine_year():
+    return jsonify(result=player_properties(**request.args).year)
 
-# gets the number of a guessed player
+# Gets the number of a guessed player
 @app.route("/determine/number")
-def determinenumber():
-    return jsonify(result=playerproperties(**request.args).number)
+def determine_number():
+    return jsonify(result=player_properties(**request.args).number)
 
-# determines green/yellow/red result for sport of player guessed
-# perfect match = green
-# same sport, opposite gender = yellow
-# wrong sport = red
+# Determines green/yellow/red result for sport of player guessed
+# Perfect match = green
+# Same sport, opposite gender = yellow
+# Wrong sport = red
 @app.route("/check/sport")
 def checksport():
-    sportguessed = playerproperties(**request.args).sport
-    sportcorrect = playerproperties(correctplayer).sport
-    if (sportguessed==sportcorrect):
+    sport_guessed = player_properties(**request.args).sport
+    sport_correct = player_properties(g.correct_player).sport
+    if (sport_guessed==sport_correct):
         final = "correct"
-    elif ((sportguessed=="MBB" and sportcorrect=="WBB") or (sportguessed=="WBB" and sportcorrect=="MBB")):
+    elif ((sport_guessed=="MBB" and sport_correct=="WBB") or (sport_guessed=="WBB" and sport_correct=="MBB")):
         final = "partially_correct"
-    elif ((sportguessed=="MHKY" and sportcorrect=="WHKY") or (sportguessed=="WHKY" and sportcorrect=="MHKY")):
+    elif ((sport_guessed=="MHKY" and sport_correct=="WHKY") or (sport_guessed=="WHKY" and sport_correct=="MHKY")):
         final = "partially_correct"
     else:
         final = "incorrect"
 
     return jsonify(result=final)
 
-# determines green/yellow/red result for position of player guessed
-# perfect match = green
-# in baseball only, hitter/pitch match = yellow
-# wrong position otherwise = red
+# Determines green/yellow/red result for position of player guessed
+# Perfect match = green
+# In baseball only, hitter/pitch match = yellow
+# Wrong position otherwise = red
 @app.route("/check/position")
-def checkposition():
-    positionguessed = playerproperties(**request.args).position
-    positioncorrect = playerproperties(correctplayer).position
+def check_position():
+    position_guessed = player_properties(**request.args).position
+    position_correct = player_properties(g.correct_player).position
 
-    if (positionguessed==positioncorrect):
+    if (position_guessed==position_correct):
         final = "correct"
-    elif (positionguessed=="Catcher" and (positioncorrect=="UTL" or positionguessed=="OF" and positioncorrect=="INF")):
+    elif (position_guessed=="Catcher" and (position_correct=="UTL" or position_guessed=="OF" and position_correct=="INF")):
         final = "partially_correct"
-    elif (positionguessed=="UTL" and (positioncorrect=="Catcher" or positionguessed=="OF" and positioncorrect=="INF")):
+    elif (position_guessed=="UTL" and (position_correct=="Catcher" or position_guessed=="OF" and position_correct=="INF")):
         final = "partially_correct"
-    elif (positionguessed=="OF" and (positioncorrect=="Catcher" or positionguessed=="UTL" and positioncorrect=="INF")):
+    elif (position_guessed=="OF" and (position_correct=="Catcher" or position_guessed=="UTL" and position_correct=="INF")):
         final = "partially_correct"
-    elif (positionguessed=="INF" and (positioncorrect=="Catcher" or positionguessed=="UTL" and positioncorrect=="OF")):
+    elif (position_guessed=="INF" and (position_correct=="Catcher" or position_guessed=="UTL" and position_correct=="OF")):
         final = "partially_correct"
-    elif (positionguessed=="LHP" and positioncorrect=="RHP"):
+    elif (position_guessed=="LHP" and position_correct=="RHP"):
         final = "partially_correct"
-    elif (positionguessed=="RHP" and positioncorrect=="LHP"):
+    elif (position_guessed=="RHP" and position_correct=="LHP"):
         final = "partially_correct"
     else:
         final = "incorrect"
 
     return jsonify(result=final)
 
-# determines green/red result for sport of player guessed
+# Determines green/red result for sport of player guessed
 @app.route("/check/year")
-def checkyear():
-    return jsonify(result=playerproperties(**request.args).year==playerproperties(correctplayer).year)
+def check_year():
+    return jsonify(result=player_properties(**request.args).year==player_properties(g.correct_player).year)
 
-# determines green/yellow/red result for height of player guessed
-# perfect match = green
-# within 2 inches = yellow
-# more wrong than that = red
+# Determines green/yellow/red result for height of player guessed
+# Perfect match = green
+# Within 2 inches = yellow
+# More wrong than that = red
 @app.route("/check/height")
-def checkheight():
-    heightguessed = playerproperties(**request.args).height
-    heightcorrect = playerproperties(correctplayer).height
-    if (heightguessed==heightcorrect):
+def check_height():
+    height_guessed = player_properties(**request.args).height
+    height_correct = player_properties(g.correct_player).height
+    if (height_guessed==height_correct):
         final = "correct"
-    elif (abs(int(heightguessed) - int(heightcorrect)) <= 2):
+    elif (abs(int(height_guessed) - int(height_correct)) <= 2):
         final = "partially_correct"
     else:
         final = "incorrect"
 
     return jsonify(result=final)
 
-# determines green/yellow/red result for number of player guessed
-# perfect match = green
-# within 2 = yellow
-# more wrong than that = red
+# Determines green/yellow/red result for number of player guessed
+# Perfect match = green
+# Within 2 = yellow
+# More wrong than that = red
 @app.route("/check/number")
-def checknumber():
-    numberguessed = playerproperties(**request.args).number
-    numbercorrect = playerproperties(correctplayer).number
-    if (numberguessed==numbercorrect):
+def check_number():
+    number_guessed = player_properties(**request.args).number
+    number_correct = player_properties(g.correct_player).number
+    if (number_guessed==number_correct):
         final = "correct"
-    elif (abs(int(numberguessed) - int(numbercorrect)) <= 2):
+    elif (abs(int(number_guessed) - int(number_correct)) <= 2):
         final = "partially_correct"
     else:
         final = "incorrect"
 
     return jsonify(result=final)
 
-# determines if the game has been won or not (correct player guessed)
+# Determines if the game has been won or not (correct player guessed)
 @app.route("/check/winner")
-def determinewinner():
-    if (playerproperties(correctplayer).name == playerproperties(**request.args).name):
+def determine_winner():
+    if (player_properties(g.correct_player).name == player_properties(**request.args).name):
         return jsonify(result="winner")
     else:
         return jsonify(result="not_yet")
 
-# returns the player at the argument index in the set order
-# automatically run daily to set the new daily player
-def todaysplayer(index):
-
-# Open the text file for reading
-    with open('your-text-file.txt', 'r') as file:
-        # Read all lines from the file and store them in a list
-        playersorder = file.readlines()
-
-    # Each line is now a separate list entry
-    # You may want to remove any trailing newline characters
-    playersorder = [line.strip() for line in playersorder]
-
-    # Now, 'lines' is a list where each entry represents a line from the text file
-
-    
-
-    return playersorder[index]
-
-# overwrites the daily player in all necessary places
-# run automatically daily
-def changeplayer():
-    global dayindex
-    oldline2 = str(dayindex)
-    dayindex= dayindex + 1
-    newline = todaysplayer(dayindex)
-    oldline = todaysplayer(dayindex - 1)
-    newline2 = str(dayindex)
-
-    for line in fileinput.input("/home/Aurardle/aurardle/aurardleapp/templates/main_page.html", inplace=1):
-        if "Sorry, the correct answer was" in line:
-            line = line.replace(oldline, newline)
-        sys.stdout.write(line)
-
-    for line in fileinput.input("/home/Aurardle/aurardle/aurardleapp/app.py", inplace=1):
-        if "correctplayer = " in line:
-            line = line.replace(oldline, newline)
-        sys.stdout.write(line)
-
-    for line in fileinput.input("/home/Aurardle/aurardle/aurardleapp/templates/main_page.html", inplace=1):
-        if "Aurardle #" in line:
-            line = line.replace(oldline2, newline2)
-        sys.stdout.write(line)
-
-    for line in fileinput.input("/home/Aurardle/aurardle/aurardleapp/app.py", inplace=1):
-        if "dayindex = " in line:
-            line = line.replace(oldline2, newline2)
-        sys.stdout.write(line)
-
-# directs a command line call to this python file to run the player overwriting function above
-if __name__ == "__main__":
-    changeplayer()
-
-# renders the main screen of the game
+# Renders the main screen of the game
 @app.route("/", methods=["GET"])
 def home():
     return render_template('main_page.html')

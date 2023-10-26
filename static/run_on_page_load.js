@@ -31,7 +31,7 @@ window.onload = function () {
   // Use the local storage values to set the values in the statistics popup
   document.getElementById("wins").innerHTML =
     localStorage.getItem("wins_storage");
-  document.getElementById("winpercent").innerHTML = localStorage.getItem(
+  document.getElementById("win_percent").innerHTML = localStorage.getItem(
     "wins_percent_storage"
   );
   document.getElementById("streak").innerHTML = localStorage.getItem(
@@ -42,4 +42,7 @@ window.onload = function () {
 
   // Set up the player input box for the first guess
   autocomplete_player_input();
+
+  // Set the player name to appear if the player loses to the daily player
+  document.getElementById("loser_text").innerHTML += correct_player + '.';
 };

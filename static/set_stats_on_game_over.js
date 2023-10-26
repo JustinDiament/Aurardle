@@ -42,7 +42,7 @@ function fix_stats_on_win() {
   // Use the new local storage values to update the displayed values in the statistics popup
   document.getElementById("wins").innerHTML =
     localStorage.getItem("wins_storage");
-  document.getElementById("winpercent").innerHTML = localStorage.getItem(
+  document.getElementById("win_percent").innerHTML = localStorage.getItem(
     "wins_percent_storage"
   );
   document.getElementById("streak").innerHTML = localStorage.getItem(
@@ -77,7 +77,7 @@ function fixstatsonloss() {
   // Use the new local storage values to update the displayed values in the statistics popup
   document.getElementById("wins").innerHTML =
     localStorage.getItem("wins_storage");
-  document.getElementById("winpercent").innerHTML = localStorage.getItem(
+  document.getElementById("win_percent").innerHTML = localStorage.getItem(
     "wins_percent_storage"
   );
   document.getElementById("streak").innerHTML = localStorage.getItem(

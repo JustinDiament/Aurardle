@@ -40,16 +40,18 @@
 }
 
 /* Set the fonts in the table in the statistics popup */
-.fontforstatstable {
+.font_for_stats_table {
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
   font-weight: 400 !important;
 }
 
-.getridofinput {
+/* Hide things */
+.hide_input, .share_help, .hide_submit {
   display: none !important;
 }
 
+/* Style a green square in the table of guess results */
 .green_square {
   background-color: #0f9f6e !important;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -57,61 +59,65 @@
   font-weight: 400;
 }
 
-.greysquare {
+/* Style a grey square in the table of guess results */
+.grey_square {
   background-color: #e2e8f0 !important;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
 
-.yellowsquare {
+/* Style a yellow square in the table of guess results */
+.yellow_square {
   background-color: #faca17 !important;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
 
+/* Style the title at the top of the page */
 .title {
-  margin-top: 20px;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 48px;
   font-weight: 700
 }
 
-.namecoltop {
-  width: 170px;
-}
-
-.namecol {
-  width: 170px;
-  font-weight: bold;
-  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  font-size: 16px;
-}
-
+/* Style the subheader at the top of the page */
 .subhead {
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 30px;
   font-weight: 400;
 }
 
-.invissubmit {
-  display: none;
+/* Style the header for the name column of the guess results */
+.name_col_top_cell {
+  width: 170px;
 }
 
-.textbox {
+/* Style the rest of the name column of the guess results */
+.name_col {
+  width: 170px;
+  font-weight: bold;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
+}
+
+/* Style the footer text */
+.footer_text {
   font-family: arial;
   font-size: 24px;
   text-align: center;
   margin-bottom: 20px;
 }
 
-.enterdiv {
+/* Style the player name entry boxes */
+.enter_div {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.enterplayer {
+/* Style the player autofill entry text box */
+.enter_player_box {
   padding: 12px 20px;
   box-sizing: border-box;
   border: 2px solid #ccc;
@@ -121,36 +127,32 @@
   width: 280px;
   border: 2px solid #000000;
 }
-
-.enterplayer:focus {
+.enter_player_box:focus {
   outline: none !important;
   border: 2px solid #D41B2C;
 }
-
 input[type="text"] {
   font-size:24px;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
-
 input[type="text"]:focus {
   border: 2px solid #D41B2C;
 }
 
-.tabletop {
+/* Style the row of the table with the attribute headings (name, sport, etc.) */
+.table_top_row {
   vertical-align:bottom;
   text-align:center;
   height: 30px;
   border-bottom: 2px solid black;
 }
 
-.getridofinput {
-  display: none !important;
-}
-
-.revealrow {
+/* Set a rows's height when it is un-hidden */
+.reveal_row {
   height: 100px;
 }
 
+/* Style all tables in popups and on the main page */
 table, th, td {
   margin-top: 20px;
   border-collapse: collapse;
@@ -161,7 +163,8 @@ table, th, td {
   width: 100px;
 }
 
-.topnav {
+/* Style the header bar */
+.header_design {
   background-color: #D41B2C;
   text-align: center !important;
   line-height: 60px;
@@ -173,7 +176,8 @@ table, th, td {
   font-weight: 700;
 }
 
-.bottomnav {
+/* Style the footer bar */
+.footer_design {
   background-color: #D41B2C;
   text-align: center !important;
   height: 60px;
@@ -188,7 +192,8 @@ table, th, td {
   margin-top: auto;
 }
 
-.topnav a {
+/* Style the buttons in the header bar */
+.header_design a {
   color: #f2f2f2;
   text-align: center !important;
   padding: 20px 70px;
@@ -196,7 +201,8 @@ table, th, td {
   font-size: 18px;
 }
 
-.navlinks {
+/* Style links in popups */
+.nav_links {
   background-color: #D41B2C;
   text-align: center !important;
   line-height: 60px;
@@ -216,30 +222,12 @@ table, th, td {
 }
 
 /* Hide popup boxes by default */
-#popupp_box_howtoplay, #popup_box_stats, #popup_box_about {
+#popupp_box_how_to_play, #popup_box_stats, #popup_box_about, #winner_popup_box, #loser_box {
   display: none;
 }
 
-#winner_popup_box {
-  display: none;
-}
-
-#loserbox {
-  display: none;
-}
-
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
-}
-
-.rowvisible {
+/* Style table rows when the become visible after a guess */
+.row_visible {
   height: 100px;
   border: none;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -247,6 +235,7 @@ table, th, td {
   font-weight: 400 !important;
 }
 
+/* Fix the margins of the page */
 html, body, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption {
   margin: 0;
   padding: 0;
@@ -257,8 +246,12 @@ html, body, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
   background: transparent;
 }
 
-body {background-color: #f4f2ec};
+/* Set the background color to off white */
+body {
+  background-color: #f4f2ec
+};
 
+/* Style the popup windows */
 .pop {
   position: absolute;
   width: 50%;
@@ -275,6 +268,7 @@ body {background-color: #f4f2ec};
   border-radius: 10px;
 }
 
+/* Style the popup windows on small devices like phones and tablets */
 @media (max-width: 640px) {
   .pop {
     position: relative;
@@ -284,8 +278,13 @@ body {background-color: #f4f2ec};
     border-color: #D41B2C;
     border-radius: 10px;
   }
+
+  .pop .popup_inner {
+    width: 100%;
+  }
 }
 
+/* Style the popup windows internals */
 .pop .modal {
   z-index: 2;
   opacity: 0;
@@ -301,7 +300,6 @@ body {background-color: #f4f2ec};
   -webkit-transition: opacity 200ms ease-in-out;
   transition: opacity 200ms ease-in-out;
 }
-
 .pop .popup_inner {
   -webkit-transform: translate(-50%, -50%) scale(0.75);
           transform: translate(-50%, -50%) scale(0.75);
@@ -317,7 +315,6 @@ body {background-color: #f4f2ec};
   border-color: #D41B2C;
   border-radius: 10px;
 }
-
 .pop .win_lose_inner {
   -webkit-transform: translate(-50%, -50%) scale(0.75);
           transform: translate(-50%, -50%) scale(0.75);
@@ -334,56 +331,41 @@ body {background-color: #f4f2ec};
   border-radius: 10px;
   text-align: center;
 }
-
-@media (max-width: 640px) {
-    .pop .popup_inner {
-      width: 100%;
-  }
-}
-
 .btn-close {
   color: #fff;
   text-align: center;
   font-size: 25px;
 }
-
 .pop label {
   display: inline-block;
   cursor: pointer;
 }
-
 .pop label.open {
   color: turquoise;
   -webkit-transition: color 50ms ease-in-out;
   transition: color 50ms ease-in-out;
   text-decoration: underline;
 }
-
 .pop label.open:hover {
   color: paleturquoise;
 }
-
 .pop input {
   display: none;
 }
-
 .pop input:checked + .modal {
   opacity: 1;
   visibility: visible;
 }
-
 .pop input:checked + .modal .popup_inner {
   -webkit-transform: translate(-50%, -50%) scale(1);
           transform: translate(-50%, -50%) scale(1);
   -webkit-transition: all 50ms ease-in-out;
           transition: all 50ms ease-in-out;
 }
-
 .pop input:checked + .modal .popup_inner p {
   font-size: 1.25rem;
   line-height: 125%;
 }
-
 .pop input:checked + .modal label {
   position: absolute;
   top: 0;
@@ -394,14 +376,17 @@ body {background-color: #f4f2ec};
   -webkit-transition: all 50ms ease-in-out;
           transition: all 50ms ease-in-out;
 }
-
 .pop input:checked + .modal label:hover {
   background: #D41B2C;
 }
 
-#textbox {display:flex; flex-flow:row wrap;}
+/* Style the text in the footer */
+#footer_text {
+  display:flex; flex-flow:row wrap;
+}
 
-.alignleft {
+/* Style the inspiration links on the left of the footer */
+.footer_left {
   width:33.33333%;
   text-align:left;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -411,7 +396,8 @@ body {background-color: #f4f2ec};
   line-height: 60px;
 }
 
-.alignright {
+/* Style the Twitter/X links on the right of the footer */
+.footer_right {
   width:33.33333%;
   text-align:right;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -420,7 +406,8 @@ body {background-color: #f4f2ec};
   line-height: 30px;
 }
 
-.aligncenter {
+/* Style the centered button in the footer */
+.footer_center {
   background-color: #D41B2C;
   text-align: center !important;
   line-height: 60px;
@@ -439,30 +426,13 @@ body {background-color: #f4f2ec};
   width: 33.33333%;
 }
 
-/* unvisited link */
-a:link {
+/* Hide link coloring/underline */
+a:link, a:visited, a:hover, a:active {
   color: white;
   text-decoration: none;
 }
 
-/* visited link */
-a:visited {
-  color: white;
-  text-decoration: none;
-}
-
-/* mouse over link */
-a:hover {
-  color: white;
-  text-decoration: none;
-}
-
-/* selected link */
-a:active {
-  color: white;
-  text-decoration: none;
-}
-
+/* Wrap the whole page in flex formatting */
 .flex-wrapper {
   display: flex;
   min-height: 100vh;
@@ -470,6 +440,7 @@ a:active {
   justify-content: flex-start;
 }
 
+/* Style the player entery autocomplete fields */
 .ui-autocomplete {
   max-height: 300px;
   overflow-y: scroll;
@@ -499,10 +470,7 @@ a:active {
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;
-  /* *border-right-width: 2px;
-  *border-bottom-width: 2px; */
 }
-
 .ui-menu-item > a.ui-corner-all {
     display: block;
     padding: 3px 15px;
@@ -513,7 +481,6 @@ a:active {
     white-space: nowrap;
     text-decoration: none;
 }
-
 .ui-state-hover, .ui-state-active {
   color: #ffffff;
   text-decoration: none;
@@ -525,7 +492,8 @@ a:active {
   border-color: #D41B2C;
 }
 
-.guessthenuplayer {
+/* Style various headers */
+.guess_player_header {
   font-size: 30px;
   color: #D41B2C;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -533,17 +501,21 @@ a:active {
   text-align: center;
 }
 
-.howtoplay {
+
+/* Style the how to play popup */
+.how_to_play {
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
 
-li:not(:last-child) {
-  margin-bottom: 10px;
+/* Space out list items */
+li {
+  margin: 10px 0;
 }
 
-.aboutheaders {
+/* Style the headlines in the about popup */
+.about_popup_headers {
   font-size: 18px;
   color: #D41B2C;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -552,16 +524,13 @@ li:not(:last-child) {
   margin-bottom: 0px;
 }
 
-.aboutlinks {
+/* Style the links in the about popup */
+.about_popup_links {
   color: #D41B2C !important;
   text-decoration: underline !important;
 }
 
-.sharehelp {
-  display: none;
-}
-
-
+/* Style the popups for winning, losing, clicking header/footer buttons */
 .popup {
   position: relative;
   display: inline-block;
@@ -571,7 +540,6 @@ li:not(:last-child) {
   -ms-user-select: none;
   user-select: none;
 }
-
 .popup .popuptext {
   visibility: hidden;
   width: 160px;
@@ -586,7 +554,6 @@ li:not(:last-child) {
   left: 50%;
   margin-left: -80px;
 }
-
 .popup .popuptext::after {
   content: "";
   position: absolute;
@@ -597,27 +564,27 @@ li:not(:last-child) {
   border-style: solid;
   border-color: black transparent transparent transparent;
 }
-
 .popup .show {
   visibility: visible;
   -webkit-animation: fadeIn 1s;
   animation: fadeIn 1s;
 }
 
+/* Make the popups fade in */
 @-webkit-keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
 }
-
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1 ;}
 }
 
-.sharebutton {
+/* Style the buttons to click to add the shareboard to the clipboard */
+.share_button {
   text-align: center !important;
   align-items: center !important;
-  background-color: black; /* Green */
+  background-color: black;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -628,6 +595,7 @@ li:not(:last-child) {
   cursor:pointer;
 }
 
+/* Resize the page for phone screens */
 @media only screen and (min-device-width : 320px) and (max-device-width : 600px) {
   body {
     zoom: 1.7;
@@ -648,7 +616,7 @@ li:not(:last-child) {
     padding: 2px;
   }
 
-  .howtoplay {
+  .how_to_play {
     font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-size: 23px;
     font-weight: 400;
@@ -658,30 +626,31 @@ li:not(:last-child) {
     width: 80% !important;
   }
 
-  .bottomnav {
+  .footer_design {
     position: fixed !important;
     bottom: 0 !important;
   }
 
-  .navlinks {
+  .nav_links {
     width: 30% !important;
   }
 
-  .alignleft {
+  .footer_left {
     color: #D41B2C !important;
   }
 }
 
+/* Resize the page for small phone screens */
 @media only screen and (max-device-width : 389px) {
   body {
     font-size: 110%;
   }
 
-  .namecol {
+  .name_col {
     font-size: 15px;
   }
 
-  .howtoplay {
+  .how_to_play {
     font-size: 15px;
   }
 }

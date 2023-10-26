@@ -2,7 +2,7 @@ import player_class as p
 
 # All players currently avalible to be guessed and their attributes
 # currently includes all NU basketball and hockey players from the 
-# 2022-23 season plus, all NU baseball players from the 2023 season
+# 2022-23 season plus, and all NU baseball players from the 2023 season
 # Also Tyson Walker because I said so
 players = [
     p.player("Masai Troutman", 78, "MBB", "Guard", "Fr", 1),
