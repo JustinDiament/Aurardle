@@ -64,6 +64,10 @@ function autocomplete_player_input() {
         select: function (event, ui) {
           $(this).val(ui.item.value);
 
+          // Hide the keyboard on mobile so the guess results table is visable
+          let el = document.querySelector(":focus");
+          if (el) el.blur();
+          
           // Increase the guess count by 1
           localStorage.setItem(
             "guess_count",
