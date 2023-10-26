@@ -1,5 +1,5 @@
 // URL of the site
-var url_prefix = "http://127.0.0.1:5000/";
+var url_prefix = "https://www.aurardle.com/";
 
 // Players text file
 var players_txt = "/player_files/all_players_ordered_2023_24.txt";
